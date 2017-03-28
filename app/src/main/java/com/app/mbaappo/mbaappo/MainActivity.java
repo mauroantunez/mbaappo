@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity
         private GridView gridView;
         private AdaptadorCategoria adaptadorCategoria;
 
-        private FirebaseAuth auth;
-        private FirebaseAuth.AuthStateListener authListener;
 
 
     @Override
@@ -33,17 +31,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        auth = FirebaseAuth.getInstance();
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null){
-                    Intent intentRegistro = new Intent(MainActivity.this, inicio.class);
-                    intentRegistro.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intentRegistro);
-                }
-            }
-        };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
