@@ -5,4 +5,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="electricista">Electricista</string>
+    <string name="titulo_del_servicio">Titulo del Servicio</string>
+    <string name="precio">Precio</string>
+    <string name="tarifa">Tarifa</string>
 </resources>
