@@ -15,22 +15,47 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
         private GridView gridView;
         private AdaptadorCategoria adaptadorCategoria;
+        private FirebaseAuth auth;
+        private TextView usuarioTxt = null;
+        private TextView mailTxt = null;
 
-
+        private FirebaseAuth.AuthStateListener authListener;
+        private DatabaseReference nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        auth = FirebaseAuth.getInstance();
+        nombreUsuario = FirebaseDatabase.getInstance().getReference().child("Usuarios")
+                .child(auth.getCurrentUser().getUid());
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null){
+                    Intent loginIntent = new Intent(MainActivity.this, inicio.class);
+                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }
+
+            }
+        };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,7 +73,12 @@ public class MainActivity extends AppCompatActivity
         gridView = (GridView) findViewById(R.id.grilla_categorias);
         adaptadorCategoria = new AdaptadorCategoria(this);
         gridView.setAdapter(adaptadorCategoria);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
     }
 
     @Override
@@ -57,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
@@ -77,18 +107,25 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.servicios_menu) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.proyectos_menu) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.ajustes_menu) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.historial_menu) {
 
+        }
+        else if (id == R.id.cerrar_sesion_menu) {
+            cerrar_sesion();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void cerrar_sesion() {
+        auth.signOut();
     }
 }
