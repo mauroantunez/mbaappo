@@ -22,7 +22,7 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
     private Button btn_ingresar, btn_registrarse;
     private EditText textusuario, textcontrasena;
     private ProgressDialog espera;
-    private String mail, contrasenha;
+    public String mail, contrasenha;
 
     private FirebaseAuth auth;
 
