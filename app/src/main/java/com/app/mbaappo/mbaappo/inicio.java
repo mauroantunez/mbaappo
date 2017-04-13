@@ -26,8 +26,6 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth auth;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +43,12 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
         btn_ingresar.setOnClickListener(this);
         espera = new ProgressDialog(this);
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private void registrar(){
         Intent registroIntent = new Intent(inicio.this, activity_registro_usuarios.class);
         registroIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -53,7 +57,7 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
     }
     private void iniciarsesion(String email, String pass){
 
-            espera.setMessage("Un momento...");
+            espera.setMessage("Verificando...");
             espera.show();
             auth.signInWithEmailAndPassword(email, pass).
                     addOnCompleteListener(new OnCompleteListener<AuthResult>() {
