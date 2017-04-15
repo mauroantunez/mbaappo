@@ -9,4 +9,5 @@
     <string name="titulo_del_servicio">Titulo del Servicio</string>
     <string name="precio">Precio</string>
     <string name="tarifa">Tarifa</string>
+    <string name="categoria">Categoria</string>
 </resources>
