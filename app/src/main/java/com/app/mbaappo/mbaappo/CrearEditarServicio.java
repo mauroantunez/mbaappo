@@ -26,6 +26,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
           //  opCateg.add(cat.i);
         }
 
+
       //  int a = cat.ITEMS.length;
 
 
