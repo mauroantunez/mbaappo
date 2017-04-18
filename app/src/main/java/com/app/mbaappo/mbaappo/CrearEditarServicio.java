@@ -1,17 +1,12 @@
 package com.app.mbaappo.mbaappo;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import java.util.ArrayList;
-
-
-import com.google.android.gms.common.api.GoogleApiClient;
 
 public class CrearEditarServicio extends Activity implements  AdapterView.OnItemSelectedListener{
     public Spinner spTarifa, spCateg;
@@ -19,11 +14,20 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     public ArrayAdapter<String> aaCateg;
 
     public Categorias cat = new Categorias();
+   // public  AdaptadorCategoria aCat = new AdaptadorCategoria(cat.getClass());
+
     String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
-    ArrayList<String> opCateg = new ArrayList<String>();
+    //ArrayList<Categorias> opCateg = new ArrayList<>();
+    String[] opCateg = new String[cat.ITEMS.length];
 
     private void CargarCategoria(){
-        opCateg.add(cat.getNombre());
+        for (int i = 0; i<= cat.ITEMS.length - 1; i++){
+        opCateg[i] =(cat.ITEMS[i].getNombre());
+          //  opCateg.add(cat.i);
+        }
+
+      //  int a = cat.ITEMS.length;
+
 
     }
 
