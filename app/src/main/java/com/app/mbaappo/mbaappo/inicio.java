@@ -22,7 +22,7 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
     private Button btn_ingresar, btn_registrarse;
     private EditText textusuario, textcontrasena;
     private ProgressDialog espera;
-    private String mail, contrasenha;
+    public String mail, contrasenha;
 
     private FirebaseAuth auth;
 
@@ -38,7 +38,6 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
         btn_registrarse = (Button) findViewById(R.id.btn_registrarse);
         textusuario = (EditText) findViewById(R.id.textusuario);
         textcontrasena = (EditText) findViewById(R.id.textcontrasena);
-
         btn_registrarse.setOnClickListener(this);
         btn_ingresar.setOnClickListener(this);
         espera = new ProgressDialog(this);

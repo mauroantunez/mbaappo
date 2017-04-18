@@ -39,16 +39,13 @@ public class Categorias {
     //Datos de prueba, borrar luego al igual que las imagenes en la carpeta /res
 
     public static Categorias[] ITEMS = {
-            new Categorias("Jaguar F-Type 2015", R.drawable.jaguar_f_type_2015),
-            new Categorias("Mercedes AMG-GT", R.drawable.mercedes_benz_amg_gt),
-            new Categorias("Mazda MX-5", R.drawable.mazda_mx5_2015),
-            new Categorias("Porsche 911 GTS", R.drawable.porsche_911_gts),
-            new Categorias("BMW Serie 6", R.drawable.bmw_serie6_cabrio_2015),
-            new Categorias("Ford Mondeo", R.drawable.ford_mondeo),
-            new Categorias("Volvo V60 Cross Country", R.drawable.volvo_v60_crosscountry),
-            new Categorias("Jaguar XE", R.drawable.jaguar_xe),
-            new Categorias("VW Golf R Variant", R.drawable.volkswagen_golf_r_variant_2015),
-            new Categorias("Seat León ST Cupra", R.drawable.seat_leon_st_cupra),
+            new Categorias("Hogar", R.drawable.hogar),
+            new Categorias("Entretenimiento", R.drawable.entretenimiento),
+            new Categorias("Deporte", R.drawable.deporte),
+            new Categorias("Reparaciones", R.drawable.reparaciones),
+            new Categorias("Salud", R.drawable.salud),
+            new Categorias("Profesores", R.drawable.profesores),
+            new Categorias("Otros", R.drawable.otros),
     };
 
     public static Categorias getItem(int id) {

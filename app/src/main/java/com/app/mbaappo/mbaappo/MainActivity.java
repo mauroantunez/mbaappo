@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity
 
         private FirebaseAuth.AuthStateListener authListener;
         private DatabaseReference nombreUsuario;
+        private inicio mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         auth = FirebaseAuth.getInstance();
         nombreUsuario = FirebaseDatabase.getInstance().getReference().child("Usuarios")
                 .child(auth.getCurrentUser().getUid());
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         };
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,6 +72,8 @@ public class MainActivity extends AppCompatActivity
         gridView = (GridView) findViewById(R.id.grilla_categorias);
         adaptadorCategoria = new AdaptadorCategoria(this);
         gridView.setAdapter(adaptadorCategoria);
+
+
     }
 
     @Override
