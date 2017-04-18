@@ -23,7 +23,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     private void CargarCategoria(){
         for (int i = 0; i<= cat.ITEMS.length - 1; i++){
         opCateg[i] =(cat.ITEMS[i].getNombre());
-          //  opCateg.add(cat.i);
+
         }
 
 
