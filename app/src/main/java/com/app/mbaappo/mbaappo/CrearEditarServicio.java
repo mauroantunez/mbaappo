@@ -18,6 +18,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
 
     String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
     //ArrayList<Categorias> opCateg = new ArrayList<>();
+
     String[] opCateg = new String[cat.ITEMS.length];
 
     private void CargarCategoria(){
@@ -39,7 +40,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_editar_servicio);
 
-
+        CargarCategoria();
         spTarifa = (Spinner) findViewById(R.id.spTarifa);
         spTarifa.setOnItemSelectedListener(this);
         aaTarifa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opTarifa);
