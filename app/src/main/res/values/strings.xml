@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">mbaappo</string>
-
+    <string name="pagina_principa">Pagina Principal</string>
+    <string name="publicar_servicio">Publicar Servicio</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="registrar">Registrar Usuario</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

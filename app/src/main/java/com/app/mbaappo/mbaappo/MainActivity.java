@@ -56,6 +56,17 @@ public class MainActivity extends AppCompatActivity
 
             }
         };
+        FloatingActionButton publicar = (FloatingActionButton) findViewById(R.id.btn_agregar);
+                publicar.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        Intent crearpublicacion = new Intent(MainActivity.this, CrearEditarServicio.class);
+                        crearpublicacion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(crearpublicacion);
+                    }
+
+                });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -11,21 +11,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/pagina_principa"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".inicio"
+            android:label="@string/iniciar_sesion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".inicio">
-        </activity>
-
-        <activity android:name=".activity_registro_usuarios">
-        </activity>
-
+        <activity
+            android:name=".activity_registro_usuarios"
+            android:label="@string/registrar"></activity>
+        <activity
+            android:name=".CrearEditarServicio"
+            android:label="@string/publicar_servicio"></activity>
     </application>
 
 </manifest>

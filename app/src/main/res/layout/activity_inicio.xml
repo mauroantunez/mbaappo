@@ -23,11 +23,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.152"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/textusuario"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="12dp"
@@ -41,7 +43,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378" />
+        app:layout_constraintVertical_bias="0.378"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp" />
 
     <Button
         android:id="@+id/btn_ingresar"
@@ -57,7 +61,9 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
-        app:layout_constraintVertical_bias="0.751" />
+        app:layout_constraintVertical_bias="0.751"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/btn_registrarse"
@@ -73,11 +79,13 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.876"
-        app:layout_constraintVertical_bias="0.747" />
+        app:layout_constraintVertical_bias="0.747"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/textcontrasena"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="12dp"
@@ -91,6 +99,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.519" />
+        app:layout_constraintVertical_bias="0.519"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp" />
 
 </android.support.constraint.ConstraintLayout>
