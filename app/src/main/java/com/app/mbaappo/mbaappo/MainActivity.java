@@ -119,13 +119,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.servicios_menu) {
-            // Handle the camera action
-        } else if (id == R.id.proyectos_menu) {
+        if (id == R.id.mnu_perfil) {
+            Intent mnu_perf = new Intent(MainActivity.this, Perfil.class);
+            mnu_perf.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mnu_perf);
+        } else if (id == R.id.mnu_historial) {
 
-        } else if (id == R.id.ajustes_menu) {
+        } else if (id == R.id.mnu_servicios) {
 
-        } else if (id == R.id.historial_menu) {
+        } else if (id == R.id.mnu_solicitudes) {
 
         }
         else if (id == R.id.cerrar_sesion_menu) {

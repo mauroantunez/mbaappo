@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="backgroundColor">#212121</color>
+    <color name="backgroundColor">#030303</color>
 
     <color name="background_footer">#90000000</color>
 </resources>

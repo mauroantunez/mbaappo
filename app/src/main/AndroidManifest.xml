@@ -12,7 +12,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/pagina_principa"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".inicio"
             android:label="@string/iniciar_sesion">
@@ -24,10 +24,17 @@
         </activity>
         <activity
             android:name=".activity_registro_usuarios"
-            android:label="@string/registrar"></activity>
+            android:label="@string/registrar" />
         <activity
             android:name=".CrearEditarServicio"
-            android:label="@string/publicar_servicio"></activity>
+            android:label="@string/publicar_servicio" />
+        <activity
+            android:name=".Perfil"
+            android:label="@string/mi_cuenta" />
+        <activity
+            android:name=".c_contrasenha"
+            android:label="@string/m_contrasena" />
+        <activity android:name=".Servicio"></activity>
     </application>
 
 </manifest>
