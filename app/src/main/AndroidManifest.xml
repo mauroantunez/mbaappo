@@ -34,7 +34,9 @@
         <activity
             android:name=".c_contrasenha"
             android:label="@string/m_contrasena" />
-        <activity android:name=".Servicio"></activity>
+        <activity android:name=".Servicio" />
+        <activity android:name=".editar_datos"
+            android:label="@string/e_dato"></activity>
     </application>
 
 </manifest>
