@@ -34,9 +34,20 @@
         <activity
             android:name=".c_contrasenha"
             android:label="@string/m_contrasena" />
-        <activity android:name=".Servicio" />
-        <activity android:name=".editar_datos"
-            android:label="@string/e_dato"></activity>
+        <activity android:name=".Servicio"
+            android:label="Servicio"/>
+        <activity
+            android:name=".editar_datos"
+            android:label="@string/e_dato" />
+        <activity
+            android:name=".Lista_servicios"
+            android:label="Servicios" />
+        <activity android:name=".list_historial"
+            android:label="Historial"/>
+        <activity android:name=".servicios_realizados"
+            android:label="Servicios Ofrecidos">
+
+        </activity>
     </application>
 
 </manifest>

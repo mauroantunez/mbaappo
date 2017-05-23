@@ -73,24 +73,24 @@ public class activity_registro_usuarios extends AppCompatActivity {
 
             auth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                    if(task.isSuccessful()){
-                        String userUID =  auth.getCurrentUser().getUid();
-                        DatabaseReference usuario_actual_db = database.child(userUID);
-                        usuario_actual_db.child("nombre").setValue(nombre);
-                        usuario_actual_db.child("apellidos").setValue(apellidos);
+                            if(task.isSuccessful()){
+                                String userUID =  auth.getCurrentUser().getUid();
+                                DatabaseReference usuario_actual_db = database.child(userUID);
+                                usuario_actual_db.child("nombre").setValue(nombre);
+                                usuario_actual_db.child("apellidos").setValue(apellidos);
 
-                        progreso_registro.dismiss();
+                                progreso_registro.dismiss();
 
-                        Intent mainIntent = new Intent(activity_registro_usuarios.this, MainActivity.class);
-                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(mainIntent);
-                    }
+                                Intent mainIntent = new Intent(activity_registro_usuarios.this, MainActivity.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(mainIntent);
+                            }
 
-                }
-            });
+                        }
+                    });
         }
     }
 }

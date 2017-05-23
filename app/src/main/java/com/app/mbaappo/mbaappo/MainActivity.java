@@ -9,11 +9,13 @@ import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -24,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import static android.widget.AdapterView.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         private FirebaseAuth.AuthStateListener authListener;
         private DatabaseReference nombreUsuario;
         private inicio mail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,9 @@ public class MainActivity extends AppCompatActivity
 
             }
         };
+
+
+
         FloatingActionButton publicar = (FloatingActionButton) findViewById(R.id.btn_agregar);
                 publicar.setOnClickListener(new View.OnClickListener()
                 {
@@ -84,7 +92,15 @@ public class MainActivity extends AppCompatActivity
         adaptadorCategoria = new AdaptadorCategoria(this);
         gridView.setAdapter(adaptadorCategoria);
 
-
+        gridView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent list_serv = new Intent(MainActivity.this, Lista_servicios.class);
+                list_serv.putExtra("Servicio", gridView.getItemAtPosition(position).toString());
+                startActivity(list_serv);
+            }
+            });
     }
 
     @Override
@@ -124,9 +140,13 @@ public class MainActivity extends AppCompatActivity
             mnu_perf.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_perf);
         } else if (id == R.id.mnu_historial) {
-
+            Intent mnu_per = new Intent(MainActivity.this, list_historial.class);
+            mnu_per.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mnu_per);
         } else if (id == R.id.mnu_servicios) {
-
+            Intent mnu_serv = new Intent(MainActivity.this, servicios_realizados.class);
+            mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mnu_serv);
         } else if (id == R.id.mnu_solicitudes) {
 
         }

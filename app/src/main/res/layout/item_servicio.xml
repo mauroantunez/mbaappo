@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#E8EAF6">
+
+    <ImageView
+        android:id="@+id/foto_serv"
+        android:layout_width="85dp"
+        android:layout_height="117dp"
+        app:srcCompat="@drawable/ic_people" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:background="#E8EAF6">
+
+        <TextView
+            android:id="@+id/nombre_servicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Nombre"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black"
+            android:textSize= "16sp" />
+
+        <TextView
+            android:id="@+id/servicio_persona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="center"
+            android:text="Descripción"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize= "16sp" />
+
+        <TextView
+            android:id="@+id/precio_servicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="$ Precio"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorPrimary"
+            android:textSize= "16sp" />
+
+        <RatingBar
+            android:id="@+id/rating_servicio"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:clickable="true"
+            android:isIndicator="true"
+            android:paddingTop="8dp"
+            android:progressTint="#FDDB39"
+            android:rating="3"
+            android:secondaryProgressTint="#FDDB39" />
+    </LinearLayout>
+
+</LinearLayout>
