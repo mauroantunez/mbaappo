@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,13 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.widget.AdapterView.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-        private GridView gridView;
-        private AdaptadorCategoria adaptadorCategoria;
+        private RecyclerView recycler;
+        private AdaptadorCategoria adapter;
+        private RecyclerView.LayoutManager lManager;
         private FirebaseAuth auth;
         private TextView usuarioTxt = null;
         private TextView mailTxt = null;
@@ -88,19 +92,45 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        gridView = (GridView) findViewById(R.id.grilla_categorias);
-        adaptadorCategoria = new AdaptadorCategoria(this);
-        gridView.setAdapter(adaptadorCategoria);
+        /*Datos de prueba*/
+        List items = new ArrayList();
 
-        gridView.setOnItemClickListener(new OnItemClickListener()
-        {
+        items.add(new Categorias("Categoria 1",R.drawable.entretenimiento));
+
+        items.add(new Categorias("Categoria 2",R.drawable.hogar));
+
+        items.add(new Categorias("Categoria 3",R.drawable.transporte));
+
+        items.add(new Categorias("Categoria 4",R.drawable.reparaciones));
+
+        items.add(new Categorias("Categoria 5",R.drawable.deporte));
+
+        items.add(new Categorias("Categoria 6",R.drawable.otros));
+
+        /*****************/
+
+
+        recycler = (RecyclerView) findViewById(R.id.itemsCategoria);
+        recycler.setHasFixedSize(true);
+
+        lManager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(lManager);
+
+        adapter = new AdaptadorCategoria(items);
+
+        adapter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent list_serv = new Intent(MainActivity.this, Lista_servicios.class);
-                list_serv.putExtra("Servicio", gridView.getItemAtPosition(position).toString());
-                startActivity(list_serv);
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(MainActivity.this, Lista_servicios.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mainIntent);
             }
-            });
+        });
+
+
+        recycler.setAdapter(adapter);
+
+
     }
 
     @Override

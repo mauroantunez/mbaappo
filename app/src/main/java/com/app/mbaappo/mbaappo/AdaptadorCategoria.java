@@ -1,14 +1,18 @@
 package com.app.mbaappo.mbaappo;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 /**
  * Created by Ivan on 19/3/2017.
@@ -18,48 +22,64 @@ import com.bumptech.glide.Glide;
  *
  */
 
-public class AdaptadorCategoria extends BaseAdapter {
+public class AdaptadorCategoria extends RecyclerView.Adapter<AdaptadorCategoria.CategoriasViewHolder>
+        implements View.OnClickListener{
 
-    private Context context;
+    private List<Categorias> items;
+    private View.OnClickListener listener;
 
-    public AdaptadorCategoria(Context context) {
-        this.context = context;
+    public AdaptadorCategoria(List<Categorias> items){
+
+        this.items = items;
+    }
+
+
+    @Override
+    public CategoriasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.categoria_item, parent, false);
+        v.setOnClickListener(this);
+        return new CategoriasViewHolder(v);
     }
 
     @Override
-    public int getCount() {
-        return Categorias.ITEMS.length;
+    public void onBindViewHolder(CategoriasViewHolder holder, int position) {
+        Glide.with(holder.itemView.getContext())
+                .load(items.get(position).getIdImagen())
+                .centerCrop()
+                .into(holder.imagen);
+        holder.texto.setText(items.get(position).getNombre());
+
+
     }
 
     @Override
-    public Categorias getItem(int position) {
-        return Categorias.ITEMS[position];
+    public int getItemCount() {
+
+        return items.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
-    public long getItemId(int position) {
-        return getItem(position).getId();
+    public void onClick(View v) {
+        if(listener != null)
+            listener.onClick(v);
     }
 
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
 
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.categoria_item, parent, false);
+    public static class CategoriasViewHolder extends RecyclerView.ViewHolder{
+
+        public ImageView imagen;
+        public TextView texto;
+
+        public CategoriasViewHolder(View itemView) {
+            super(itemView);
+            imagen = (ImageView) itemView.findViewById(R.id.imagenCategoria);
+            texto = (TextView) itemView.findViewById(R.id.nombreCategoria);
+            itemView.setTag(itemView);
         }
 
-        ImageView imagenCategoria = (ImageView) view.findViewById(R.id.imagenCategoria);
-        TextView nombreCategoria = (TextView) view.findViewById(R.id.nombreCategoria);
-
-        final Categorias item = getItem(position);
-        Glide.with(imagenCategoria.getContext())
-                .load(item.getIdImagen())
-                .into(imagenCategoria);
-
-        nombreCategoria.setText(item.getNombre());
-
-        return view;
     }
 }
