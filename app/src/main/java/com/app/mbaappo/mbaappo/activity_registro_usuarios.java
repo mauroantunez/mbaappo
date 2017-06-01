@@ -23,7 +23,7 @@ public class activity_registro_usuarios extends AppCompatActivity {
     private EditText campo_nombre;
     private EditText campo_apellido;
     private EditText campo_mail;
-    private EditText campo_password;
+    private EditText campo_password,campo_telefono,campo_direccion;
 
     private Button boton_registrar;
 
@@ -48,6 +48,8 @@ public class activity_registro_usuarios extends AppCompatActivity {
         campo_apellido = (EditText) findViewById(R.id.apellidosUsuarioReg);
         campo_mail = (EditText) findViewById(R.id.maiUsuarioReg);
         campo_password = (EditText) findViewById(R.id.passUsuarioReg);
+        campo_telefono =(EditText) findViewById(R.id.teleUsuarioReg);
+        campo_direccion = (EditText) findViewById(R.id.direccionUsuarioReg);
 
         boton_registrar = (Button) findViewById(R.id.registrarUsuarioBtn);
 
@@ -64,6 +66,8 @@ public class activity_registro_usuarios extends AppCompatActivity {
         final String apellidos = campo_apellido.getText().toString().trim();
         final String email = campo_mail.getText().toString().trim();
         final String password = campo_password.getText().toString().trim();
+        final String telefono = campo_telefono.getText().toString().trim();
+        final String Direccion = campo_direccion.getText().toString().trim();
 
         if(!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellidos) &&
                 !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
@@ -77,14 +81,16 @@ public class activity_registro_usuarios extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful()){
-                                String userUID =  auth.getCurrentUser().getUid();
+                                String userUID =  encodeEmail(auth.getCurrentUser().getEmail());
                                 DatabaseReference usuario_actual_db = database.child(userUID);
                                 usuario_actual_db.child("nombre").setValue(nombre);
                                 usuario_actual_db.child("apellidos").setValue(apellidos);
+                                usuario_actual_db.child("telefono").setValue(telefono);
+                                usuario_actual_db.child("direccion").setValue(Direccion);
 
                                 progreso_registro.dismiss();
 
-                                Intent mainIntent = new Intent(activity_registro_usuarios.this, MainActivity.class);
+                                Intent mainIntent = new Intent(activity_registro_usuarios.this, Seleccionar_foto.class);
                                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(mainIntent);
                             }
@@ -92,5 +98,8 @@ public class activity_registro_usuarios extends AppCompatActivity {
                         }
                     });
         }
+    }
+    public String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
     }
 }

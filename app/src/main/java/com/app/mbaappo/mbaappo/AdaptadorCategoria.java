@@ -45,7 +45,7 @@ public class AdaptadorCategoria extends RecyclerView.Adapter<AdaptadorCategoria.
     public void onBindViewHolder(CategoriasViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
                 .load(items.get(position).getIdImagen())
-                .centerCrop()
+                //.centerCrop()
                 .into(holder.imagen);
         holder.texto.setText(items.get(position).getNombre());
 

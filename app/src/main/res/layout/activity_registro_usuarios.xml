@@ -1,132 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_view"
-    tools:context="com.app.mbaappo.mbaappo.activity_registro_usuarios">
+    tools:context="com.app.mbaappo.mbaappo.activity_registro_usuarios"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
 
     <EditText
         android:id="@+id/nombreUsuarioReg"
-        android:layout_width="0dp"
+        android:layout_width="373dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="172dp"
-        android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
         android:lines="1"
         android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="6dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="41dp" />
 
     <EditText
         android:id="@+id/apellidosUsuarioReg"
-        android:layout_width="0dp"
+        android:layout_width="364dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Apellidos"
         android:inputType="textPersonName"
         android:lines="1"
         android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreUsuarioReg" />
+        tools:layout_editor_absoluteY="131dp"
+        tools:layout_editor_absoluteX="-24dp"
+        android:layout_below="@+id/nombreUsuarioReg"
+        android:layout_alignLeft="@+id/maiUsuarioReg"
+        android:layout_alignStart="@+id/maiUsuarioReg"
+        android:layout_marginTop="21dp" />
 
     <EditText
         android:id="@+id/maiUsuarioReg"
-        android:layout_width="0dp"
+        android:layout_width="364dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="11dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:lines="1"
         android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apellidosUsuarioReg" />
+        tools:layout_editor_absoluteY="124dp"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_below="@+id/apellidosUsuarioReg"
+        android:layout_alignLeft="@+id/passUsuarioReg"
+        android:layout_alignStart="@+id/passUsuarioReg"
+        android:layout_marginTop="23dp" />
 
     <EditText
         android:id="@+id/passUsuarioReg"
-        android:layout_width="0dp"
+        android:layout_width="364dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:lines="1"
         android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/maiUsuarioReg" />
+        tools:layout_editor_absoluteY="280dp"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+    android:id="@+id/teleUsuarioReg"
+    android:layout_width="365dp"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="Telefono"
+    android:inputType="textPersonName"
+    android:lines="1"
+    android:textSize="16sp"
+    tools:layout_editor_absoluteY="232dp"
+    tools:layout_editor_absoluteX="10dp"
+        android:layout_below="@+id/passUsuarioReg"
+        android:layout_alignRight="@+id/passUsuarioReg"
+        android:layout_alignEnd="@+id/passUsuarioReg"
+        android:layout_marginTop="27dp" />
+
+    <EditText
+        android:id="@+id/direccionUsuarioReg"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Direccion"
+        android:inputType="textPersonName"
+        android:lines="1"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteY="232dp"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_above="@+id/registrarUsuarioBtn"
+        android:layout_alignRight="@+id/nombreUsuarioReg"
+        android:layout_alignEnd="@+id/nombreUsuarioReg"
+        android:layout_marginBottom="21dp" />
 
     <Button
         android:id="@+id/registrarUsuarioBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="31dp"
-        android:text="Registrarse"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passUsuarioReg"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/set_picture"
-        android:layout_width="141dp"
-        android:layout_height="107dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06"
-        app:srcCompat="@drawable/ic_people" />
-
-    <Button
-        android:id="@+id/show_options_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Añadir Foto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.639"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        android:text="Registrarse"
+        tools:layout_editor_absoluteY="360dp"
+        tools:layout_editor_absoluteX="123dp"
+        android:layout_marginBottom="38dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

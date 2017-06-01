@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.mbaappo.mbaappo">
 
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,8 +20,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".inicio"
-            android:label="@string/iniciar_sesion">
-        </activity>
+            android:label="@string/iniciar_sesion" />
         <activity
             android:name=".activity_registro_usuarios"
             android:label="@string/registrar" />
@@ -43,8 +47,9 @@
             android:label="Historial" />
         <activity
             android:name=".servicios_realizados"
-            android:label="Servicios Ofrecidos"></activity>
-        <activity android:name=".inicio_principal"
+            android:label="Servicios Ofrecidos" />
+        <activity
+            android:name=".inicio_principal"
             android:label="Inicio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,6 +57,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mensajeria" />
+        <activity android:name=".Seleccionar_foto"></activity>
     </application>
 
 </manifest>

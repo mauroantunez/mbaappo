@@ -1,7 +1,10 @@
 package com.app.mbaappo.mbaappo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -31,6 +34,16 @@ public class list_historial extends AppCompatActivity {
         arraydatos.add(datos);
 
         adapter_historial adapter = new adapter_historial(this, arraydatos);
+
         lista.setAdapter(adapter);
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent servicio = new Intent(list_historial.this, mensajeria.class);
+                servicio.putExtra("Servicio", lista.getItemAtPosition(position).toString());
+                startActivity(servicio);
+            }
+        });
     }
 }
