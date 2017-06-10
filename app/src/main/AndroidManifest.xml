@@ -20,7 +20,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".inicio"
-            android:label="@string/iniciar_sesion" />
+            android:label="       " />
         <activity
             android:name=".activity_registro_usuarios"
             android:label="@string/registrar" />

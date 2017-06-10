@@ -10,7 +10,7 @@ public class Usuario {
     private String email;
     private String telefono;
     private String direccion;
-    private String ubicacionfoto;
+    private String profilePicLocation;
 
     public Usuario(){}
 
@@ -20,7 +20,7 @@ public class Usuario {
         this.email = email;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.ubicacionfoto = ubicacionfoto;
+        this.profilePicLocation = ubicacionfoto;
     }
 
     public String getNombre() {
@@ -43,7 +43,7 @@ public class Usuario {
         return direccion;
     }
 
-    public String getUbicacionfoto() {
-        return ubicacionfoto;
+    public String getProfilePicLocation() {
+        return profilePicLocation;
     }
 }

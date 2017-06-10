@@ -13,6 +13,12 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
+    <ImageView
+        android:id="@+id/imageperfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo" />
+
     <TextView
         android:id="@+id/nombreUsuarioNavHeader"
         android:layout_width="match_parent"

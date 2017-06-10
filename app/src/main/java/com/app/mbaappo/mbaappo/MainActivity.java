@@ -1,5 +1,6 @@
 package com.app.mbaappo.mbaappo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,19 +20,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,21 +49,22 @@ public class MainActivity extends AppCompatActivity
         private AdaptadorCategoria adapter;
         private RecyclerView.LayoutManager lManager;
         private FirebaseAuth auth;
-        private TextView usuarioTxt = null;
-        private TextView mailTxt = null;
-
+        private FirebaseDatabase mFirebaseDatabase;
+        private DatabaseReference mCurrentUserDatabaseReference;
         private FirebaseAuth.AuthStateListener authListener;
         private DatabaseReference nombreUsuario;
         private inicio mail;
-
+        private Context mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mView = MainActivity.this;
         auth = FirebaseAuth.getInstance();
-        nombreUsuario = FirebaseDatabase.getInstance().getReference().child("Usuarios")
-                .child(auth.getCurrentUser().getUid());
+        String mail = encodeEmail(auth.getCurrentUser().getEmail());
+        inicializar(mail);
+        asignardatos();
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -178,7 +189,9 @@ public class MainActivity extends AppCompatActivity
             mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
         } else if (id == R.id.mnu_solicitudes) {
-
+            Intent mnu_serv = new Intent(MainActivity.this, Seleccionar_foto.class);
+            mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mnu_serv);
         }
         else if (id == R.id.cerrar_sesion_menu) {
             cerrar_sesion();
@@ -192,4 +205,49 @@ public class MainActivity extends AppCompatActivity
     private void cerrar_sesion() {
         auth.signOut();
     }
+    private void inicializar(String mail){
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios" + "/" +mail);
+    }
+    public String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
+    }
+
+    public void asignardatos(){
+        final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
+        final TextView usuarioTxt = (TextView) findViewById(R.id.nombreUsuarioNavHeader);
+        final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
+        mCurrentUserDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Usuario user = dataSnapshot.getValue(Usuario.class);
+                try{
+                    if(user.getNombre() != null){
+                        usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
+                        mailTxt.setText(auth.getCurrentUser().getEmail());
+                    }
+                    if(user.getProfilePicLocation() != null){
+                        StorageReference storageRef = FirebaseStorage.getInstance()
+                                .getReference().child(user.getProfilePicLocation());
+
+                        Glide.with(mView)
+                                .using(new FirebaseImageLoader())
+                                .load(storageRef)
+                                .bitmapTransform(new CropCircleTransformation(mView))
+                                .into(imageperfil);
+                    }
+                }catch (Exception e){
+                    Log.e("Err", "glide");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
+
