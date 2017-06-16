@@ -15,41 +15,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".UI.MainActivity"
             android:label="@string/pagina_principa"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".inicio"
+            android:name=".UI.inicio"
             android:label="       " />
         <activity
-            android:name=".activity_registro_usuarios"
+            android:name=".UI.activity_registro_usuarios"
             android:label="@string/registrar" />
         <activity
-            android:name=".CrearEditarServicio"
+            android:name=".UI.CrearEditarServicio"
             android:label="@string/publicar_servicio" />
         <activity
-            android:name=".Perfil"
+            android:name=".UI.Perfil"
             android:label="@string/mi_cuenta" />
         <activity
-            android:name=".c_contrasenha"
+            android:name=".UI.c_contrasenha"
             android:label="@string/m_contrasena" />
         <activity
-            android:name=".Servicio"
+            android:name=".UI.Servicio"
             android:label="Servicio" />
         <activity
-            android:name=".editar_datos"
+            android:name=".UI.editar_datos"
             android:label="@string/e_dato" />
         <activity
-            android:name=".Lista_servicios"
+            android:name=".List.Lista_servicios"
             android:label="Servicios" />
         <activity
-            android:name=".list_historial"
+            android:name=".List.list_historial"
             android:label="Historial" />
         <activity
-            android:name=".servicios_realizados"
+            android:name=".UI.servicios_realizados"
             android:label="Servicios Ofrecidos" />
         <activity
-            android:name=".inicio_principal"
+            android:name=".UI.inicio_principal"
             android:label="Inicio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,8 +57,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mensajeria" />
-        <activity android:name=".Seleccionar_foto"></activity>
+        <activity android:name=".UI.mensajeria" />
+        <activity android:name=".UI.Seleccionar_foto"></activity>
     </application>
 
 </manifest>

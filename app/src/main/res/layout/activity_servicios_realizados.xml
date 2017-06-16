@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.mbaappo.mbaappo.servicios_realizados">
+    tools:context="com.app.mbaappo.mbaappo.UI.servicios_realizados">
 
     <ListView
         android:id="@+id/list_serv_realizados"

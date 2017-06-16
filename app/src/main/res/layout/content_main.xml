@@ -7,7 +7,7 @@
     android:background="@color/common_google_signin_btn_text_dark_disabled"
     android:orientation="horizontal"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.app.mbaappo.mbaappo.MainActivity"
+    tools:context="com.app.mbaappo.mbaappo.UI.MainActivity"
     android:weightSum="1">
 
     <android.support.v7.widget.RecyclerView

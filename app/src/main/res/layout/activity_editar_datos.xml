@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.mbaappo.mbaappo.editar_datos"
+    tools:context="com.app.mbaappo.mbaappo.UI.editar_datos"
     android:background="#E8EAF6">
 
     <ImageView

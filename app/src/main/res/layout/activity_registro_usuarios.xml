@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_view"
-    tools:context="com.app.mbaappo.mbaappo.activity_registro_usuarios"
+    tools:context="com.app.mbaappo.mbaappo.UI.activity_registro_usuarios"
     android:orientation="vertical"
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
