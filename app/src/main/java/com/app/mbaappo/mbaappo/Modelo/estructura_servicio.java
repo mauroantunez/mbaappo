@@ -7,20 +7,21 @@ import com.google.firebase.storage.StorageReference;
  */
 
 public class estructura_servicio {
-    String titulo;
-    String uid;
+    private String titulo;
+    private String uid;
     String precio;
     String NombreUsuario;
     String descripcion;
     float rating;
     String categoria;
     String urlfoto;
+    String email;
     public estructura_servicio(){
 
     }
 
 
-    public estructura_servicio(String nombre_servicio, String uid_persona_ofrece, String precio, String nombre_persona_ofrece, String descripcion, float rating, String categoria,String urlfoto) {
+    public estructura_servicio(String nombre_servicio, String uid_persona_ofrece, String precio, String nombre_persona_ofrece, String descripcion, float rating, String categoria,String urlfoto,String email) {
 
         this.titulo = nombre_servicio;
         this.uid = uid_persona_ofrece;
@@ -30,9 +31,15 @@ public class estructura_servicio {
         this.rating = rating;
         this.urlfoto = urlfoto;
         this.categoria = categoria;
+        this.email = email;
 
     }
-    public estructura_servicio(String nombre_servicio, String precio,String descripcion, float rating, String urlfoto){
+
+    public String getEmail() {
+        return email;
+    }
+
+    public estructura_servicio(String nombre_servicio, String precio, String descripcion, float rating, String urlfoto){
         this.titulo = nombre_servicio;
         this.precio = precio;
         this.descripcion = descripcion;

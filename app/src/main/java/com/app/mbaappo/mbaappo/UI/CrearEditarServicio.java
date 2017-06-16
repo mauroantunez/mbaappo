@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,8 +43,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
 
     /**----------------------------------------------------------*/
 
-    public static String nombre_usuario,categoria,urlfoto;
-    private static  float rating;
+    public static String nombre_usuario,urlfoto;
     /**--------------------------------------------------------*/
 
     @Override
@@ -73,7 +73,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         spCateg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                categoria = opCateg[position];
+                categoriasp= opCateg[position];
             }
 
             @Override
@@ -114,25 +114,32 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
 
 
     }
-    public void agregar_servicio(String nombre, String descripcion,String precio){
-        String uid = auth.getCurrentUser().getUid();
-        String email = encodeEmail(auth.getCurrentUser().getEmail());
-
-        usuario_actual_db.child("titulo").setValue(nombre);
-        usuario_actual_db.child("uid").setValue(uid);
-        usuario_actual_db.child("precio").setValue(precio);
-        usuario_actual_db.child("descripcion").setValue(descripcion);
-        usuario_actual_db.child("rating").setValue(0.0);
-        usuario_actual_db.child("categoria").setValue(categoria);
+    public void agregar_servicio(String nombre, String descripcionn,String precios){
+        final String uid = auth.getCurrentUser().getUid();
+        final String email = encodeEmail(auth.getCurrentUser().getEmail());
+        final String titulo = nombre;
+        final String precio = precios;
+        final String descripcion = descripcionn;
+        final float rating = (float) 0.0;
+        final String categoria = categoriasp;
+        //usuario_actual_db.child("titulo").setValue(nombre);
+        //usuario_actual_db.child("uid").setValue(uid);
+        //usuario_actual_db.child("precio").setValue(precio);
+        //usuario_actual_db.child("descripcion").setValue(descripcion);
+        //usuario_actual_db.child("rating").setValue(0.0);
+        //usuario_actual_db.child("categoria").setValue(categoria);
         database.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                Usuario user = dataSnapshot.getValue(Usuario.class);
                 if(user != null){
                        nombre_usuario = user.getNombre()+user.getApellido();
-                        usuario_actual_db.child("NombreUsuario").setValue(nombre_usuario);
+                        //usuario_actual_db.child("NombreUsuario").setValue(nombre_usuario);
                         urlfoto = user.getProfilePicLocation();
-                    usuario_actual_db.child("urlfoto").setValue(urlfoto);
+                    //usuario_actual_db.child("urlfoto").setValue(urlfoto);
+                    estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email);
+                    usuario_actual_db.setValue(servicio);
+
         }}
 
            @Override

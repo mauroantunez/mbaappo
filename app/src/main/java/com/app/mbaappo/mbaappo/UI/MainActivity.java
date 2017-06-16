@@ -62,15 +62,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mView = MainActivity.this;
         auth = FirebaseAuth.getInstance();
-
+        String mail = encodeEmail(auth.getCurrentUser().getEmail());
+        inicializar(mail);
+        asignardatos();
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null){
-                    String mail = encodeEmail(auth.getCurrentUser().getEmail());
-                    inicializar(mail);
-                    asignardatos();
+
                 }
                 if(firebaseAuth.getCurrentUser() == null){
                     Intent loginIntent = new Intent(MainActivity.this, inicio.class);
@@ -219,20 +219,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void asignardatos(){
-        final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
-        final TextView usuarioTxt = (TextView) findViewById(R.id.nombreUsuarioNavHeader);
-        final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
+
+
+
         mCurrentUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Usuario user = dataSnapshot.getValue(Usuario.class);
                 try{
                     if(user.getNombre() != null){
-                        //usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
-
+                        final TextView usuarioTxt = (TextView) findViewById(R.id.nombreUsuarioNavHeader);
+                        usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
+                        final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
                         mailTxt.setText(auth.getCurrentUser().getEmail());
                     }
                     if(user.getProfilePicLocation() != null){
+                        final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
                         StorageReference storageRef = FirebaseStorage.getInstance()
                                 .getReference().child(user.getProfilePicLocation());
 
