@@ -132,5 +132,20 @@ public class Lista_servicios extends AppCompatActivity {
 }
         };
         mChatListView.setAdapter(mChatAdapter);
+        mChatListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String messageLocation = mChatAdapter.getRef(position).toString();
+
+                if(messageLocation != null){
+                    Intent intent = new Intent(view.getContext(), Servicio.class);
+                    String serviciokey = mChatAdapter.getRef(position).getKey();
+                    intent.putExtra("id", serviciokey);
+                    startActivity(intent);
+                }
+
+                //Log.e("TAG", mChatAdapter.getRef(position).toString());
+            }
+        });
     }
 }
