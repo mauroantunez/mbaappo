@@ -1,6 +1,7 @@
 package com.app.mbaappo.mbaappo.UI;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,10 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class CrearEditarServicio extends Activity implements  AdapterView.OnItemSelectedListener{
     /** Spinner*/
-    public Spinner spTarifa, spCateg;
+    public MaterialBetterSpinner spTarifa, spCateg;
     public ArrayAdapter<String> aaTarifa;
     public ArrayAdapter<String> aaCateg;
     String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
@@ -30,7 +32,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
 
     /** Variables para Referencia*/
     Button publicar;
-    EditText edittitulo,edidescripcion,editprecio;
+    TextInputLayout edittitulo,edidescripcion,editprecio;
     String categoriasp;
     /**-------------------------------------------*/
 
@@ -52,21 +54,21 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         setContentView(R.layout.activity_crear_editar_servicio);
         /** Referencias*/
         publicar = (Button) findViewById(R.id.btn_publicar);
-        edittitulo = (EditText) findViewById(R.id.edittitulo);
-        edidescripcion = (EditText) findViewById(R.id.editdescripcion);
-        editprecio = (EditText) findViewById(R.id.editprecio);
+        edittitulo = (TextInputLayout) findViewById(R.id.edittitulo);
+        edidescripcion = (TextInputLayout) findViewById(R.id.editdescripcion);
+        editprecio = (TextInputLayout) findViewById(R.id.editprecio);
         /**---------------------------------------------------------------*/
 
         inicializar();
 
         /** Spinner Tarifa*/
-        spTarifa = (Spinner) findViewById(R.id.spTarifa);
+        spTarifa = (MaterialBetterSpinner) findViewById(R.id.spTarifa);
         spTarifa.setOnItemSelectedListener(this);
         aaTarifa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opTarifa);
         spTarifa.setAdapter(aaTarifa);
 
         /**Spinner Categoria*/
-        spCateg = (Spinner) findViewById(R.id.spCateg);
+        spCateg = (MaterialBetterSpinner) findViewById(R.id.spCateg);
         spCateg.setOnItemSelectedListener(this);
         aaCateg = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opCateg);
         spCateg.setAdapter(aaCateg);
@@ -106,10 +108,11 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
     private void guardardatos(){
-        final String nombre = edittitulo.getText().toString().trim();
-        final String descripcion = edidescripcion.getText().toString().trim();
-        final String precio = editprecio.getText().toString().trim();
+        final String nombre = edittitulo.getEditText().toString().trim();
+        final String descripcion = edidescripcion.getEditText().toString().trim();
+        final String precio = editprecio.getEditText().toString().trim();
         agregar_servicio(nombre,descripcion,precio);
 
 
