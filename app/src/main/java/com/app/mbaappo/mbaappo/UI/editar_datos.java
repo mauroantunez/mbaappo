@@ -1,5 +1,6 @@
 package com.app.mbaappo.mbaappo.UI;
 
+import android.content.Intent;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,40 +36,48 @@ public class editar_datos extends AppCompatActivity {
         return userEmail.replace(".", ",");
     }
     private void editardatos(){
-        muser.addValueEventListener(new ValueEventListener() {
+       muser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
              final Usuario user = dataSnapshot.getValue(Usuario.class);
                 if (user!=null){
                     final EditText nombre = (EditText) findViewById(R.id.editTextnombre);
-                    nombre.setText(user.getNombre());
                     final EditText apellido = (EditText) findViewById(R.id.editTextapellidos);
-                    apellido.setText(user.getApellido());
                     final EditText telefono = (EditText) findViewById(R.id.editTexttelefono);
-                    telefono.setText(user.getTelefono());
                     final EditText direccion = (EditText) findViewById(R.id.editTextdireccion);
-                    direccion.setText(user.getDireccion());
                     final String nombretxt = nombre.getText().toString().trim();
                     final String apellidotxt = apellido.getText().toString().trim();
                     final String telefonotxt = telefono.getText().toString().trim();
                     final String direcciontxt = direccion.getText().toString().trim();
                     final Button aceptar = (Button) findViewById(R.id.guardardatos);
-                    FirebaseDatabase mdata = FirebaseDatabase.getInstance();
-                    DatabaseReference muserdata = mdata.getReference().child("Usuarios").child(encodeEmail(auth.getCurrentUser().getEmail());
-                    )
+
                     aceptar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (nombretxt!=null){
+                            muser.child("nombre").setValue(nombretxt);}
+                            if (apellidotxt!=null){
+                            muser.child("apellido").setValue(apellidotxt);}
+                            if (direccion!=null){
+                            muser.child("direccion").setValue(direcciontxt);}
+                            if (telefonotxt!=null){
+                            muser.child("telefono").setValue(telefonotxt);}
+                    }});
 
-                        }
-                    });
-                }
-            }
+                    final Button cancelar = (Button) findViewById(R.id.cancelar_datos);
+                    cancelar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent mnu_serv = new Intent(editar_datos.this, Perfil.class);
+                            mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(mnu_serv);
+                    }});
+            }}
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+   }
     }
-}

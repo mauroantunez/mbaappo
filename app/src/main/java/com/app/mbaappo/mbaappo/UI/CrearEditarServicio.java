@@ -1,6 +1,7 @@
 package com.app.mbaappo.mbaappo.UI;
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
+import com.app.mbaappo.mbaappo.Modelo.lista_servicio_ofrecido;
 import com.app.mbaappo.mbaappo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +34,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
 
     /** Variables para Referencia*/
     Button publicar;
-    TextInputLayout edittitulo,edidescripcion,editprecio;
+    EditText edittitulo,edidescripcion,editprecio;
     String categoriasp;
     /**-------------------------------------------*/
 
@@ -41,7 +43,8 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     private DatabaseReference database;
     private DatabaseReference agregar_s;
     DatabaseReference usuario_actual_db;
-
+    private FirebaseDatabase l_servicio;
+    private DatabaseReference lista_servicios;
 
     /**----------------------------------------------------------*/
 
@@ -54,9 +57,9 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         setContentView(R.layout.activity_crear_editar_servicio);
         /** Referencias*/
         publicar = (Button) findViewById(R.id.btn_publicar);
-        edittitulo = (TextInputLayout) findViewById(R.id.edittitulo);
-        edidescripcion = (TextInputLayout) findViewById(R.id.editdescripcion);
-        editprecio = (TextInputLayout) findViewById(R.id.editprecio);
+        edittitulo = (EditText) findViewById(R.id.edittitulo_);
+        edidescripcion = (EditText) findViewById(R.id.editdescripcion_);
+        editprecio = (EditText) findViewById(R.id.editprecio_);
         /**---------------------------------------------------------------*/
 
         inicializar();
@@ -110,9 +113,9 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     }
 
     private void guardardatos(){
-        final String nombre = edittitulo.getEditText().toString().trim();
-        final String descripcion = edidescripcion.getEditText().toString().trim();
-        final String precio = editprecio.getEditText().toString().trim();
+        final String nombre = edittitulo.getText().toString().trim();
+        final String descripcion = edidescripcion.getText().toString().trim();
+        final String precio = editprecio.getText().toString().trim();
         agregar_servicio(nombre,descripcion,precio);
 
 
@@ -131,6 +134,8 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         //usuario_actual_db.child("descripcion").setValue(descripcion);
         //usuario_actual_db.child("rating").setValue(0.0);
         //usuario_actual_db.child("categoria").setValue(categoria);
+        lista_servicio_ofrecido servicio_reali = new lista_servicio_ofrecido(titulo,precio);
+        lista_servicios.setValue(servicio_reali);
         database.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -142,6 +147,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
                     //usuario_actual_db.child("urlfoto").setValue(urlfoto);
                     estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email);
                     usuario_actual_db.setValue(servicio);
+
 
         }}
 
@@ -162,10 +168,15 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
       //  nombre_usuario = nombre_usuario+nombre;
        // return nombre_usuario;
     //}
+    public String encodeEmaill(String userEmail) {
+        return userEmail.replace(".", "_");
+    }
 private void inicializar(){
     auth = FirebaseAuth.getInstance();
+    l_servicio = FirebaseDatabase.getInstance();
     database = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(auth.getCurrentUser().getEmail()));
     agregar_s = FirebaseDatabase.getInstance().getReference();
     usuario_actual_db = agregar_s.child("Servicios").push();
+    lista_servicios = l_servicio.getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail())).child(usuario_actual_db.getKey());
 }
 }

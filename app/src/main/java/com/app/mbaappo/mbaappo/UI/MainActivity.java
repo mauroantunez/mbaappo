@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity
 
         adapter = new AdaptadorCategoria(items);
 
+
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,8 +144,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
         recycler.setAdapter(adapter);
+
 
 
     }
