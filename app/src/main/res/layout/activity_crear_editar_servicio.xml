@@ -131,17 +131,13 @@
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/spCateg"
+        <Spinner
+            android:id="@+id/spCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:hint="Categoria"
-            android:textColorHint="@color/cardview_shadow_start_color"
-            android:textColorLink="@color/colorPrimary"
-            app:met_floatingLabel="normal" />
-
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -157,17 +153,13 @@
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        <Spinner
             android:id="@+id/spTarifa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:hint="Tarifa"
-            android:textColorHint="@color/cardview_shadow_start_color"
-            android:textColorLink="@color/colorPrimary"
-            app:met_floatingLabel="normal" />
-
+            android:layout_weight="1" />
     </LinearLayout>
 
 

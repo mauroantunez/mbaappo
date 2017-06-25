@@ -24,7 +24,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class CrearEditarServicio extends Activity implements  AdapterView.OnItemSelectedListener{
     /** Spinner*/
-    public MaterialBetterSpinner spTarifa, spCateg;
+    public Spinner spTarifa, spCateg;
     public ArrayAdapter<String> aaTarifa;
     public ArrayAdapter<String> aaCateg;
     String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
@@ -65,13 +65,13 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         inicializar();
 
         /** Spinner Tarifa*/
-        spTarifa = (MaterialBetterSpinner) findViewById(R.id.spTarifa);
+        spTarifa = (Spinner) findViewById(R.id.spTarifa);
         spTarifa.setOnItemSelectedListener(this);
         aaTarifa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opTarifa);
         spTarifa.setAdapter(aaTarifa);
 
         /**Spinner Categoria*/
-        spCateg = (MaterialBetterSpinner) findViewById(R.id.spCateg);
+        spCateg = (Spinner) findViewById(R.id.spCateg);
         spCateg.setOnItemSelectedListener(this);
         aaCateg = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opCateg);
         spCateg.setAdapter(aaCateg);
