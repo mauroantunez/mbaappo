@@ -11,7 +11,6 @@ public class Usuario {
     private String telefono;
     private String direccion;
     private String profilePicLocation;
-
     public Usuario(){}
 
     public Usuario(String nombre, String apellido, String email, String telefono, String direccion, String ubicacionfoto) {

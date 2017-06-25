@@ -29,9 +29,9 @@ public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
             convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.item_message, parent, false);
         }
 
-        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
+        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.leftMessagePic);
         TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
-        TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+        TextView authorTextView = (TextView) convertView.findViewById(R.id.senderTextView);
 
         FriendlyMessage message = getItem(position);
 

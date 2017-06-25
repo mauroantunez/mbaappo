@@ -16,12 +16,13 @@ public class estructura_servicio {
     String categoria;
     String urlfoto;
     String email;
+    String key;
     public estructura_servicio(){
 
     }
 
 
-    public estructura_servicio(String nombre_servicio, String uid_persona_ofrece, String precio, String nombre_persona_ofrece, String descripcion, float rating, String categoria,String urlfoto,String email) {
+    public estructura_servicio(String nombre_servicio, String uid_persona_ofrece, String precio, String nombre_persona_ofrece, String descripcion, float rating, String categoria,String urlfoto,String email, String key) {
 
         this.titulo = nombre_servicio;
         this.uid = uid_persona_ofrece;
@@ -32,6 +33,7 @@ public class estructura_servicio {
         this.urlfoto = urlfoto;
         this.categoria = categoria;
         this.email = email;
+        this.key = key;
 
     }
 
@@ -45,6 +47,10 @@ public class estructura_servicio {
         this.descripcion = descripcion;
         this.rating = rating;
         this.urlfoto = urlfoto;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public String getTitulo() {

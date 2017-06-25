@@ -44,7 +44,7 @@ public class mensajeria extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private ImageButton mPhotoPickerButton;
     private EditText mMessageEditText;
-    private Button SendButton;
+    private ImageButton SendButton;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabasemessage;
     private ChildEventListener mChildEventListener;
@@ -62,11 +62,11 @@ public class mensajeria extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabasemessage = mFirebaseDatabase.getReference().child("messages");
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        //mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageListView = (ListView) findViewById(R.id.messageListView);
 
-        mMessageEditText = (EditText) findViewById(R.id.messageEditText);
-        SendButton = (Button) findViewById(R.id.sendButon);
+        mMessageEditText = (EditText) findViewById(R.id.messageToSend);
+        SendButton = (ImageButton) findViewById(R.id.sendButton);
 
         // Initialize message ListView and its adapter
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
@@ -74,7 +74,7 @@ public class mensajeria extends AppCompatActivity {
         mMessageListView.setAdapter(mMessageAdapter);
 
         // Initialize progress bar
-        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+        //mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
         // ImagePickerButton shows an image picker to upload a image for a message
 

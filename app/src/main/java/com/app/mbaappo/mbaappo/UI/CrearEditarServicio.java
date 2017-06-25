@@ -71,7 +71,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         spTarifa.setAdapter(aaTarifa);
 
         /**Spinner Categoria*/
-        spCateg = (Spinner) findViewById(R.id.spCateg);
+        spCateg = (Spinner) findViewById(R.id.spCategoria);
         spCateg.setOnItemSelectedListener(this);
         aaCateg = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opCateg);
         spCateg.setAdapter(aaCateg);
@@ -134,7 +134,8 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         //usuario_actual_db.child("descripcion").setValue(descripcion);
         //usuario_actual_db.child("rating").setValue(0.0);
         //usuario_actual_db.child("categoria").setValue(categoria);
-        lista_servicio_ofrecido servicio_reali = new lista_servicio_ofrecido(titulo,precio);
+        final String key = usuario_actual_db.getKey();
+        lista_servicio_ofrecido servicio_reali = new lista_servicio_ofrecido(titulo,precio,key);
         lista_servicios.setValue(servicio_reali);
         database.addValueEventListener(new ValueEventListener() {
            @Override
@@ -145,9 +146,9 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
                         //usuario_actual_db.child("NombreUsuario").setValue(nombre_usuario);
                         urlfoto = user.getProfilePicLocation();
                     //usuario_actual_db.child("urlfoto").setValue(urlfoto);
-                    estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email);
-                    usuario_actual_db.setValue(servicio);
-
+                        estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email,key);
+                        usuario_actual_db.setValue(servicio);
+                        finish();
 
         }}
 

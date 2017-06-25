@@ -3,6 +3,7 @@ package com.app.mbaappo.mbaappo.UI;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -62,21 +63,43 @@ public class servicios_realizados extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail()));
-        //mFirebaseDatabasee = FirebaseDatabase.getInstance();
-        //databasee = mFirebaseDatabasee.getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail()));
+        mFirebaseDatabasee = FirebaseDatabase.getInstance();
+        databasee = mFirebaseDatabasee.getReference().child("Servicios");
 
     }
     private void agregarlis(){
         mChatListView = (ListView) findViewById(R.id.list_serv_realizados);
-        mChatAdapter = new FirebaseListAdapter<lista_servicio_ofrecido>(this, lista_servicio_ofrecido.class, R.layout.item_serv_realizados, database) {
+        mChatAdapter = new FirebaseListAdapter<estructura_servicio>(this, estructura_servicio.class, R.layout.item_serv_realizados, database) {
             @Override
-            protected void populateView(final View v, final lista_servicio_ofrecido model, int position) {
+            protected void populateView(final View v, final estructura_servicio model, int position) {
 
 
-                        ((TextView) v.findViewById(R.id.nombre_serv_reali)).setText(model.getNombre());
+                        ((TextView) v.findViewById(R.id.nombre_serv_reali)).setText(model.getTitulo());
                         ((TextView) v.findViewById(R.id.precio_serv_reali)).setText(model.getPrecio());
-
-
+                        Button btn_eliminar = (Button) v.findViewById(R.id.btn_eliminar_serv);
+                        btn_eliminar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                database.child(model.getKey()).removeValue();
+                                databasee.child(model.getKey()).removeValue();
+                                //databasee.addValueEventListener(new ValueEventListener() {
+                                  //  @Override
+                                    //public void onDataChange(DataSnapshot dataSnapshot) {
+                                      //  estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
+                                        //if (servicio != null){
+                                          //  if (servicio.getKey() == model.getKey()){
+                                            //    databasee.removeValue();
+                                            //}
+                                        //}
+                                    //}
+//
+  //                                  @Override
+    //                                public void onCancelled(DatabaseError databaseError) {
+//
+  //                                  }
+    //                            });
+                            }
+                        });
             }
 
 

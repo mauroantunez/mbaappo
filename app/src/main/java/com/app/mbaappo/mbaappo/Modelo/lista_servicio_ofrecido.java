@@ -5,22 +5,26 @@ package com.app.mbaappo.mbaappo.Modelo;
  */
 
 public class lista_servicio_ofrecido {
-    private String Nombre;
+    private String Titulo;
     private String Precio;
-    public lista_servicio_ofrecido(String nombre, String precio) {
-        this.Nombre = nombre;
+    private String key;
+    public lista_servicio_ofrecido(String nombre, String precio, String key) {
+        this.Titulo = nombre;
         this.Precio = precio;
+        this.key =key;
+
     }
     public lista_servicio_ofrecido(){}
-    public String getNombre() {
-        return Nombre;
+    public String getTitulo() {
+        return Titulo;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public String getPrecio() {
         return Precio;
     }
-
-
-
 
 }
