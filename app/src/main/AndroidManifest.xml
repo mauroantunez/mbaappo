@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.mbaappo.mbaappo">
 
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
@@ -58,7 +58,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.mensajeria" />
-        <activity android:name=".UI.Seleccionar_foto"></activity>
+        <activity android:name=".UI.Seleccionar_foto" />
+        <activity android:name=".UI.servicio_solicitado"
+            android:label="Mensajes">
+
+        </activity>
     </application>
 
 </manifest>

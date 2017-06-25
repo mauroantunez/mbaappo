@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity
             mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
         } else if (id == R.id.mnu_solicitudes) {
-            Intent mnu_serv = new Intent(MainActivity.this, Seleccionar_foto.class);
+            Intent mnu_serv = new Intent(MainActivity.this, servicio_solicitado.class);
             mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
         }
