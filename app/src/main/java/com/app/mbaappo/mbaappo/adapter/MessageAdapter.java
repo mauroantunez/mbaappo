@@ -22,7 +22,7 @@ public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
     public MessageAdapter(Context context, int resource, List<FriendlyMessage> objects) {
         super(context, resource, objects);
     }
-
+/**
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -50,5 +50,5 @@ public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
         authorTextView.setText(message.getName());
 
         return convertView;
-    }
+    }*/
 }

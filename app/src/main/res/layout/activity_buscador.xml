@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.mbaappo.mbaappo.UI.servicio_solicitado"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
-
+    tools:context="com.app.mbaappo.mbaappo.UI.buscador">
 
     <ListView
-        android:id="@+id/lis_servicio_solicitado"
+        android:id="@+id/id_list_buscador"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-   />
+        tools:listitem="@layout/item_servicio"/>
 </LinearLayout>
+

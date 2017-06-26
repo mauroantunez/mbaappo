@@ -77,6 +77,9 @@ public class Servicio extends AppCompatActivity {
                         final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
                         database_chat.setValue(chat);
                         database_chat_contratado.setValue(chat);
+                        Intent intent = new Intent(Servicio.this, mensajeria.class);
+                        intent.putExtra("idmessage", key);
+                        startActivity(intent);
                         /**musu.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

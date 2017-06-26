@@ -1,42 +1,44 @@
 package com.app.mbaappo.mbaappo.Modelo;
 
-
 public class FriendlyMessage {
 
-    private String text;
-    private String name;
-    private String photoUrl;
+    private String sender;
+    //private String receptor;
+    private String message;
+    private String contentType = "";
+    private String contentLocation = "";
+    private String timestamp = "";
 
-    public FriendlyMessage() {
+    public FriendlyMessage(){
+
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl) {
-        this.text = text;
-        this.name = name;
-        this.photoUrl = photoUrl;
+    //Constructor for plain text message
+    public FriendlyMessage(String sender, String message, String time){
+        this.sender = sender;
+        this.message = message;
+        this.timestamp = time;
+      //  this.receptor = receptor;
+
     }
 
-    public String getText() {
-        return text;
+
+
+
+    public String getSender() {
+        return sender;
+    }
+    public String getTimestamp(){return timestamp;}
+    public String getMessage() {
+        return message;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getContentLocation() {
+        return contentLocation;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public String getContentType() {
+        return contentType;
     }
 }

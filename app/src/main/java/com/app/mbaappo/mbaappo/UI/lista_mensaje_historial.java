@@ -1,5 +1,9 @@
 package com.app.mbaappo.mbaappo.UI;
 
+/**
+ * Created by Antunez on 26/6/2017.
+ */
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -64,7 +68,7 @@ import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-public class mensajeria extends AppCompatActivity {
+public class lista_mensaje_historial extends AppCompatActivity {
 
     private String messageId;
     private TextView mMessageField;
@@ -109,15 +113,15 @@ public class mensajeria extends AppCompatActivity {
                 permissionToWriteAccepted  = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
-        if (!permissionToRecordAccepted ) mensajeria.super.finish();
-        if (!permissionToWriteAccepted ) mensajeria.super.finish();
+        if (!permissionToRecordAccepted ) lista_mensaje_historial.super.finish();
+        if (!permissionToWriteAccepted ) lista_mensaje_historial.super.finish();
 
     }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mensajeria);
+        setContentView(R.layout.list_mensajes);
 
 
         Intent intent = this.getIntent();
@@ -139,7 +143,7 @@ public class mensajeria extends AppCompatActivity {
         initializeScreen();
         //mToolBar.setTitle(chatName);
         showMessages();
-        addListeners();
+        //addListeners();
         //openImageSelector();
         //openVoiceRecorder();
 
@@ -347,7 +351,7 @@ public class mensajeria extends AppCompatActivity {
 
 
 
-    public void sendMessage(View view){
+   /** public void sendMessage(View view){
         //final DatabaseReference messageRef = mFirebaseDatabase.getReference(Constants.MESSAGE_LOCATION);
         final DatabaseReference pushRef = mMessageDatabaseReference.push();
         final String pushKey = pushRef.getKey();
@@ -361,9 +365,9 @@ public class mensajeria extends AppCompatActivity {
         FriendlyMessage message = new FriendlyMessage(encodeEmail(mFirebaseAuth.getCurrentUser().getEmail()), messageString, timestamp);
         //Create HashMap for Pushing
         /**HashMap<String, Object> messageItemMap = new HashMap<String, Object>();
-        HashMap<String,Object> messageObj = (HashMap<String, Object>) new ObjectMapper()
-                .convertValue(message, Map.class);
-        messageItemMap.put("/" + pushKey, messageObj);*/
+         HashMap<String,Object> messageObj = (HashMap<String, Object>) new ObjectMapper()
+         .convertValue(message, Map.class);
+         messageItemMap.put("/" + pushKey, messageObj);
         pushRef.setValue(message)
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -371,7 +375,7 @@ public class mensajeria extends AppCompatActivity {
                         mMessageField.setText("");
                     }
                 });
-    }
+    }*/
 
     private void showMessages() {
         mMessageListAdapter = new FirebaseListAdapter<FriendlyMessage>(this, FriendlyMessage.class, R.layout.item_message, mMessageDatabaseReference) {
@@ -425,16 +429,16 @@ public class mensajeria extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Usuario userInfo = dataSnapshot.getValue(Usuario.class);
-                                if(userInfo != null && userInfo.getProfilePicLocation() != null){
-                                    StorageReference storageRef = FirebaseStorage.getInstance()
-                                            .getReference().child(userInfo.getProfilePicLocation());
-                                    Glide.with(view.getContext())
-                                            .using(new FirebaseImageLoader())
-                                            .load(storageRef)
-                                            .bitmapTransform(new CropCircleTransformation(view.getContext()))
-                                            .into(rightImage);
-                                }
+                            if(userInfo != null && userInfo.getProfilePicLocation() != null){
+                                StorageReference storageRef = FirebaseStorage.getInstance()
+                                        .getReference().child(userInfo.getProfilePicLocation());
+                                Glide.with(view.getContext())
+                                        .using(new FirebaseImageLoader())
+                                        .load(storageRef)
+                                        .bitmapTransform(new CropCircleTransformation(view.getContext()))
+                                        .into(rightImage);
                             }
+                        }
 
 
 
@@ -468,13 +472,13 @@ public class mensajeria extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Usuario userInfo = dataSnapshot.getValue(Usuario.class);
                             if(userInfo != null && userInfo.getProfilePicLocation() != null){
-                                    StorageReference storageRef = FirebaseStorage.getInstance()
-                                            .getReference().child(userInfo.getProfilePicLocation());
-                                    Glide.with(view.getContext())
-                                            .using(new FirebaseImageLoader())
-                                            .load(storageRef)
-                                            .bitmapTransform(new CropCircleTransformation(view.getContext()))
-                                            .into(leftImage);
+                                StorageReference storageRef = FirebaseStorage.getInstance()
+                                        .getReference().child(userInfo.getProfilePicLocation());
+                                Glide.with(view.getContext())
+                                        .using(new FirebaseImageLoader())
+                                        .load(storageRef)
+                                        .bitmapTransform(new CropCircleTransformation(view.getContext()))
+                                        .into(leftImage);
 
                             }
                         }
@@ -568,10 +572,10 @@ public class mensajeria extends AppCompatActivity {
      */
 
     private void initializeScreen() {
-        mMessageList = (ListView) findViewById(R.id.messageListView);
+        mMessageList = (ListView) findViewById(R.id.id_lista_mensaje);
         //mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mMessageField = (TextView)findViewById(R.id.messageToSend);
-        mSendButton = (ImageButton)findViewById(R.id.sendButton);
+        //mMessageField = (TextView)findViewById(R.id.messageToSend);
+        //mSendButton = (ImageButton)findViewById(R.id.sendButton);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();

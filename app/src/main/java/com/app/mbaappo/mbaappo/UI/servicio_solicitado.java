@@ -1,8 +1,14 @@
 package com.app.mbaappo.mbaappo.UI;
 
+import android.app.Dialog;
+import android.app.assist.AssistStructure;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -11,6 +17,7 @@ import android.widget.TextView;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Chat;
+import com.app.mbaappo.mbaappo.Modelo.Historial;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
@@ -23,6 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -68,17 +78,17 @@ public class servicio_solicitado extends AppCompatActivity {
         mChatListView = (ListView) findViewById(R.id.lis_servicio_solicitado);
         mChatAdapter = new FirebaseListAdapter <Chat>(this, Chat.class, R.layout.item_servicio_solicitado, mchat) {
             @Override
-            protected void populateView(final View v, Chat model, int position) {
+            protected void populateView(final View v, final Chat model, int position) {
 
-
-                muser.child(model.getKey_usuario_contratado()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Usuario user = dataSnapshot.getValue(Usuario.class);
-                        if (user != null){
+               if (model.getKey_usuario_contrato().equals(encodeEmail(auth.getCurrentUser().getEmail()))){
+                  muser.child(model.getKey_usuario_contratado()).addValueEventListener(new ValueEventListener() {
+                     @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                         Usuario user = dataSnapshot.getValue(Usuario.class);
+                            if (user != null){
                             ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(user.getNombre()+" "+user.getApellido());
-                        }
-                        if (user.getProfilePicLocation()!=null){
+                            }
+                            if (user.getProfilePicLocation()!=null){
                             final ImageView image = (ImageView) v.findViewById(R.id.photo_servicio_solicitado);
                             StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
                             Glide.with(v.getContext())
@@ -87,20 +97,21 @@ public class servicio_solicitado extends AppCompatActivity {
                                     .bitmapTransform(new CropCircleTransformation(v.getContext()))
                                     .into(image);
                         }
-                    }
+                         database.child(model.getKey_servicio()).addValueEventListener(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                 estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
+                                 if (servicio != null){
+                                     ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText(servicio.getTitulo());
+                                 }
+                             }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                             @Override
+                             public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-                database.child(model.getKey_servicio()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
-                        if (servicio != null){
-                            ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText(servicio.getTitulo());
-                        }
+                             }
+                         });
+
                     }
 
                     @Override
@@ -110,8 +121,180 @@ public class servicio_solicitado extends AppCompatActivity {
                 });
 
             }
+            if (model.getKey_usuario_contratado().equals(encodeEmail(auth.getCurrentUser().getEmail()))){
+                muser.child(model.getKey_usuario_contrato()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Usuario user = dataSnapshot.getValue(Usuario.class);
+                        if (user != null){
+                            ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(user.getNombre()+" "+user.getApellido());
+                        }
+                        if (user.getProfilePicLocation()!=null){
+                            final ImageView image_ = (ImageView) v.findViewById(R.id.photo_servicio_solicitado);
+                            StorageReference url_ = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
+                            Glide.with(v.getContext())
+                                    .using(new FirebaseImageLoader())
+                                    .load(url_)
+                                    .bitmapTransform(new CropCircleTransformation(v.getContext()))
+                                    .into(image_);
+                        }
+                        database.child(model.getKey_servicio()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
+                                if (servicio != null){
+                                    ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText("Contrato: "+servicio.getTitulo());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            }
         };
         mChatListView.setAdapter(mChatAdapter);
+        mChatListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final String serviciokeys = mChatAdapter.getRef(position).getKey();
+                DatabaseReference chat_ = mFirebasedatabase.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(serviciokeys);
+                chat_.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Chat chat = dataSnapshot.getValue(Chat.class);
+                        if (chat.getKey_usuario_contratado().equals(encodeEmail(auth.getCurrentUser().getEmail()))){
+                           createSimpleDialogg(serviciokeys);
+                        }
+                        if (chat.getKey_usuario_contrato().equals(encodeEmail(auth.getCurrentUser().getEmail()))){
+                            createSimpleDialog(serviciokeys);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                //createSimpleDialog(serviciokeys);
+                return true;
+            }
+        });
+        mChatListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String messageLocation = mChatAdapter.getRef(position).toString();
+
+                if(messageLocation != null){
+                    Intent intent = new Intent(view.getContext(), mensajeria.class);
+                    String serviciokey = mChatAdapter.getRef(position).getKey();
+                    intent.putExtra("idmessage", serviciokey);
+                    startActivity(intent);
+                }
+
+                //Log.e("TAG", mChatAdapter.getRef(position).toString());
+            }
+        });
+
+    }
+    public  void createSimpleDialog(final String key) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(servicio_solicitado.this);
+        builder.setTitle("Opciones")
+                .setMessage("Seleccione la actividad a realizar:")
+                .setNegativeButton("ELIMINAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                FirebaseDatabase chat;
+                                DatabaseReference mchat;
+                                chat= FirebaseDatabase.getInstance();
+                                mchat = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                mchat.removeValue();}
+                        })
+                .setPositiveButton("CONCRETADO",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                FirebaseDatabase chat;
+                                chat= FirebaseDatabase.getInstance();
+                                final DatabaseReference mhistorial;
+                                DatabaseReference mchat,mchat_;
+                                mchat = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+
+                                mhistorial = chat.getReference().child("Historial").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                mchat.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                      Chat chat = dataSnapshot.getValue(Chat.class);
+                                        if (chat != null){
+                                            String key_servicio = chat.getKey_servicio();
+                                            String key_usuario_contratado = chat.getKey_usuario_contratado();
+                                            String key_padre = chat.getKey_padre();
+                                            String key_usuario_contrato = chat.getKey_usuario_contrato();
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                            Date date = new Date();
+                                            String timestamp = dateFormat.format(date);
+                                            Historial historial = new Historial(key_servicio,key_usuario_contratado,key_padre,key_usuario_contrato,timestamp);
+                                            mhistorial.setValue(historial);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                mchat_ = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail()));
+                                mchat_.child(key).removeValue();
+                                }
+                        })
+                .setNeutralButton("SALIR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+         Dialog dialog = builder.create();
+         dialog.show();
+    }
+   public final void createSimpleDialogg(final String key) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(servicio_solicitado.this);
+        builder.setTitle("Opciones")
+                .setMessage("Seleccione la actividad a realizar:")
+                .setNegativeButton("ELIMINAR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                FirebaseDatabase chat;
+                                DatabaseReference mchat;
+                                chat= FirebaseDatabase.getInstance();
+                                mchat = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                mchat.removeValue();                           }
+                        })
+                .setPositiveButton("SALIR",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+        Dialog dialog = builder.create();
+        dialog.show();
     }
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
