@@ -257,8 +257,6 @@ public class servicio_solicitado extends AppCompatActivity {
 
                                     }
                                 });
-                                mchat_ = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail()));
-                                mchat_.child(key).removeValue();
                                 }
                         })
                 .setNeutralButton("SALIR",

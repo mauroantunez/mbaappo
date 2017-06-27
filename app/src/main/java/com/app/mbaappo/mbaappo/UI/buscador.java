@@ -15,14 +15,17 @@ import android.widget.TextView;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.Modelo.estructura_buscador;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
 import com.app.mbaappo.mbaappo.adapter.adapter_servicios;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,7 +33,6 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class buscador extends AppCompatActivity {
-    private DatabaseReference database;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseDatabase mFirebaseDatabasee;
     private Context mView;
@@ -41,7 +43,9 @@ public class buscador extends AppCompatActivity {
     private DatabaseReference mCurrentUserDatabaseReference;
     private String servicio_ID = "id";
     private String servid;
-    private DatabaseReference databasee;
+    private FirebaseAuth auth;
+    private DatabaseReference data_servicio;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,24 +66,19 @@ public class buscador extends AppCompatActivity {
     private void inicializar(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("Servicios");
-        databasee = mFirebaseDatabase.getReference().child("Servicios");
         mFirebaseDatabasee = FirebaseDatabase.getInstance();
-
     }
     private void agregarlist(){
-        final String palabrass = servid;
+        final String palabra = servid;
+        Query aiuda = FirebaseDatabase.getInstance().getReference().child("Servicios").orderByChild("titulo").equalTo(palabra);
+
         mCurrentUserDatabaseReference = mFirebaseDatabasee.getReference().child("Usuarios");
         mChatListView = (ListView) findViewById(R.id.id_list_buscador);
-        mChatAdapter = new FirebaseListAdapter<estructura_servicio>(this, estructura_servicio.class, R.layout.item_servicio, database) {
+        mChatAdapter = new FirebaseListAdapter<estructura_servicio>(this, estructura_servicio.class, R.layout.item_servicio, aiuda) {
             @Override
-            protected void populateView(final View v, estructura_servicio model, int position) {
-                String cadenaDondeBuscar = model.getTitulo();
-                String loQueQuieroBuscar = palabrass;
-                String[] palabras = loQueQuieroBuscar.split("\\s+");
-               // for (String palabra : palabras) {
-                    if (cadenaDondeBuscar.contains(loQueQuieroBuscar)) {
-                      ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
-                      ((TextView) v.findViewById(R.id.precio_servicio)).setText(model.getPrecio());
+            protected void populateView(final View v,estructura_servicio model, int position) {
+                ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
+                ((TextView) v.findViewById(R.id.precio_servicio)).setText(model.getPrecio());
 
                 //final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
                 ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());
@@ -110,11 +109,9 @@ public class buscador extends AppCompatActivity {
                 });
 
 
-                }
-                    }
 
 
-            //}
+            }
         };
         mChatListView.setAdapter(mChatAdapter);
         mChatListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -132,5 +129,34 @@ public class buscador extends AppCompatActivity {
                 //Log.e("TAG", mChatAdapter.getRef(position).toString());
             }
         });
+    }
+   /** public void buscador(){
+
+        mFirebaseDatabasee = FirebaseDatabase.getInstance();
+        final DatabaseReference database_buscador = mFirebaseDatabasee.getReference().child("buscador").child(encodeEmail(auth.getCurrentUser().getEmail()));
+        data_servicio.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
+                if (servicio != null){
+                    String cadenaDondeBuscar = servicio.getTitulo();
+                    String loQueQuieroBuscar = palabrass;
+                    //String[] palabras = loQueQuieroBuscar.split("\\s+");
+                    // for (String palabra : palabras) {
+                    if (cadenaDondeBuscar.contains(loQueQuieroBuscar)) {
+                        estructura_buscador buscador = new estructura_buscador(servicio.getKey());
+                        database_buscador.push();
+                        database_buscador.setValue(buscador);
+                }
+                            }}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }*/
+    public String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
     }
 }
