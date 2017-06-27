@@ -1,6 +1,7 @@
 package com.app.mbaappo.mbaappo.UI;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class Perfil extends AppCompatActivity implements View.OnClickListener {
-    Button cam_contraseña, editar_perfil;
+    Button cam_contraseña;
+    FloatingActionButton editar_perfil;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase DtabaseFirebase;
     private DatabaseReference muserreference;
@@ -32,7 +34,7 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
         cam_contraseña = (Button) findViewById(R.id.btn_cambiar_contraseña);
-        editar_perfil = (Button) findViewById(R.id.btn_editar_info);
+        editar_perfil = (FloatingActionButton) findViewById(R.id.btn_editar_info);
         editar_perfil.setOnClickListener(this);
         cam_contraseña.setOnClickListener(this);
         inicializar();

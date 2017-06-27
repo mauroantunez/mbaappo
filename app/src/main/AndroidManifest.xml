@@ -50,7 +50,7 @@
             android:label="Servicios Ofrecidos" />
         <activity
             android:name=".UI.inicio_principal"
-            android:label="Inicio">
+            android:label="Bienvenido">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
