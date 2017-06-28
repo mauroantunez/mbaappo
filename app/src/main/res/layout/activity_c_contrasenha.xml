@@ -94,7 +94,7 @@
 
     <Button
         android:id="@+id/acp_contrasena_nueva"
-        android:layout_width="123dp"
+        android:layout_width="194dp"
         android:layout_height="45dp"
         android:text="Aceptar"
         app:layout_constraintTop_toTopOf="parent"
@@ -105,9 +105,9 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintVertical_bias="0.762"
-        android:backgroundTint="#9FA8DA"
-        tools:layout_editor_absoluteY="352dp" />
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background" />
 
 </android.support.constraint.ConstraintLayout>

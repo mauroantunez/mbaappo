@@ -79,6 +79,14 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
                     telefono.setText(user.getTelefono());
                     final TextView direccion = (TextView) findViewById(R.id.id_direccion_perfil);
                     direccion.setText(user.getDireccion());
+                    final ImageView image =(ImageView) findViewById(R.id.fotoPerfil) ;
+                    StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
+                    Glide.with(Perfil.this)
+                            .using(new FirebaseImageLoader())
+                            .load(url)
+                            .centerCrop()
+                            //.bitmapTransform(new CropCircleTransformation(v.getContext()))
+                            .into(image);
                 }
 
 

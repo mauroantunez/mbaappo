@@ -8,10 +8,10 @@
     android:background="#E8EAF6">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="111dp"
-        android:layout_height="107dp"
-        app:srcCompat="@drawable/ic_people"
+        android:id="@+id/image_btn_editar"
+        android:layout_width="162dp"
+        android:layout_height="152dp"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,177 +20,178 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintVertical_bias="0.021"
+        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintVertical_bias="0.022"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/guardardatos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
         android:text="Guardar"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
-        app:layout_constraintRight_toLeftOf="@+id/cancelar_datos"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="33dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintVertical_bias="0.888" />
 
     <Button
         android:id="@+id/cancelar_datos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
         android:text="Cancelar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="43dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.294" />
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="120dp"
-        android:layout_height="285dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        android:id="@+id/constraintLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.072">
-
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="270dp"
-            android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/custom_bg_2">
-
-            <TextView
-                android:id="@+id/id_textviewnombre"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:gravity="center"
-                android:text="Nombres"
-                android:textColor="@android:color/black"
-                android:textSize="15sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:layout_editor_absoluteY="124dp" />
-
-            <TextView
-                android:id="@+id/id_textviewapellido"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:text="Apellidos"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:textSize="15sp"
-                android:gravity="center"
-                tools:layout_editor_absoluteY="172dp"
-                android:textColor="@android:color/black"/>
-
-
-            <TextView
-                android:id="@+id/id_textviewdireccion"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:gravity="center"
-                android:text="Dirección"
-                android:textColor="@android:color/black"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/id_textviewtelefono"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:text="Teléfono"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:layout_editor_absoluteY="146dp"
-                android:textColor="@android:color/black"/>
-
-
-        </LinearLayout>
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-
-        android:layout_width="210dp"
-        android:layout_height="285dp"
-        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.894"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="338dp"
+        android:layout_height="178dp"
+        android:layout_marginBottom="115dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.063"
-        app:layout_constraintLeft_toRightOf="@+id/constraintLayout"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/image_btn_editar"
+        android:id="@+id/cardView2">
 
         <LinearLayout
-            android:layout_width="190dp"
-            android:layout_height="270dp"
-            android:background="@drawable/custom_bg_2"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editTextnombre"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-               />
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/bordeslayout">
 
-            <EditText
-                android:id="@+id/editTextapellidos"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                />
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="Nombre:"
+                    android:gravity="center"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/backgroundColor"/>
 
-            <EditText
-                android:id="@+id/editTextdireccion"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                 />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="Apellido:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/backgroundColor"/>
 
-            <EditText
-                android:id="@+id/editTexttelefono"
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:text="Dirección:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/backgroundColor"/>
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Telefono:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/backgroundColor"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:ems="10"
-                android:inputType="textPersonName"
+                android:orientation="vertical"
+                android:background="@drawable/bordeslayout">
+
+                <TextView
+                    android:id="@+id/id_editar_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:textSize="15dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
                  />
+
+                <TextView
+                    android:id="@+id/id_editar_Apellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="15dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    />
+
+                <TextView
+                    android:id="@+id/id_editar_direccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:textSize="15dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                   />
+
+                <TextView
+                    android:id="@+id/id_editar_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    />
+            </LinearLayout>
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/id_btn_photo_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_menu_camera"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.868"
+        app:layout_constraintVertical_bias="0.135" />
 
 </android.support.constraint.ConstraintLayout>

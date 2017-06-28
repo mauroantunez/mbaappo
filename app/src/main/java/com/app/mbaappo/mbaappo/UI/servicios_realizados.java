@@ -1,5 +1,6 @@
 package com.app.mbaappo.mbaappo.UI;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -99,7 +100,19 @@ public class servicios_realizados extends AppCompatActivity {
   //                                  }
     //                            });
                             }
+
+
                         });
+                Button bt_editar = (Button) v.findViewById(R.id.btn_editar_serv);
+                bt_editar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(servicios_realizados.this, editar_servicios.class);
+                        String serviciokey = model.getKey();
+                        intent.putExtra("id", serviciokey);
+                        startActivity(intent);
+                    }
+                });
             }
 
 

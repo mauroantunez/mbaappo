@@ -20,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class inicio extends AppCompatActivity implements View.OnClickListener {
-    private Button btn_ingresar, btn_registrarse;
+    private Button btn_ingresar, btn_registrarse, btn_recuperar_contrasena;
     private EditText textusuario, textcontrasena;
     private ProgressDialog espera;
     public String mail, contrasenha;
@@ -32,15 +32,23 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_inicio);
+        getSupportActionBar().hide();
 
         auth = FirebaseAuth.getInstance();
 
         btn_ingresar = (Button) findViewById(R.id.btn_ingresar);
+        btn_recuperar_contrasena = (Button) findViewById(R.id.btn_olvidar_contrasena);
         btn_registrarse = (Button) findViewById(R.id.btn_registrarse);
         textusuario = (EditText) findViewById(R.id.textusuario);
         textcontrasena = (EditText) findViewById(R.id.textcontrasena);
         btn_registrarse.setOnClickListener(this);
         btn_ingresar.setOnClickListener(this);
+        btn_recuperar_contrasena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recuperar();
+            }
+        });
         espera = new ProgressDialog(this);
     }
 
@@ -97,5 +105,9 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
                 }
 
         }
+    }
+    private void recuperar(){
+        Intent btn_recuperar = new Intent(inicio.this, olvidar_contrasenha.class);
+        startActivity(btn_recuperar);
     }
 }

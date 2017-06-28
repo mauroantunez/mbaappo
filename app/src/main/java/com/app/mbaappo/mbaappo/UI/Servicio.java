@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.Modelo.Chat;
@@ -50,8 +52,11 @@ public class Servicio extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("Servicios").child(servid);
         mUserDatabase = FirebaseDatabase.getInstance();
-        database_chat_reference= mFirebaseDatabase.getReference().child("Chat");
-        database_chat = database_chat_reference.child(encodeEmail(auth.getCurrentUser().getEmail())).push();
+
+            database_chat_reference= mFirebaseDatabase.getReference().child("Chat");
+            database_chat = database_chat_reference.child(encodeEmail(auth.getCurrentUser().getEmail())).push();
+
+
 
     }
     private void agregardatosserv(){
@@ -64,6 +69,8 @@ public class Servicio extends AppCompatActivity {
                 c_descripcion.setText(servicio.getDescripcion());
                 final TextView c_precio = (TextView) findViewById(R.id.contenido_precio);
                 c_precio.setText(servicio.getPrecio());
+                final TextView tarifa = (TextView) findViewById(R.id.contenido_tarifa);
+                tarifa.setText(servicio.getTarifa());
                 final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
                 c_rating.setRating(servicio.getRating());
                 final FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
@@ -74,12 +81,15 @@ public class Servicio extends AppCompatActivity {
                 contratar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
-                        database_chat.setValue(chat);
-                        database_chat_contratado.setValue(chat);
-                        Intent intent = new Intent(Servicio.this, mensajeria.class);
-                        intent.putExtra("idmessage", key);
-                        startActivity(intent);
+                            final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
+                            database_chat.setValue(chat);
+                            database_chat_contratado.setValue(chat);
+                            Intent intent = new Intent(Servicio.this, mensajeria.class);
+                            intent.putExtra("idmessage", key);
+                            startActivity(intent);
+
+
+
                         /**musu.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

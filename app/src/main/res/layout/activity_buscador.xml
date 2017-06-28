@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.mbaappo.mbaappo.UI.buscador">
+    tools:context="com.app.mbaappo.mbaappo.List.buscador">
 
     <ListView
         android:id="@+id/id_list_buscador"

@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.app.mbaappo.mbaappo.Modelo.Categorias;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.Modelo.estructura_categoria;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.Modelo.lista_servicio_ofrecido;
 import com.app.mbaappo.mbaappo.R;
@@ -28,7 +30,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     public ArrayAdapter<String> aaTarifa;
     public ArrayAdapter<String> aaCateg;
     String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
-    String[] opCateg = new String[]{"Deporte", "Profesores", "Reparaciones","Transporte","Bienestar y Salud","Entretenimiento","Hogar","Mascotas","Cuidador"};
+    String[] opCateg = new String[]{"Deporte", "Profesores", "Reparaciones","Transporte","Bienestar y Salud","Entretenimiento","Hogar"};
     /**-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
@@ -36,6 +38,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     Button publicar;
     EditText edittitulo,edidescripcion,editprecio;
     String categoriasp;
+    String tarifasp;
     /**-------------------------------------------*/
 
     /** Firebase*/
@@ -45,6 +48,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     DatabaseReference usuario_actual_db;
     private FirebaseDatabase l_servicio;
     private DatabaseReference lista_servicios;
+    private DatabaseReference categorias_data;
 
     /**----------------------------------------------------------*/
 
@@ -69,6 +73,17 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         spTarifa.setOnItemSelectedListener(this);
         aaTarifa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opTarifa);
         spTarifa.setAdapter(aaTarifa);
+        spTarifa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tarifasp = opTarifa[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         /**Spinner Categoria*/
         spCateg = (Spinner) findViewById(R.id.spCategoria);
@@ -128,6 +143,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         final String descripcion = descripcionn;
         final float rating = (float) 0.0;
         final String categoria = categoriasp;
+        final String tarifaso = tarifasp;
         //usuario_actual_db.child("titulo").setValue(nombre);
         //usuario_actual_db.child("uid").setValue(uid);
         //usuario_actual_db.child("precio").setValue(precio);
@@ -146,8 +162,9 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
                         //usuario_actual_db.child("NombreUsuario").setValue(nombre_usuario);
                         urlfoto = user.getProfilePicLocation();
                     //usuario_actual_db.child("urlfoto").setValue(urlfoto);
-                        estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email,key);
+                        estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email,key,tarifaso);
                         usuario_actual_db.setValue(servicio);
+                        agregarCategoria(key,categoria);
                         finish();
 
         }}
@@ -179,5 +196,38 @@ private void inicializar(){
     agregar_s = FirebaseDatabase.getInstance().getReference();
     usuario_actual_db = agregar_s.child("Servicios").push();
     lista_servicios = l_servicio.getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail())).child(usuario_actual_db.getKey());
+    categorias_data = l_servicio.getReference().child("Categorias");
+
+}
+private  void agregarCategoria(String key, String Catego){
+    if (Catego == "Deporte"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+    if (Catego == "Profesores"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+    if (Catego == "Reparaciones"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+    if (Catego == "Transporte"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+    if (Catego == "Bienestar y Salud"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+    if (Catego == "Entretenimiento"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+    if (Catego == "Hogar"){
+        estructura_categoria cat = new estructura_categoria(key);
+        categorias_data.child(Catego).child(key).setValue(cat);
+    }
+
 }
 }

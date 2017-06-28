@@ -18,9 +18,7 @@
             android:name=".UI.MainActivity"
             android:label="@string/pagina_principa"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".UI.inicio"
-            android:label="       " />
+        <activity android:name=".UI.inicio" />
         <activity
             android:name=".UI.activity_registro_usuarios"
             android:label="@string/registrar" />
@@ -61,11 +59,16 @@
         <activity android:name=".UI.Seleccionar_foto" />
         <activity
             android:name=".UI.servicio_solicitado"
-            android:label="Mensajes"></activity>
+            android:label="Mensajes" />
         <activity
             android:name=".UI.lista_mensaje_historial"
-            android:label="Mensajes"></activity>
-        <activity android:name=".UI.buscador"></activity>
+            android:label="Mensajes" />
+        <activity android:name=".List.buscador" />
+        <activity
+            android:name=".UI.olvidar_contrasenha"
+            android:label="Restablecer Contraseña" />
+        <activity android:name=".UI.editar_servicios"></activity>
+        <activity android:name=".List.list_categoria_servicio"></activity>
     </application>
 
 </manifest>

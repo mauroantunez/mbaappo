@@ -2,7 +2,6 @@ package com.app.mbaappo.mbaappo.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +21,6 @@ import com.app.mbaappo.mbaappo.UI.Servicio;
 import com.app.mbaappo.mbaappo.adapter.adapter_servicios;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,53 +28,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-
-public class Lista_servicios extends AppCompatActivity {
-    private DatabaseReference database;
+public class buscador extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseDatabase mFirebaseDatabasee;
-    estructura_servicio datos;
-    ArrayList <estructura_servicio> arraydatos = new ArrayList<estructura_servicio>();
     private Context mView;
     private ListView mMessageListView;
     private adapter_servicios mMessageAdapter;
     private FirebaseListAdapter mChatAdapter;
     private ListView mChatListView;
     private DatabaseReference mCurrentUserDatabaseReference;
+    private String servicio_ID = "id";
+    private String servid;
+    private FirebaseAuth auth;
+    private DatabaseReference data_servicio;
+    private DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_servicios);
-       // mView = Lista_servicios.this;
-        //final ListView lista = (ListView) findViewById(R.id.list_serv);
-       // ArrayList <estructura_servicio> arraydatos = new ArrayList<estructura_servicio>();
-       //adapter_servicios adapter = new adapter_servicios(arraydatos);
-        //lista.setAdapter(adapter);
+        setContentView(R.layout.activity_buscador);
+        Intent intent = this.getIntent();
+        servid = intent.getStringExtra(servicio_ID);
         inicializar();
         agregarlist();
-
-
-        /**lista.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent servicio = new Intent(Lista_servicios.this, Servicio.class);
-                servicio.putExtra("Servicio", lista.getItemAtPosition(position).toString());
-                startActivity(servicio);
-            }
-        });*/
-
-
-
-
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,24 +62,23 @@ public class Lista_servicios extends AppCompatActivity {
 
     }
     private void inicializar(){
-    mFirebaseDatabase = FirebaseDatabase.getInstance();
-    database = mFirebaseDatabase.getReference().child("Servicios");
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        database = mFirebaseDatabase.getReference().child("Servicios");
         mFirebaseDatabasee = FirebaseDatabase.getInstance();
-
-
-
     }
     private void agregarlist(){
+        final String palabra = servid;
+        Query aiuda = FirebaseDatabase.getInstance().getReference().child("Servicios").orderByChild("titulo").startAt(palabra).endAt(palabra);
         mCurrentUserDatabaseReference = mFirebaseDatabasee.getReference().child("Usuarios");
-        mChatListView = (ListView) findViewById(R.id.list_serv);
-        mChatAdapter = new FirebaseListAdapter<estructura_servicio>(this, estructura_servicio.class, R.layout.item_servicio, database) {
+        mChatListView = (ListView) findViewById(R.id.id_list_buscador);
+        mChatAdapter = new FirebaseListAdapter<estructura_servicio>(this, estructura_servicio.class, R.layout.item_servicio, aiuda) {
             @Override
             protected void populateView(final View v,estructura_servicio model, int position) {
                 ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
                 ((TextView) v.findViewById(R.id.precio_servicio)).setText(model.getPrecio());
 
                 //final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
-               ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());
+                ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());
 
 
                 mCurrentUserDatabaseReference.child(model.getEmail()).addValueEventListener(new ValueEventListener() {
@@ -133,7 +108,7 @@ public class Lista_servicios extends AppCompatActivity {
 
 
 
-}
+            }
         };
         mChatListView.setAdapter(mChatAdapter);
         mChatListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -152,6 +127,32 @@ public class Lista_servicios extends AppCompatActivity {
             }
         });
     }
+   /** public void buscador(){
+
+        mFirebaseDatabasee = FirebaseDatabase.getInstance();
+        final DatabaseReference database_buscador = mFirebaseDatabasee.getReference().child("buscador").child(encodeEmail(auth.getCurrentUser().getEmail()));
+        data_servicio.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
+                if (servicio != null){
+                    String cadenaDondeBuscar = servicio.getTitulo();
+                    String loQueQuieroBuscar = palabrass;
+                    //String[] palabras = loQueQuieroBuscar.split("\\s+");
+                    // for (String palabra : palabras) {
+                    if (cadenaDondeBuscar.contains(loQueQuieroBuscar)) {
+                        estructura_buscador buscador = new estructura_buscador(servicio.getKey());
+                        database_buscador.push();
+                        database_buscador.setValue(buscador);
+                }
+                            }}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }*/
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }

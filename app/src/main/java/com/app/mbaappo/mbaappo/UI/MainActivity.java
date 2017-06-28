@@ -20,18 +20,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
-import com.app.mbaappo.mbaappo.List.Lista_servicios;
+import com.app.mbaappo.mbaappo.List.buscador;
+import com.app.mbaappo.mbaappo.List.list_categoria_servicio;
 import com.app.mbaappo.mbaappo.List.list_historial;
 import com.app.mbaappo.mbaappo.Modelo.Categorias;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.R;
 import com.app.mbaappo.mbaappo.adapter.AdaptadorCategoria;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -50,16 +51,17 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchViewCompat.OnQueryTextListener, MenuItemCompat.OnActionExpandListener, SearchView.OnQueryTextListener {
 
-        private RecyclerView recycler;
-        private AdaptadorCategoria adapter;
-        private RecyclerView.LayoutManager lManager;
-        private FirebaseAuth auth;
-        private FirebaseDatabase mFirebaseDatabase;
-        private DatabaseReference mCurrentUserDatabaseReference;
-        private FirebaseAuth.AuthStateListener authListener;
-        private DatabaseReference nombreUsuario;
-        private inicio mail;
-        private Context mView;
+    private RecyclerView recycler;
+    private AdaptadorCategoria adapter;
+    private RecyclerView.LayoutManager lManager;
+    private FirebaseAuth auth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mCurrentUserDatabaseReference;
+    private FirebaseAuth.AuthStateListener authListener;
+    private DatabaseReference nombreUsuario;
+    private inicio mail;
+    private Context mView;
+    private String posi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,16 +91,16 @@ public class MainActivity extends AppCompatActivity
 
 
         FloatingActionButton publicar = (FloatingActionButton) findViewById(R.id.btn_agregar);
-                publicar.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v) {
-                        Intent crearpublicacion = new Intent(MainActivity.this, CrearEditarServicio.class);
-                        crearpublicacion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(crearpublicacion);
-                    }
+        publicar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent crearpublicacion = new Intent(MainActivity.this, CrearEditarServicio.class);
+                crearpublicacion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(crearpublicacion);
+            }
 
-                });
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -112,22 +114,22 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*Datos de prueba*/
+
         List items = new ArrayList();
 
-        items.add(new Categorias("Categoria 1",R.drawable.entretenimiento));
+        items.add(new Categorias("Entretenimiento",R.drawable.entretenimiento));
 
-        items.add(new Categorias("Categoria 2",R.drawable.hogar));
+        items.add(new Categorias("Hogar",R.drawable.hogar));
 
-        items.add(new Categorias("Categoria 3",R.drawable.transporte));
+        items.add(new Categorias("Transporte",R.drawable.transporte));
 
-        items.add(new Categorias("Categoria 4",R.drawable.reparaciones));
+        items.add(new Categorias("Reparaciones",R.drawable.reparaciones));
 
-        items.add(new Categorias("Categoria 5",R.drawable.deporte));
+        items.add(new Categorias("Deporte",R.drawable.deporte));
 
-        items.add(new Categorias("Categoria 6",R.drawable.otros));
+        items.add(new Categorias("Otros",R.drawable.otros));
 
-        /*****************/
+
 
 
         recycler = (RecyclerView) findViewById(R.id.itemsCategoria);
@@ -139,16 +141,41 @@ public class MainActivity extends AppCompatActivity
         adapter = new AdaptadorCategoria(items);
 
 
-        adapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(MainActivity.this, Lista_servicios.class);
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(mainIntent);
-            }
-        });
+
 
         recycler.setAdapter(adapter);
+        recycler.addOnItemTouchListener(
+                new RecyclerTouchListener(MainActivity.this, recycler ,new RecyclerTouchListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        posi = String.valueOf(position);
+                        Intent intent = new Intent(view.getContext(), list_categoria_servicio.class);
+                        intent.putExtra("id", posi);
+                        startActivity(intent);
+
+                        /**if (codigo == 5){
+                         String cate;
+                         = "Deporte";
+                         }
+                         if (codigo == 4){
+                         cate = "Reparaciones";
+                         } if (codigo == 3){
+                         cate = "Transporte";
+                         } if (codigo == 1){
+                         cate = "Entretenimiento";
+                         } if (codigo == 2){
+                         cate = "Hogar";
+                         } if (codigo == 6){
+                         cate = "Otros";
+                         }*/
+
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+
+                    }
+                }));
+
+
 
 
 
@@ -297,4 +324,3 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 }
-

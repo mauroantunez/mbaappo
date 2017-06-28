@@ -22,7 +22,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.653"
+        app:layout_constraintVertical_bias="0.746"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/white"
@@ -42,7 +42,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintVertical_bias="0.92"
+        app:layout_constraintVertical_bias="0.901"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:textColor="@android:color/white"
@@ -63,7 +63,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.066"
+        app:layout_constraintVertical_bias="0.181"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
@@ -77,11 +77,11 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:layout_constraintHorizontal_bias="0.511">
+        app:layout_constraintVertical_bias="0.595">
 
         <EditText
             android:id="@+id/textusuario"
@@ -125,5 +125,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.498" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_olvidar_contrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="17dp"
+        android:background="@color/colorPrimary"
+        android:text="¿Has olvidado la contraseña?"
+        android:textColor="#448AFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_registrarse" />
 
 </android.support.constraint.ConstraintLayout>

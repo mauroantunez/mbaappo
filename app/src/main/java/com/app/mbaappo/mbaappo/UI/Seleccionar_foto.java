@@ -57,6 +57,7 @@ public class Seleccionar_foto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_foto);
         mView = Seleccionar_foto.this;
+
         initializeScreen();
         openImageSelector();
         initializeUserInfo();
