@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
     android:background="#E8EAF6">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/foto_serv"
-        android:layout_width="85dp"
-        android:layout_height="117dp"
-        app:srcCompat="@drawable/ic_people" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/com_facebook_profile_picture_blank_square" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E8EAF6"
-        android:orientation="vertical"
-        android:weightSum="1">
+    <TextView
+        android:id="@+id/nombre_servicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/foto_serv"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/foto_serv"
+        android:layout_toRightOf="@+id/foto_serv"
+        android:text="TextView"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/nombre_servicio"
-            android:layout_width="113dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Nombre"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/servicio_descripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nombre_servicio"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/foto_serv"
+        android:layout_toRightOf="@+id/foto_serv"
+        android:text="TextView"
+        android:textColor="@color/colorSecondaryText" />
 
-        <TextView
-            android:id="@+id/servicio_descripcion"
-            android:layout_width="164dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/servicio_descripcion"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/foto_serv"
+        android:layout_toRightOf="@+id/foto_serv"
+        android:text="TextView" />
 
-            android:text="Descripción"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="16sp" />
+    <RatingBar
+        android:id="@+id/rating_servicio"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/foto_serv"
+        android:layout_toRightOf="@+id/foto_serv"
+        android:numStars="5"
+        android:rating="3.5"
+        android:stepSize="0.5" />
 
-        <TextView
-            android:id="@+id/precio_servicio"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="$ Precio"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-        <RatingBar
-            android:id="@+id/rating_servicio"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:clickable="true"
-            android:isIndicator="true"
-            android:paddingTop="8dp"
-            android:progressTint="#FDDB39"
-            android:rating="3"
-            android:secondaryProgressTint="#FDDB39" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

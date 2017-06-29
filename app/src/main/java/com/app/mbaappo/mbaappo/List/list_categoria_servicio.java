@@ -3,7 +3,6 @@ package com.app.mbaappo.mbaappo.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +17,11 @@ import android.widget.TextView;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
-import com.app.mbaappo.mbaappo.Modelo.estructura_categoria;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
 import com.app.mbaappo.mbaappo.UI.Servicio;
 import com.app.mbaappo.mbaappo.adapter.adapter_servicios;
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,12 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class list_categoria_servicio extends AppCompatActivity {
     private static final String TAG ="1" ;
@@ -110,7 +104,7 @@ public class list_categoria_servicio extends AppCompatActivity {
             @Override
             protected void populateView(final View v,estructura_servicio model, int position) {
                 ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
-                ((TextView) v.findViewById(R.id.precio_servicio)).setText(model.getPrecio());
+                ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(model.getPrecio());
 
                 //final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
                 ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());

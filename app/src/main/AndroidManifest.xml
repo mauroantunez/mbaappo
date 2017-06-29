@@ -27,7 +27,7 @@
             android:label="@string/publicar_servicio" />
         <activity
             android:name=".UI.Perfil"
-            android:label="@string/mi_cuenta" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".UI.c_contrasenha"
             android:label="@string/m_contrasena" />

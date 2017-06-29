@@ -1,6 +1,7 @@
 package com.app.mbaappo.mbaappo.UI;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,10 +30,14 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
     private FirebaseDatabase DtabaseFirebase;
     private DatabaseReference muserreference;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+        Typeface roboto = Typeface.createFromAsset(getAssets(),"fonts/Roboto-BoldItalic.ttf");
         cam_contraseña = (Button) findViewById(R.id.btn_cambiar_contraseña);
         editar_perfil = (FloatingActionButton) findViewById(R.id.btn_editar_info);
         editar_perfil.setOnClickListener(this);

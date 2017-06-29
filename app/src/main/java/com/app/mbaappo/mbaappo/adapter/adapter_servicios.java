@@ -69,7 +69,7 @@ public class adapter_servicios extends BaseAdapter {
                 .into(foto);
         TextView nombre_serv = (TextView) v.findViewById(R.id.nombre_servicio);
         nombre_serv.setText(datos.getTitulo());
-        TextView precio_serv = (TextView) v.findViewById(R.id.precio_servicio);
+        TextView precio_serv = (TextView) v.findViewById(R.id.servicio_descripcion);
         precio_serv.setText(datos.getPrecio());
         TextView nombre_usu = (TextView) v.findViewById(R.id.servicio_descripcion);
         nombre_usu.setText(datos.getNombreUsuario());
