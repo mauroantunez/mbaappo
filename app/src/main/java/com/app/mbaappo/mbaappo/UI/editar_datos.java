@@ -62,19 +62,28 @@ public class editar_datos extends AppCompatActivity {
         setContentView(R.layout.activity_editar_datos);
         mView = editar_datos.this;
         inicializacion();
-        agregar_texto();
         initializeScreen();
         openImageSelector();
         initializeUserInfo();
-
+        agregar_texto();
+        Button cancelar =(Button) findViewById(R.id.cancelar_datos);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(editar_datos.this, Perfil.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(loginIntent);
+            }
+        });
 
 
 
     }
     private void initializeScreen(){
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mCurrentUserDatabaseReference = mFirebaseDatabase
-                .getReference().child("Usuarios" + "/" +encodeEmail(mFirebaseAuth.getCurrentUser().getEmail()));
+                .getReference().child("Usuarios" + "/" +encodeEmail(mauth.getCurrentUser().getEmail()));
 
         mCurrentUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,12 +105,14 @@ public class editar_datos extends AppCompatActivity {
         });
     }
     private void initializeUserInfo(){
-        final ImageView imageView = (ImageView) findViewById(R.id.image_btn_editar);
-        mCurrentUserDatabaseReference
+        FirebaseAuth ai = FirebaseAuth.getInstance();
+       DatabaseReference fire = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(ai.getCurrentUser().getEmail()));
+        fire
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
+                        final ImageView imageVieww = (ImageView) findViewById(R.id.image_btn_editar);
                         try{
                             if(user.getProfilePicLocation() != null){
                                 StorageReference storageRef = FirebaseStorage.getInstance()
@@ -111,7 +122,7 @@ public class editar_datos extends AppCompatActivity {
                                         .using(new FirebaseImageLoader())
                                         .load(storageRef)
                                         .bitmapTransform(new CropCircleTransformation(mView))
-                                        .into(imageView);
+                                        .into(imageVieww);
                             }
                         }catch (Exception e){
                             Log.e("Err", "glide");
@@ -269,15 +280,19 @@ public class editar_datos extends AppCompatActivity {
                             telefonoguardar.equals(user.getTelefono());
                         }
                         Log.d(TAG, "Email sent."+nombreguardar);
-                       /** Map<String,Object> cambiar = new HashMap<>();
-                        cambiar.put("nombre",nombreguardar);
-                        cambiar.put("apellido",apellidoguardar);
-                        cambiar.put("direccion",direccionguardar);
-                        cambiar.put("telefono",telefonoguardar);
+                        try{
+                            Usuario usu = new Usuario(nombreguardar,apellidoguardar,encodeEmail(uth.getCurrentUser().getEmail()),telefonoguardar,direccionguardar,user.getProfilePicLocation());
+                            muserguardar.setValue(usu);
+                        }
+                        catch (Exception e){
+                            Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
+                            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(loginIntent);
+                        }
 
-                        muserguardar.updateChildren(cambiar);*/
-                       Usuario usu = new Usuario(nombreguardar,apellidoguardar,encodeEmail(uth.getCurrentUser().getEmail()),telefonoguardar,direccionguardar,user.getProfilePicLocation());
-                       muserguardar.setValue(usu);
+                        Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
+                        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(loginIntent);
                     }
                 });
             }

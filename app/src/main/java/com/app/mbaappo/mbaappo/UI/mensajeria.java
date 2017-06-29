@@ -31,14 +31,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
+import com.app.mbaappo.mbaappo.Modelo.Chat;
 import com.app.mbaappo.mbaappo.Modelo.FriendlyMessage;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.Modelo.buzon;
 import com.app.mbaappo.mbaappo.R;
 import com.bumptech.glide.Glide;
 
@@ -66,6 +69,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class mensajeria extends AppCompatActivity {
 
+    private static final String TAG ="2" ;
     private String messageId;
     private TextView mMessageField;
     private ImageButton mSendButton;
@@ -79,7 +83,7 @@ public class mensajeria extends AppCompatActivity {
     private DatabaseReference mUsersDatabaseReference;
     private FirebaseListAdapter<FriendlyMessage> mMessageListAdapter;
     private FirebaseAuth mFirebaseAuth;
-
+    private FirebaseAuth mFirebaseAuthh;
     private ImageButton mphotoPickerButton;
     private static final int GALLERY_INTENT=2;
     private StorageReference mStorage;
@@ -90,6 +94,7 @@ public class mensajeria extends AppCompatActivity {
 
     private MediaRecorder mRecorder;
     private String mFileName = null;
+    private FirebaseAuth.AuthStateListener authListener;
 
     private static final String LOG_TAG = "Record_log";
     private ValueEventListener mValueEventListener;
@@ -118,32 +123,52 @@ public class mensajeria extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensajeria);
+        mFirebaseAuthh = FirebaseAuth.getInstance();
+         authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() != null) {
+
+                }
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(mensajeria.this, inicio.class);
+                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }
+
+            }
+         };
+
+            Intent intent = this.getIntent();
+            //MessageID is the location of the messages for this specific chat
+            messageId =intent.getStringExtra("idmessage");
+            //chatName = intent.getStringExtra("cname");
+        if(messageId ==null)
+
+            {
+                finish(); // replace this.. nav user back to home
+                return;
+            }
+
+            //Check Permissions at runtime
+            int requestCode = 200;
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M)
+
+            {
+                requestPermissions(permissions, requestCode);
+            }
 
 
-        Intent intent = this.getIntent();
-        //MessageID is the location of the messages for this specific chat
-        messageId = intent.getStringExtra("idmessage");
-        //chatName = intent.getStringExtra("cname");
-        if(messageId == null){
-            finish(); // replace this.. nav user back to home
-            return;
-        }
+            initializeScreen();
 
-        //Check Permissions at runtime
-        int requestCode = 200;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, requestCode);
-        }
+            //mToolBar.setTitle(chatName);
+            showMessages();
 
+            addListeners();
+            //openImageSelector();
+            //openVoiceRecorder();
 
-        initializeScreen();
-        //mToolBar.setTitle(chatName);
-        showMessages();
-        addListeners();
-        //openImageSelector();
-        //openVoiceRecorder();
-
-    }
+        };
 
     //Add listener for on completion of image selection
     /** public void openImageSelector(){
@@ -189,6 +214,12 @@ public class mensajeria extends AppCompatActivity {
      }
 
      }*/
+    @Override
+    protected void onStart() {
+        super.onStart();
+        authListener.onAuthStateChanged(mFirebaseAuthh);
+    }
+
     /**
 
      public void openVoiceRecorder(){
@@ -349,9 +380,41 @@ public class mensajeria extends AppCompatActivity {
 
     public void sendMessage(View view){
         //final DatabaseReference messageRef = mFirebaseDatabase.getReference(Constants.MESSAGE_LOCATION);
+        String keys = mMessageDatabaseReference.getKey();
+        final FirebaseDatabase buz = FirebaseDatabase.getInstance();
+        DatabaseReference chatt = buz.getReference().child("Chat").child(encodeEmail(mFirebaseAuth.getCurrentUser().getEmail())).child(keys);
+        final DatabaseReference buzonn = buz.getReference().child("Buzon").child(encodeEmail(mFirebaseAuth.getCurrentUser().getEmail())).child(keys);
+        chatt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Chat chacha = dataSnapshot.getValue(Chat.class);
+                FirebaseAuth aut = FirebaseAuth.getInstance();
+                buzon bu = new buzon(chacha.getKey_servicio(),chacha.getKey_usuario_contratado(),chacha.getKey_padre(),chacha.getKey_usuario_contrato());
+                if (chacha.getKey_usuario_contrato().equals(encodeEmail(aut.getCurrentUser().getEmail())))
+                {
+                    buzonn.setValue(bu);
+                    final  DatabaseReference bn = buz.getReference().child("Buzon").child(chacha.getKey_usuario_contratado()).child(chacha.getKey_padre());
+                    bn.setValue(bu);
+                }
+                else{
+                    buzonn.setValue(bu);
+                    final  DatabaseReference bn = buz.getReference().child("Buzon").child(chacha.getKey_usuario_contrato()).child(chacha.getKey_padre());
+                    bn.setValue(bu);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         final DatabaseReference pushRef = mMessageDatabaseReference.push();
         final String pushKey = pushRef.getKey();
-
+        Log.d(TAG, "Email sent."+pushKey);
         String messageString = mMessageField.getText().toString();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");

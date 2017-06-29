@@ -19,6 +19,7 @@ import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Chat;
 import com.app.mbaappo.mbaappo.Modelo.Historial;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.Modelo.buzon;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
 import com.bumptech.glide.Glide;
@@ -74,7 +75,7 @@ public class servicio_solicitado extends AppCompatActivity {
         final FirebaseDatabase mFirebasedatabase = FirebaseDatabase.getInstance();
         final DatabaseReference muser = mFirebasedatabase.getReference().child("Usuarios");
         final DatabaseReference database = mFirebasedatabase.getReference().child("Servicios");
-        final DatabaseReference mchat = mFirebasedatabase.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail()));
+        final DatabaseReference mchat = mFirebasedatabase.getReference().child("Buzon").child(encodeEmail(auth.getCurrentUser().getEmail()));
         mChatListView = (ListView) findViewById(R.id.lis_servicio_solicitado);
         mChatAdapter = new FirebaseListAdapter <Chat>(this, Chat.class, R.layout.item_servicio_solicitado, mchat) {
             @Override
@@ -220,10 +221,12 @@ public class servicio_solicitado extends AppCompatActivity {
                                 FirebaseDatabase chat;
                                 DatabaseReference mchat;
                                 chat= FirebaseDatabase.getInstance();
-                                mchat = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
-                                mchat.removeValue();}
-                        })
-                .setPositiveButton("CONCRETADO",
+                                mchat = chat.getReference().child("Buzon").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                mchat.removeValue();
+                                DatabaseReference message = FirebaseDatabase.getInstance().getReference().child("Messages").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                message.removeValue();
+                            }})
+                       .setPositiveButton("CONCRETADO",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -232,18 +235,18 @@ public class servicio_solicitado extends AppCompatActivity {
                                 chat= FirebaseDatabase.getInstance();
                                 final DatabaseReference mhistorial;
                                 DatabaseReference mchat,mchat_;
-                                mchat = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                mchat = chat.getReference().child("Buzon").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
 
                                 mhistorial = chat.getReference().child("Historial").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
                                 mchat.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                      Chat chat = dataSnapshot.getValue(Chat.class);
-                                        if (chat != null){
-                                            String key_servicio = chat.getKey_servicio();
-                                            String key_usuario_contratado = chat.getKey_usuario_contratado();
-                                            String key_padre = chat.getKey_padre();
-                                            String key_usuario_contrato = chat.getKey_usuario_contrato();
+                                      buzon Buzon = dataSnapshot.getValue(buzon.class);
+                                        if (Buzon != null){
+                                            String key_servicio = Buzon.getKey_servicio();
+                                            String key_usuario_contratado = Buzon.getKey_usuario_contratado();
+                                            String key_padre = Buzon.getKey_padre();
+                                            String key_usuario_contrato = Buzon.getKey_usuario_contrato();
                                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                                             Date date = new Date();
                                             String timestamp = dateFormat.format(date);
@@ -257,6 +260,7 @@ public class servicio_solicitado extends AppCompatActivity {
 
                                     }
                                 });
+                                mchat.removeValue();
                                 }
                         })
                 .setNeutralButton("SALIR",
@@ -281,8 +285,11 @@ public class servicio_solicitado extends AppCompatActivity {
                                 FirebaseDatabase chat;
                                 DatabaseReference mchat;
                                 chat= FirebaseDatabase.getInstance();
-                                mchat = chat.getReference().child("Chat").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
-                                mchat.removeValue();                           }
+                                mchat = chat.getReference().child("Buzon").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                mchat.removeValue();
+                                DatabaseReference message = chat.getReference().child("Messages").child(encodeEmail(auth.getCurrentUser().getEmail())).child(key);
+                                message.removeValue();
+                                }
                         })
                 .setPositiveButton("SALIR",
                         new DialogInterface.OnClickListener() {

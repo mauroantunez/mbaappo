@@ -61,6 +61,15 @@ public class Seleccionar_foto extends AppCompatActivity {
         initializeScreen();
         openImageSelector();
         initializeUserInfo();
+        Button finalizar = (Button) findViewById(R.id.btn_finalizar);
+        finalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(Seleccionar_foto.this, MainActivity.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(loginIntent);
+            }
+        });
     }
 
     @Override

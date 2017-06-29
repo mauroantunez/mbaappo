@@ -1,9 +1,11 @@
 package com.app.mbaappo.mbaappo.UI;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,10 +34,11 @@ public class Servicio extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseDatabase mUserDatabase;
     private DatabaseReference musuario,musu;
-    private DatabaseReference database_chat, database_chat_reference;
+   // private DatabaseReference database_chat, database_chat_reference;
     private String servid;
     private String servicio_ID = "id";
     private FirebaseAuth auth;
+    public FirebaseAuth.AuthStateListener authListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,13 +57,13 @@ public class Servicio extends AppCompatActivity {
         database = mFirebaseDatabase.getReference().child("Servicios").child(servid);
         mUserDatabase = FirebaseDatabase.getInstance();
 
-            database_chat_reference= mFirebaseDatabase.getReference().child("Chat");
-            database_chat = database_chat_reference.child(encodeEmail(auth.getCurrentUser().getEmail())).push();
+
 
 
 
     }
     private void agregardatosserv(){
+
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,36 +78,54 @@ public class Servicio extends AppCompatActivity {
                 final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
                 c_rating.setRating(servicio.getRating());
                 final FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
-                final String key= database_chat.getKey();
-                final DatabaseReference database_chat_contratado = mFirebaseDatabase.getReference().child("Chat").child(servicio.getEmail()).child(key);
+
+
                 musuario = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
                 musu = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
-                contratar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
-                            database_chat.setValue(chat);
-                            database_chat_contratado.setValue(chat);
-                            Intent intent = new Intent(Servicio.this, mensajeria.class);
-                            intent.putExtra("idmessage", key);
-                            startActivity(intent);
+
+                        final FirebaseAuth usu = FirebaseAuth.getInstance();
+                            if(encodeEmail(usu.getCurrentUser().getEmail()).equals(servicio.getEmail())) {
 
 
+                     }
+                        else {
+                                contratar.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    final FirebaseAuth authh = FirebaseAuth.getInstance();
+                                    final DatabaseReference database_chat_reference= FirebaseDatabase.getInstance().getReference().child("Chat");
+                                    final DatabaseReference database_chat = database_chat_reference.child(encodeEmail(authh.getCurrentUser().getEmail())).push();
+                                    final String key= database_chat.getKey();
+                                    final DatabaseReference database_chat_contratado = FirebaseDatabase.getInstance().getReference().child("Chat").child(servicio.getEmail()).child(key);
+                                    final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
+                                    database_chat.setValue(chat);
+                                    database_chat_contratado.setValue(chat);
+                                    Intent intent = new Intent(Servicio.this, mensajeria.class);
+                                    intent.putExtra("idmessage", key);
+                                    startActivity(intent);
+                                }
 
-                        /**musu.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            }
+                                /**musu.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                }
 
-                            }
-                        });*/
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                                }
+                                });*/
+
+
+                            });
+
+                        }
+
+                        // ...
+
+
 
                 musuario.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -120,20 +142,22 @@ public class Servicio extends AppCompatActivity {
                         }
                     }
 
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
-
-            }
-
-            @Override
+            });
+        }
+    @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+    });
     }
+
+
+
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
