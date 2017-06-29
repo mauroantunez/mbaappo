@@ -93,7 +93,7 @@ public class Lista_servicios extends AppCompatActivity {
             @Override
             protected void populateView(final View v,estructura_servicio model, int position) {
                 ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
-                ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(model.getPrecio());
+                ((TextView) v.findViewById(R.id.id_precio_list)).setText(model.getPrecio()+" Gs.");
 
                 final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
                ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());

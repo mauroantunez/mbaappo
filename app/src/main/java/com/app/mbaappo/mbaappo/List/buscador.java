@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +31,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class buscador extends AppCompatActivity {
+    private static final String TAG = "2" ;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseDatabase mFirebaseDatabasee;
     private Context mView;
@@ -53,6 +58,7 @@ public class buscador extends AppCompatActivity {
         servid = intent.getStringExtra(servicio_ID);
         inicializar();
         agregarlist();
+      
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,7 +81,7 @@ public class buscador extends AppCompatActivity {
             @Override
             protected void populateView(final View v,estructura_servicio model, int position) {
                 ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
-                ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(model.getPrecio());
+                ((TextView) v.findViewById(R.id.id_precio_list)).setText(model.getPrecio()+" Gs.");
 
                 //final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
                 ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());
@@ -156,4 +162,6 @@ public class buscador extends AppCompatActivity {
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
+
+
 }

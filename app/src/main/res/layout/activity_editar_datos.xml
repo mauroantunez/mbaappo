@@ -111,7 +111,7 @@
                     android:textColor="@color/backgroundColor"/>
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/id_precio_list"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:text="Dirección:"
