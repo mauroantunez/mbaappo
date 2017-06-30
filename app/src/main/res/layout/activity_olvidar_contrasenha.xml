@@ -73,7 +73,7 @@
                     android:layout_marginRight="15dp"
                     android:gravity="start"
                     android:hint="Correo"
-                    android:inputType="textMultiLine|textImeMultiLine"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/backgroundColor"
                     android:textColorLink="@color/colorPrimary" />
             </android.support.design.widget.TextInputLayout>

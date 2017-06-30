@@ -50,6 +50,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,7 +95,7 @@ public class mensajeria extends AppCompatActivity {
 
     private MediaRecorder mRecorder;
     private String mFileName = null;
-    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final String LOG_TAG = "Record_log";
     private ValueEventListener mValueEventListener;
@@ -121,23 +122,30 @@ public class mensajeria extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mensajeria);
         mFirebaseAuthh = FirebaseAuth.getInstance();
-         authListener = new FirebaseAuth.AuthStateListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
 
-                }
-                if (firebaseAuth.getCurrentUser() == null) {
+                } else {
                     Intent loginIntent = new Intent(mensajeria.this, inicio.class);
                     loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    //      Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 }
-
+                // ...
             }
-         };
+        };
+        mFirebaseAuthh.addAuthStateListener(mAuthListener);
+        setContentView(R.layout.activity_mensajeria);
+
+
+
 
             Intent intent = this.getIntent();
             //MessageID is the location of the messages for this specific chat
@@ -217,7 +225,7 @@ public class mensajeria extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        authListener.onAuthStateChanged(mFirebaseAuthh);
+        mFirebaseAuthh.addAuthStateListener(mAuthListener);
     }
 
     /**

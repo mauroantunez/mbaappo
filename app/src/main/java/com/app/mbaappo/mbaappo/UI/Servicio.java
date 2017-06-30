@@ -36,7 +36,7 @@ public class Servicio extends AppCompatActivity {
     private FirebaseDatabase mUserDatabase;
     private DatabaseReference musuario,musu;
    // private DatabaseReference database_chat, database_chat_reference;
-    private String servid;
+    private String servid, title;
     private String servicio_ID = "id";
     private FirebaseAuth auth;
     public FirebaseAuth.AuthStateListener authListener;
@@ -44,9 +44,12 @@ public class Servicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servicio);
+
         Intent intent = this.getIntent();
         //MessageID is the location of the messages for this specific chat
         servid = intent.getStringExtra(servicio_ID);
+        title = intent.getStringExtra("id2");
+        getSupportActionBar().setTitle(title);
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -77,15 +80,24 @@ public class Servicio extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+
+        finish();
+    }
     private void agregardatosserv(){
 
         database.addValueEventListener(new ValueEventListener() {
+
+
+
             private static final String TAG = "2";
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
 
+                final estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
+                try {
                 final TextView c_descripcion = (TextView) findViewById(R.id.contenido_descripcion_servicio);
                 c_descripcion.setText(servicio.getDescripcion());
                 final TextView c_precio = (TextView) findViewById(R.id.contenido_precio);
@@ -94,14 +106,15 @@ public class Servicio extends AppCompatActivity {
                 tarifa.setText(servicio.getTarifa());
                 final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
                 c_rating.setRating(servicio.getRating());
-                final FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
+
 
 
                 musuario = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
                 musu = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
 
                         final FirebaseAuth usu = FirebaseAuth.getInstance();
-                try {
+
+
                             if(encodeEmail(usu.getCurrentUser().getEmail()).equals(servicio.getEmail())) {
 
 
@@ -110,45 +123,44 @@ public class Servicio extends AppCompatActivity {
                             catch(Exception e){
                                 Log.d((String) TAG, "Email sent.");
                     }
-                    try{
-                        if (usu.getCurrentUser().getEmail() !=null ) {
+                  //  try{
+                final FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
                             contratar.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    final FirebaseAuth authh = FirebaseAuth.getInstance();
-                                    final DatabaseReference database_chat_reference= FirebaseDatabase.getInstance().getReference().child("Chat");
-                                    final DatabaseReference database_chat = database_chat_reference.child(encodeEmail(authh.getCurrentUser().getEmail())).push();
-                                    final String key= database_chat.getKey();
-                                    final DatabaseReference database_chat_contratado = FirebaseDatabase.getInstance().getReference().child("Chat").child(servicio.getEmail()).child(key);
-                                    final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
-                                    database_chat.setValue(chat);
-                                    database_chat_contratado.setValue(chat);
-                                    Intent intent = new Intent(Servicio.this, mensajeria.class);
-                                    intent.putExtra("idmessage", key);
-                                    startActivity(intent);
+                                    try{
+                                        FirebaseAuth usu = FirebaseAuth.getInstance();
+                                        Log.d((String) TAG, "Email."+servicio.getEmail()+"+"+usu.getCurrentUser().getEmail());
+                                        if (usu.getCurrentUser().getEmail() != null &&  !encodeEmail(usu.getCurrentUser().getEmail()).equals(servicio.getEmail())) {
+                                            final FirebaseAuth authh = FirebaseAuth.getInstance();
+                                            final DatabaseReference database_chat_reference= FirebaseDatabase.getInstance().getReference().child("Chat");
+                                             final DatabaseReference database_chat = database_chat_reference.child(encodeEmail(authh.getCurrentUser().getEmail())).push();
+                                            final String key= database_chat.getKey();
+                                            final DatabaseReference database_chat_contratado = FirebaseDatabase.getInstance().getReference().child("Chat").child(servicio.getEmail()).child(key);
+                                             final Chat chat = new Chat(servicio.getKey(),servicio.getEmail(),key,encodeEmail(auth.getCurrentUser().getEmail()));
+                                             database_chat.setValue(chat);
+                                             database_chat_contratado.setValue(chat);
+                                            Intent intent = new Intent(Servicio.this, mensajeria.class);
+                                            intent.putExtra("idmessage", key);
+                                             startActivity(intent);
+
+                                        }
+                                        else{
+
+                                        }
                                 }
+                                    catch (Exception e){
+                                        Intent loginIntent = new Intent(Servicio.this, inicio.class);
+                                        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(loginIntent);
 
-
-                                /**musu.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                    }
 
                                 }
-                                });*/
-
 
                             });
 
-                        }
-                    }
-                    catch (Exception e){
-                        Log.d((String) TAG, "Email sent.");
-                    }
+
 
 
                         // ...
@@ -160,13 +172,18 @@ public class Servicio extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
                         if (user.getProfilePicLocation()!=null){
-                            final ImageView image = (ImageView) findViewById(R.id.app_bar_image);
-                            StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
-                            Glide.with(Servicio.this)
-                                    .using(new FirebaseImageLoader())
-                                    .load(url)
-                                    //.bitmapTransform(new CropCircleTransformation(v.getContext()))
-                                    .into(image);
+                            try {
+                                final ImageView image = (ImageView) findViewById(R.id.app_bar_image);
+                                StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
+                                Glide.with(Servicio.this)
+                                        .using(new FirebaseImageLoader())
+                                        .load(url)
+                                        //.bitmapTransform(new CropCircleTransformation(v.getContext()))
+                                        .into(image);
+                            }
+                           catch (Exception e){
+
+                           }
                         }
                     }
 

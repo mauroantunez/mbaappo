@@ -31,6 +31,7 @@ public class datos_lista_historial {
         this.servicio_usuario = servicio_usuario;
     }
 
+
     public void setServicio_fecha(String servicio_fecha) {
         this.servicio_fecha = servicio_fecha;
     }

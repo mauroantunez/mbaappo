@@ -72,6 +72,10 @@ public class buscador extends AppCompatActivity {
         database = mFirebaseDatabase.getReference().child("Servicios");
         mFirebaseDatabasee = FirebaseDatabase.getInstance();
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
     private void agregarlist(){
         final String palabra = servid;
         Query aiuda = FirebaseDatabase.getInstance().getReference().child("Servicios").orderByChild("titulo").startAt(palabra).endAt(palabra);

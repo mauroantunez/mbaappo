@@ -64,6 +64,7 @@ public class list_categoria_servicio extends AppCompatActivity {
         //MessageID is the location of the messages for this specific chat
         servid = intent.getStringExtra(servicio_ID);
         catego = comprobar(servid);
+        getSupportActionBar().setTitle(catego);
         inicializar();
         agregarlist();
 
@@ -84,18 +85,18 @@ public class list_categoria_servicio extends AppCompatActivity {
 
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
 
-    }
+
+
     private void inicializar(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
     }
     private void agregarlist(){
         final DatabaseReference mCurrentUserDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
@@ -152,6 +153,8 @@ public class list_categoria_servicio extends AppCompatActivity {
                     Intent intent = new Intent(view.getContext(), Servicio.class);
                     String serviciokey = mChatAdapter.getRef(position).getKey();
                     intent.putExtra("id", serviciokey);
+                    estructura_servicio chatItem = (estructura_servicio) mChatAdapter.getItem(position);
+                    intent.putExtra("id2", chatItem.getTitulo());
                     startActivity(intent);
 
 

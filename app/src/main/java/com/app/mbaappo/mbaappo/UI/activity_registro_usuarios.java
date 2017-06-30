@@ -2,6 +2,7 @@ package com.app.mbaappo.mbaappo.UI;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +14,16 @@ import android.widget.EditText;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
 
 public class activity_registro_usuarios extends AppCompatActivity {
 
@@ -106,6 +112,21 @@ public class activity_registro_usuarios extends AppCompatActivity {
         DatabaseReference usuario_actual_db = database.child(usermail);
         Usuario user = new Usuario(nombre,apellido,usermail,telefono,direccion,null);
         usuario_actual_db.setValue(user);
+       /** final String imageLocation = "Photos/profile_picture/" + usermail;
+
+        Uri uri = data.getData();
+        final String imageLocationId = imageLocation + "/" + uri.getLastPathSegment();
+        final String uniqueId = UUID.randomUUID().toString();
+        final StorageReference filepath = mStorage.child(imageLocation).child(uniqueId + "/profile_pic");
+        final String downloadURl = filepath.getPath();
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //create a new message containing this image
+                addImageToProfile(downloadURl);
+                mProgress.dismiss();
+            }
+        });*/
     }
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");

@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.app.mbaappo.mbaappo.R.id.spTarifa;
+
 /**
  * Created by Antunez on 28/6/2017.
  */
@@ -73,6 +75,14 @@ public class editar_servicios extends AppCompatActivity {
 
                 aaTarifa = new ArrayAdapter<String>(editar_servicios.this, android.R.layout.simple_spinner_item, opTarifa);
                 spTarifa.setAdapter(aaTarifa);
+                for ( int i=0; i< opTarifa[i].length(); i++ ){
+                    if ( opTarifa[i] == servicio.getTarifa() ){
+                        spTarifa.setScrollBarDefaultDelayBeforeFade(i);
+
+            }
+            }
+
+
                 spTarifa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -189,23 +199,47 @@ public class editar_servicios extends AppCompatActivity {
                         final String descripcionguardar = edidescripcion.getText().toString().trim();
                         final String precioguardar = editprecio.getText().toString().trim();
 
-                        if (tituloguardar.equals(null)||tituloguardar.length() == 0){
-                            tituloguardar.equals(servicio.getTitulo());
+                        if (tituloguardar.equals(null)||tituloguardar.length() == 0 || tituloguardar.equals("")){
+
+                        }else{
+                            muserguardar.child("titulo").setValue(tituloguardar);
                         }
-                        if (descripcionguardar.equals(null)||descripcionguardar.length() == 0 ){
-                            descripcionguardar.equals(servicio.getDescripcion());
+                        if (descripcionguardar.equals(null)||descripcionguardar.length() == 0 || descripcionguardar.equals("")){
+
+                        }else{
+                            muserguardar.child("descripcion").setValue(descripcionguardar);
                         }
-                        if (precioguardar.equals(null)||precioguardar.length() == 0){
-                            precioguardar.equals(servicio.getPrecio());
+                        if (precioguardar.equals(null)||precioguardar.length() == 0 || precioguardar.equals("")){
+
+                        }else {
+                            muserguardar.child("precio").setValue(precioguardar);
                         }
+                        if (categoriasp.equals(null)||categoriasp.length() == 0 || categoriasp.equals("")){
+
+                        }else{
+                            muserguardar.child("categoria").setValue(categoriasp);
+                        }
+                        if (tarifasp.equals(null)||tarifasp.length() == 0 || tarifasp.equals("")){
+
+                        }else {
+                            muserguardar.child("tarifa").setValue(tarifasp);
+                        }
+
+                        Button btn = (Button) findViewById(R.id.btn_guardar_modificacion);
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent loginIntent = new Intent(editar_servicios.this, MainActivity.class);
+                                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(loginIntent);
+                                finish();
+                            }
+                        });
 
 
 
-                        muserguardar.child("titulo").setValue(tituloguardar);
-                        muserguardar.child("descripcion").setValue(descripcionguardar);
-                        muserguardar.child("precio").setValue(precioguardar);
-                        muserguardar.child("categoria").setValue(categoriasp);
-                        muserguardar.child("tarifa").setValue(tarifasp);
+
+
                        // asignarspinner();
 
                     }

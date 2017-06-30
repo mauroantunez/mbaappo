@@ -88,7 +88,7 @@ public class servicio_solicitado extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                          Usuario user = dataSnapshot.getValue(Usuario.class);
                             if (user != null){
-                            ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(user.getNombre()+" "+user.getApellido());
+                            ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText(user.getNombre()+" "+user.getApellido());
                             }
                             if (user.getProfilePicLocation()!=null){
                             final ImageView image = (ImageView) v.findViewById(R.id.photo_servicio_solicitado);
@@ -104,7 +104,7 @@ public class servicio_solicitado extends AppCompatActivity {
                              public void onDataChange(DataSnapshot dataSnapshot) {
                                  estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
                                  if (servicio != null){
-                                     ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText(servicio.getTitulo());
+                                     ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(servicio.getTitulo());
                                  }
                              }
 
@@ -129,7 +129,7 @@ public class servicio_solicitado extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
                         if (user != null){
-                            ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(user.getNombre()+" "+user.getApellido());
+                            ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText(user.getNombre()+" "+user.getApellido());
                         }
                         if (user.getProfilePicLocation()!=null){
                             final ImageView image_ = (ImageView) v.findViewById(R.id.photo_servicio_solicitado);
@@ -140,7 +140,10 @@ public class servicio_solicitado extends AppCompatActivity {
                                     .bitmapTransform(new CropCircleTransformation(v.getContext()))
                                     .into(image_);
                         }
-                        database.child(model.getKey_servicio()).addValueEventListener(new ValueEventListener() {
+                        if (user.getDireccion() != null){
+                            ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(user.getDireccion());
+                        }
+                       /** database.child(model.getKey_servicio()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
@@ -153,7 +156,7 @@ public class servicio_solicitado extends AppCompatActivity {
                             public void onCancelled(DatabaseError databaseError) {
 
                             }
-                        });
+                        });*/
                     }
 
                     @Override

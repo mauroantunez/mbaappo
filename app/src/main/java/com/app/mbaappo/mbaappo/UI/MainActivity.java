@@ -64,14 +64,17 @@ public class MainActivity extends AppCompatActivity
     private Context mView;
     private String posi;
     private Toolbar toolbar;
-
+    private static final int INTERVALO = 2000; //2 segundos para salir
+    private long tiempoPrimerClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mView = MainActivity.this;
+
         auth = FirebaseAuth.getInstance();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -88,12 +91,12 @@ public class MainActivity extends AppCompatActivity
             }
         };
         String mail = encodeEmail(auth.getCurrentUser().getEmail());
-        inicializar(mail);
+        //inicializar(mail);
+
+
+
+
         asignardatos();
-
-
-
-
 
         FloatingActionButton publicar = (FloatingActionButton) findViewById(R.id.btn_agregar);
         publicar.setOnClickListener(new View.OnClickListener()
@@ -197,9 +200,22 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+            drawer.onFinishTemporaryDetach();
         } else {
             //super.onBackPressed();
         }
+        if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
+            System.exit(1);
+            startActivity(new Intent(getBaseContext(), inicio_principal.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+
+            super.onBackPressed();
+            super.finish();
+            return;
+        }else {
+            Toast.makeText(this, "Vuelve a presionar para salir", Toast.LENGTH_SHORT).show();
+        }
+        tiempoPrimerClick = System.currentTimeMillis();
     }
 
     @Override
@@ -224,6 +240,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -231,21 +248,26 @@ public class MainActivity extends AppCompatActivity
             Intent mnu_perf = new Intent(MainActivity.this, Perfil.class);
             mnu_perf.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_perf);
+
         } else if (id == R.id.mnu_historial) {
             Intent mnu_per = new Intent(MainActivity.this, list_historial.class);
             mnu_per.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_per);
+
         } else if (id == R.id.mnu_servicios) {
             Intent mnu_serv = new Intent(MainActivity.this, servicios_realizados.class);
             mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
+
         } else if (id == R.id.mnu_solicitudes) {
             Intent mnu_serv = new Intent(MainActivity.this, servicio_solicitado.class);
             mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
+
         }
         else if (id == R.id.cerrar_sesion_menu) {
             cerrar_sesion();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -256,50 +278,51 @@ public class MainActivity extends AppCompatActivity
     private void cerrar_sesion() {
         auth.signOut();
     }
-    private void inicializar(String mail){
+    //private void inicializar(String mail){
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios" + "/" +mail);
-    }
+      //  mFirebaseDatabase = FirebaseDatabase.getInstance();
+       // mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios" + "/" +mail);
+    //}
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
 
     public void asignardatos(){
+        final FirebaseAuth auuth = FirebaseAuth.getInstance();
+        DatabaseReference sto = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(auuth.getCurrentUser().getEmail()));
 
 
-
-        mCurrentUserDatabaseReference.addValueEventListener(new ValueEventListener() {
+        sto.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Usuario user = dataSnapshot.getValue(Usuario.class);
                 try{
-
-                        final TextView usuarioTxt = (TextView) findViewById(R.id.nombreUsuarioNavHeader);
-                        usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
+                Usuario user = dataSnapshot.getValue(Usuario.class);
+                        final TextView usuarioTxt = (TextView) findViewById(R.id.id_editar_nombre );
+                        usuarioTxt.setText(user.getNombre());
                         final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
-                        mailTxt.setText(auth.getCurrentUser().getEmail());
+                        mailTxt.setText(auuth.getCurrentUser().getEmail());
+                        Log.e("Err", user.getNombre()+user.getApellido());
                         final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
                         StorageReference storageRef = FirebaseStorage.getInstance()
                                 .getReference().child(user.getProfilePicLocation());
-
-                        Glide.with(mView)
+                        Glide.with(MainActivity.this)
                                 .using(new FirebaseImageLoader())
                                 .load(storageRef)
                                 //.bitmapTransform(new CropCircleTransformation(mView))
-                                .into(imageperfil);
-
-                }catch (Exception e){
-                    Log.e("Err", "glide");
-                }
+                                .into(imageperfil); }
+             catch (Exception e){
+            }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
-    }
+        });  }
+
+
+
+
 
     @Override
     public boolean onMenuItemActionExpand(MenuItem item) {

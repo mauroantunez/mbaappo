@@ -62,9 +62,9 @@ public class editar_datos extends AppCompatActivity {
         setContentView(R.layout.activity_editar_datos);
         mView = editar_datos.this;
         inicializacion();
-        initializeScreen();
-        openImageSelector();
-        initializeUserInfo();
+       //initializeScreen();
+       // openImageSelector();
+        //initializeUserInfo();
         try{
         agregar_texto();
         }
@@ -78,12 +78,23 @@ public class editar_datos extends AppCompatActivity {
                 Intent loginIntent = new Intent(editar_datos.this, Perfil.class);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
+                finish();
+            }
+        });
+        Button problematico = (Button) findViewById(R.id.id_seleccion);
+        problematico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(editar_datos.this, Seleccionar_foto.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(loginIntent);
             }
         });
 
 
 
     }
+    /**
     private void initializeScreen(){
         FirebaseAuth mauth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -93,14 +104,20 @@ public class editar_datos extends AppCompatActivity {
         mCurrentUserDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
                 Usuario user = dataSnapshot.getValue(Usuario.class);
-                final ImageView imageView = (ImageView) findViewById(R.id.image_btn_editar);
+                final ImageButton imageView = (ImageButton) findViewById(R.id.image_btn_editar);
                 StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
                 Glide.with(mView)
                         .using(new FirebaseImageLoader())
                         .load(url)
                         //.bitmapTransform(new CropCircleTransformation(mView))
                         .into(imageView);
+                }catch (Exception e){
+                    //Intent loginIntent = new Intent(editar_datos.this, Perfil.class);
+                    //loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //startActivity(loginIntent);
+                }
             }
 
             @Override
@@ -108,16 +125,16 @@ public class editar_datos extends AppCompatActivity {
 
             }
         });
-    }
-    private void initializeUserInfo(){
-       /** FirebaseAuth ai = FirebaseAuth.getInstance();
+    }*/
+    /**private void initializeUserInfo(){
+       FirebaseAuth ai = FirebaseAuth.getInstance();
        DatabaseReference fire = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(ai.getCurrentUser().getEmail()));
         fire
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
-                        final ImageView imageVieww = (ImageView) findViewById(R.id.image_btn_editar);
+                        final ImageButton imageVieww = (ImageButton) findViewById(R.id.image_btn_editar);
                         try{
                             if(user.getProfilePicLocation() != null){
                                 StorageReference storageRef = FirebaseStorage.getInstance()
@@ -139,8 +156,8 @@ public class editar_datos extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });*/
-    }
+                });
+    }*/
 
 
     private void inicializacion(){
@@ -169,7 +186,8 @@ public class editar_datos extends AppCompatActivity {
                     apellido.setText(user.getApellido());
                     direccion.setText(user.getDireccion());
                     telefono.setText(user.getTelefono());
-                   /** dialog = new AlertDialog.Builder(editar_datos.this).create();
+                dialog = new AlertDialog.Builder(editar_datos.this).create();
+                   /**
                     editet = new EditText(editar_datos.this);
                     dialogap = new AlertDialog.Builder(editar_datos.this).create();
                     editTextap = new EditText(editar_datos.this);
@@ -271,29 +289,29 @@ public class editar_datos extends AppCompatActivity {
                         final String direccionguardar = direccion.getText().toString().trim();
                         final String telefonoguardar = telefono.getText().toString().trim();
                         if (nombreguardar.equals(null)||nombreguardar.length() == 0 || nombreguardar.equals("")){
-                            nombreguardar.equals(user.getNombre());
-                            muserguardar.child("nombre").setValue(nombre);
+                           // nombreguardar.equals(user.getNombre());
+                           // muserguardar.child("nombre").setValue(nombre);
                         }
                         else {
                             muserguardar.child("nombre").setValue(nombreguardar);
                         }
                         if (apellidoguardar.equals(null)||apellidoguardar.length() == 0 || apellidoguardar.equals("") ){
-                            apellidoguardar.equals(user.getApellido());
-                            muserguardar.child("apellido").setValue(apellido);
+                            //apellidoguardar.equals(user.getApellido());
+
                         }
                         else{
                             muserguardar.child("apellido").setValue(apellidoguardar);
                         }
                         if (direccionguardar.equals(null)||direccionguardar.length() == 0 || direccionguardar.equals("")){
-                            direccionguardar.equals(user.getDireccion());
-                            muserguardar.child("direccion").setValue(direccion);
+                            //direccionguardar.equals(user.getDireccion());
+                          //  muserguardar.child("direccion").setValue(direccion);
                         }
                         else{
                             muserguardar.child("direccion").setValue(direccionguardar);
                         }
                         if (telefonoguardar.equals(null)||telefonoguardar.length() == 0 || telefonoguardar.equals("")){
-                            telefonoguardar.equals(user.getTelefono());
-                            muserguardar.child("telefono").setValue(telefono);
+                            //telefonoguardar.equals(user.getTelefono());
+                           // muserguardar.child("telefono").setValue(telefono);
                         }
                         else {
                             muserguardar.child("telefono").setValue(telefonoguardar);
@@ -307,11 +325,13 @@ public class editar_datos extends AppCompatActivity {
                             Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
                             loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(loginIntent);
+                            finish();
                         }
 
                         Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
                         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(loginIntent);
+                        finish();
                     }
                 });
             }
@@ -322,22 +342,22 @@ public class editar_datos extends AppCompatActivity {
             }
         });
     }
-    public void openImageSelector(){
+   /** public void openImageSelector(){
         edit_photo = (ImageButton) findViewById(R.id.id_btn_photo_edit);
         mProgress = new ProgressDialog(this);
         edit_photo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, GALLERY_INTENT);
-                //mView = view;
+                Intent loginIntent = new Intent(editar_datos.this, Seleccionar_foto.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(loginIntent);
             }
         });
-    }
+    }*/
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
+    /**
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data){
 
@@ -385,7 +405,7 @@ public class editar_datos extends AppCompatActivity {
                 }
         );
 
-    }
+    }*/
    /** private void editardatos(){
        muser.addValueEventListener(new ValueEventListener() {
             @Override

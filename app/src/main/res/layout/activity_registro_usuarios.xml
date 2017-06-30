@@ -83,10 +83,10 @@
     android:textSize="16sp"
     tools:layout_editor_absoluteY="232dp"
     tools:layout_editor_absoluteX="10dp"
-        android:layout_below="@+id/passUsuarioReg"
+        android:layout_above="@+id/direccionUsuarioReg"
         android:layout_alignRight="@+id/passUsuarioReg"
         android:layout_alignEnd="@+id/passUsuarioReg"
-        android:layout_marginTop="27dp" />
+        android:layout_marginBottom="23dp" />
 
     <EditText
         android:id="@+id/direccionUsuarioReg"
@@ -106,12 +106,14 @@
 
     <Button
         android:id="@+id/registrarUsuarioBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Registrarse"
         tools:layout_editor_absoluteY="360dp"
         tools:layout_editor_absoluteX="123dp"
         android:layout_marginBottom="38dp"
+        android:textColor="@color/cardview_light_background"
+        android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

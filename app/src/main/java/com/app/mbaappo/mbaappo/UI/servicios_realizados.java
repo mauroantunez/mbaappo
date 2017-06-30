@@ -10,7 +10,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
+import com.app.mbaappo.mbaappo.Modelo.Categorias;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.Modelo.estructura_categoria;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.Modelo.lista_servicio_ofrecido;
 import com.app.mbaappo.mbaappo.R;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -81,8 +84,13 @@ public class servicios_realizados extends AppCompatActivity {
                         btn_eliminar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                try{
                                 database.child(model.getKey()).removeValue();
                                 databasee.child(model.getKey()).removeValue();
+                                }
+                                catch (Exception e){
+
+                                }
                                 //databasee.addValueEventListener(new ValueEventListener() {
                                   //  @Override
                                     //public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,6 +119,7 @@ public class servicios_realizados extends AppCompatActivity {
                         String serviciokey = model.getKey();
                         intent.putExtra("id", serviciokey);
                         startActivity(intent);
+                       finish();
                     }
                 });
             }

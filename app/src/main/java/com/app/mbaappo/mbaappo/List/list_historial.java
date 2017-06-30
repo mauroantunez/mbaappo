@@ -55,6 +55,10 @@ public class list_historial extends AppCompatActivity {
         mhistorial = mFirebaseDatabase.getReference().child("Historial").child(encodeEmail(auth.getCurrentUser().getEmail()));
 
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
     private void agregarlist(){
         mChatListView = (ListView) findViewById(R.id.list_historial);
         final DatabaseReference mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios");

@@ -11,16 +11,15 @@
 
     <Button
         android:id="@+id/btn_guardar_modificacion"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tarifa"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginLeft="115dp"
         android:background="@color/colorPrimary"
         android:text="Publicar"
-        android:textColor="@color/cardview_light_background" />
+        android:textColor="@color/cardview_light_background"
+        android:layout_below="@+id/tarifa" />
 
     <LinearLayout
         android:id="@+id/titulo"
@@ -89,14 +88,11 @@
         android:id="@+id/precio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp"
+        android:orientation="horizontal"
         android:layout_below="@+id/descripcion"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/editprecio"

@@ -54,7 +54,9 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-
+        Intent registroIntent = new Intent(inicio.this, inicio_principal.class);
+        registroIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(registroIntent);
     }
 
     private void registrar(){
@@ -75,6 +77,7 @@ public class inicio extends AppCompatActivity implements View.OnClickListener {
                                 espera.dismiss();
                                 Intent btn_ingresar = new Intent(inicio.this, MainActivity.class);
                                 startActivity(btn_ingresar);
+                                finish();
                             } else {
                                 espera.dismiss();
                                 Toast toast1 = Toast.makeText(getApplicationContext(),

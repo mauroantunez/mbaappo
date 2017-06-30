@@ -2,21 +2,27 @@ package com.app.mbaappo.mbaappo.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SearchViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
+import com.app.mbaappo.mbaappo.UI.MainActivity;
 import com.app.mbaappo.mbaappo.UI.Servicio;
 import com.app.mbaappo.mbaappo.adapter.adapter_servicios;
 import com.bumptech.glide.Glide;
@@ -77,6 +83,7 @@ public class Lista_servicios extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
 
+
     }
     private void inicializar(){
     mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -85,6 +92,10 @@ public class Lista_servicios extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
     }
     private void agregarlist(){
         mCurrentUserDatabaseReference = mFirebaseDatabasee.getReference().child("Usuarios");
@@ -148,4 +159,5 @@ public class Lista_servicios extends AppCompatActivity {
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
+
 }

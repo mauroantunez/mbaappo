@@ -41,7 +41,15 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
         cam_contraseña = (Button) findViewById(R.id.btn_cambiar_contraseña);
         editar_perfil = (FloatingActionButton) findViewById(R.id.btn_editar_info);
         editar_perfil.setOnClickListener(this);
-        cam_contraseña.setOnClickListener(this);
+        cam_contraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent e_dato = new Intent(Perfil.this, olvidar_contrasenha.class);
+                e_dato.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(e_dato);
+            }
+        });
+
         inicializar();
         try {
         agregardatosperfil();
@@ -54,10 +62,7 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case (R.id.btn_cambiar_contraseña):
-                Intent c_contrasena = new Intent(Perfil.this, c_contrasenha.class);
-                c_contrasena.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(c_contrasena);
+
             case (R.id.btn_editar_info):
                 Intent e_dato = new Intent(Perfil.this, editar_datos.class);
                 e_dato.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

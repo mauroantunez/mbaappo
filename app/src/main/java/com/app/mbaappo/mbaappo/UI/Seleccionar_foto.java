@@ -57,7 +57,7 @@ public class Seleccionar_foto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_foto);
         mView = Seleccionar_foto.this;
-
+        getSupportActionBar().setTitle("Seleccionar Foto de Perfil");
         initializeScreen();
         openImageSelector();
         initializeUserInfo();
@@ -165,6 +165,9 @@ public class Seleccionar_foto extends AppCompatActivity {
 
                     }
                 });
+       // Intent loginIntent = new Intent(Seleccionar_foto.this, MainActivity.class);
+        //loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(loginIntent);
     }
 
     private void initializeScreen(){
