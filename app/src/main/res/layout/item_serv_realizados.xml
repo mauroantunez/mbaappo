@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#E8EAF6">
+    android:background="#E8EAF6"
+    >
 
 
     <TextView
@@ -12,7 +13,9 @@
         android:layout_height="wrap_content"
         android:text="Nombre del Servicio"
         android:textSize="18sp"
-        android:textColor="@android:color/black"/>
+        android:layout_marginLeft="10dp"
+        android:textColor="@android:color/black"
+        />
 
     <TextView
         android:id="@+id/precio_serv_reali"
@@ -20,7 +23,8 @@
         android:layout_height="wrap_content"
         android:text="Precio"
         android:textSize="18sp"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,14 +35,20 @@
             android:id="@+id/btn_editar_serv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimary"
             android:text="Editar"
-            android:textSize="16sp"/>
+            android:textColor="@color/cardview_light_background"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_eliminar_serv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:background="@color/colorPrimary"
             android:text="Eliminar"
-            android:textSize="16sp"/>
+            android:textColor="#d50000"
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

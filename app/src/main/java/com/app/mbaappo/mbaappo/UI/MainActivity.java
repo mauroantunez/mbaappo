@@ -2,6 +2,7 @@ package com.app.mbaappo.mbaappo.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     private inicio mail;
     private Context mView;
     private String posi;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +71,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mView = MainActivity.this;
         auth = FirebaseAuth.getInstance();
-        String mail = encodeEmail(auth.getCurrentUser().getEmail());
-        inicializar(mail);
-        asignardatos();
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -87,6 +87,11 @@ public class MainActivity extends AppCompatActivity
 
             }
         };
+        String mail = encodeEmail(auth.getCurrentUser().getEmail());
+        inicializar(mail);
+        asignardatos();
+
+
 
 
 
@@ -269,13 +274,11 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Usuario user = dataSnapshot.getValue(Usuario.class);
                 try{
-                    if(user.getNombre() != null){
+
                         final TextView usuarioTxt = (TextView) findViewById(R.id.nombreUsuarioNavHeader);
                         usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
                         final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
                         mailTxt.setText(auth.getCurrentUser().getEmail());
-                    }
-                    if(user.getProfilePicLocation() != null){
                         final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
                         StorageReference storageRef = FirebaseStorage.getInstance()
                                 .getReference().child(user.getProfilePicLocation());
@@ -283,9 +286,9 @@ public class MainActivity extends AppCompatActivity
                         Glide.with(mView)
                                 .using(new FirebaseImageLoader())
                                 .load(storageRef)
-                                .bitmapTransform(new CropCircleTransformation(mView))
+                                //.bitmapTransform(new CropCircleTransformation(mView))
                                 .into(imageperfil);
-                    }
+
                 }catch (Exception e){
                     Log.e("Err", "glide");
                 }

@@ -20,8 +20,10 @@ import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
 import com.app.mbaappo.mbaappo.UI.Servicio;
+
 import com.app.mbaappo.mbaappo.adapter.adapter_servicios;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -104,7 +106,7 @@ public class list_categoria_servicio extends AppCompatActivity {
             @Override
             protected void populateView(final View v,estructura_servicio model, int position) {
                 ((TextView) v.findViewById(R.id.nombre_servicio)).setText(model.getTitulo());
-                ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(model.getPrecio());
+                ((TextView) v.findViewById(R.id.id_precio_list)).setText(model.getPrecio()+" Gs.");
 
                 //final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
                 ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());
@@ -146,16 +148,19 @@ public class list_categoria_servicio extends AppCompatActivity {
                 String messageLocation = mChatAdapter.getRef(position).toString();
 
                 if(messageLocation != null){
+                    FirebaseAuth ath = FirebaseAuth.getInstance();
                     Intent intent = new Intent(view.getContext(), Servicio.class);
                     String serviciokey = mChatAdapter.getRef(position).getKey();
                     intent.putExtra("id", serviciokey);
                     startActivity(intent);
-                }
 
-                //Log.e("TAG", mChatAdapter.getRef(position).toString());
+
+                }
             }
+                //Log.e("TAG", mChatAdapter.getRef(position).toString());
+
         });
-    }
+}
     private String comprobar(String aiuda){
         String codigo = aiuda;
 

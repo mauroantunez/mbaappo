@@ -7,7 +7,7 @@
     tools:context="com.app.mbaappo.mbaappo.UI.editar_datos"
     android:background="#E8EAF6">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_btn_editar"
         android:layout_width="162dp"
         android:layout_height="152dp"
@@ -137,40 +137,44 @@
                 android:orientation="vertical"
                 android:background="@drawable/bordeslayout">
 
-                <TextView
+                <EditText
                     android:id="@+id/id_editar_nombre"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:textSize="15dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="7dp"
+                    android:singleLine="true"
                  />
 
-                <TextView
+                <EditText
                     android:id="@+id/id_editar_Apellido"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="15dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="7dp"
+                    android:singleLine="true"
                     />
 
-                <TextView
+                <EditText
                     android:id="@+id/id_editar_direccion"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
                     android:textSize="15dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="7dp"
+                    android:singleLine="true"
                    />
 
-                <TextView
+                <EditText
                     android:id="@+id/id_editar_telefono"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="15dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="7dp"
+                    android:singleLine="true"
                     />
             </LinearLayout>
         </LinearLayout>

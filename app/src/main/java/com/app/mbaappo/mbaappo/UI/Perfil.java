@@ -43,7 +43,12 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
         editar_perfil.setOnClickListener(this);
         cam_contraseña.setOnClickListener(this);
         inicializar();
+        try {
         agregardatosperfil();
+        }
+        catch (Exception e){
+
+        }
     }
 
     @Override
@@ -77,6 +82,7 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Usuario user = dataSnapshot.getValue(Usuario.class);
+                try {
                 if (user != null){
                     final TextView username = (TextView) findViewById(R.id.id_nombre);
                     username.setText(user.getNombre()+" "+user.getApellido());
@@ -89,7 +95,7 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
                     Glide.with(Perfil.this)
                             .using(new FirebaseImageLoader())
                             .load(url)
-                            .centerCrop()
+                            //centerCrop()
                             //.bitmapTransform(new CropCircleTransformation(v.getContext()))
                             .into(image);
                 }
@@ -97,6 +103,10 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
 
             }
 
+            catch(Exception e){
+
+            }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
