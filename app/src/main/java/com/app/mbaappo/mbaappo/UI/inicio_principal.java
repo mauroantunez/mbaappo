@@ -34,17 +34,17 @@ public class inicio_principal extends AppCompatActivity implements SearchViewCom
         setContentView(R.layout.activity_inicio_principal);
         List items = new ArrayList();
 
-        items.add(new Categorias("Categoria 1",R.drawable.entretenimiento));
+        items.add(new Categorias("Entretenimiento",R.drawable.entretenimiento));
 
-        items.add(new Categorias("Categoria 2",R.drawable.hogar));
+        items.add(new Categorias("Hogar",R.drawable.hogar));
 
-        items.add(new Categorias("Categoria 3",R.drawable.transporte));
+        items.add(new Categorias("Transporte",R.drawable.transporte));
 
-        items.add(new Categorias("Categoria 4",R.drawable.reparaciones));
+        items.add(new Categorias("Reparaciones",R.drawable.reparaciones));
 
-        items.add(new Categorias("Categoria 5",R.drawable.deporte));
+        items.add(new Categorias("Deporte",R.drawable.deporte));
 
-        items.add(new Categorias("Categoria 6",R.drawable.otros));
+        items.add(new Categorias("Otros",R.drawable.otros));
 
 
         final RecyclerView recycler = (RecyclerView) findViewById(R.id.itemsCategoria);

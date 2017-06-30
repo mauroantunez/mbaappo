@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -46,6 +47,20 @@ public class Servicio extends AppCompatActivity {
         Intent intent = this.getIntent();
         //MessageID is the location of the messages for this specific chat
         servid = intent.getStringExtra(servicio_ID);
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null){
+                    FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
+                    contratar.setEnabled(true);
+                }
+                if(firebaseAuth.getCurrentUser() == null){
+                    FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
+                    contratar.setEnabled(false);
+            }
+
+            }
+        };
         inicializacion();
         agregardatosserv();
 
@@ -65,6 +80,8 @@ public class Servicio extends AppCompatActivity {
     private void agregardatosserv(){
 
         database.addValueEventListener(new ValueEventListener() {
+            private static final String TAG = "2";
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
@@ -84,12 +101,18 @@ public class Servicio extends AppCompatActivity {
                 musu = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
 
                         final FirebaseAuth usu = FirebaseAuth.getInstance();
+                try {
                             if(encodeEmail(usu.getCurrentUser().getEmail()).equals(servicio.getEmail())) {
 
 
-                     }
-                        else {
-                                contratar.setOnClickListener(new View.OnClickListener() {
+
+                            }  }
+                            catch(Exception e){
+                                Log.d((String) TAG, "Email sent.");
+                    }
+                    try{
+                        if (usu.getCurrentUser().getEmail() !=null ) {
+                            contratar.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     final FirebaseAuth authh = FirebaseAuth.getInstance();
@@ -122,6 +145,11 @@ public class Servicio extends AppCompatActivity {
                             });
 
                         }
+                    }
+                    catch (Exception e){
+                        Log.d((String) TAG, "Email sent.");
+                    }
+
 
                         // ...
 

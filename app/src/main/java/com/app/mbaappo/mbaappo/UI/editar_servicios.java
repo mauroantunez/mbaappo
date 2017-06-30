@@ -67,8 +67,8 @@ public class editar_servicios extends AppCompatActivity {
                 final Spinner spTarifa, spCateg;
                 final ArrayAdapter<String> aaTarifa;
                 final ArrayAdapter<String> aaCateg;
-                final String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
-                final String[] opCateg = new String[]{"Deporte", "Profesores", "Reparaciones","Transporte","Bienestar y Salud","Entretenimiento","Hogar"};
+                final String[] opTarifa = new String[]{"","Por hora", "Precio Fijo", "A convenir"};
+                final String[] opCateg = new String[]{"","Deporte", "Reparaciones","Transporte","Entretenimiento","Hogar","Otros"};
                 spTarifa = (Spinner) findViewById(R.id.spTarifa_editar);
 
                 aaTarifa = new ArrayAdapter<String>(editar_servicios.this, android.R.layout.simple_spinner_item, opTarifa);

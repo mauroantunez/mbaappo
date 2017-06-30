@@ -30,7 +30,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     public ArrayAdapter<String> aaTarifa;
     public ArrayAdapter<String> aaCateg;
     String[] opTarifa = new String[]{"Por hora", "Precio Fijo", "A convenir"};
-    String[] opCateg = new String[]{"Deporte", "Profesores", "Reparaciones","Transporte","Bienestar y Salud","Entretenimiento","Hogar"};
+    String[] opCateg = new String[]{"Deporte", "Reparaciones","Transporte","Entretenimiento","Hogar","Otros"};
     /**-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 

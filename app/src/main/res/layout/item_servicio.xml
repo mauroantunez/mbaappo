@@ -39,13 +39,14 @@
         android:textColor="@color/colorSecondaryText" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/id_precio_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/servicio_descripcion"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/foto_serv"
         android:layout_toRightOf="@+id/foto_serv"
+        android:textColor="@color/colorPrimary"
         android:text="TextView" />
 
     <RatingBar
@@ -53,7 +54,7 @@
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView8"
+        android:layout_below="@+id/id_precio_list"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/foto_serv"
         android:layout_toRightOf="@+id/foto_serv"

@@ -9,6 +9,7 @@ public class buzon {
     private String key_usuario_contratado;
     private String key_padre;
     private String key_usuario_contrato;
+
     //private List<Friend> friends;
 
     public buzon(){

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Chat;
+import com.app.mbaappo.mbaappo.Modelo.FriendlyMessage;
 import com.app.mbaappo.mbaappo.Modelo.Historial;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.buzon;
@@ -198,10 +199,11 @@ public class servicio_solicitado extends AppCompatActivity {
                 String messageLocation = mChatAdapter.getRef(position).toString();
 
                 if(messageLocation != null){
-                    Intent intent = new Intent(view.getContext(), mensajeria.class);
+                    final Intent intent = new Intent(view.getContext(), mensajeria.class);
                     String serviciokey = mChatAdapter.getRef(position).getKey();
                     intent.putExtra("idmessage", serviciokey);
                     startActivity(intent);
+
                 }
 
                 //Log.e("TAG", mChatAdapter.getRef(position).toString());

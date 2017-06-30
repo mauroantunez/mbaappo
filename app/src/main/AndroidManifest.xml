@@ -27,7 +27,7 @@
             android:label="@string/publicar_servicio" />
         <activity
             android:name=".UI.Perfil"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UI.c_contrasenha"
             android:label="@string/m_contrasena" />
@@ -67,8 +67,22 @@
         <activity
             android:name=".UI.olvidar_contrasenha"
             android:label="Restablecer Contraseña" />
-        <activity android:name=".UI.editar_servicios"></activity>
-        <activity android:name=".List.list_categoria_servicio"></activity>
+        <activity
+            android:name=".UI.editar_servicios"
+            android:label="Editar Servicio" />
+        <activity android:name=".List.list_categoria_servicio" />
+
+        <service android:name=".UI.NotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".UI.NotificacionIDTokenService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

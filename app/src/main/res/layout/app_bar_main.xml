@@ -16,17 +16,10 @@
         android:id="@+id/include"
         />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_agregar"
         android:layout_width="55dp"
-        android:layout_height="51dp"
+        android:layout_height="57dp"
         android:layout_gravity="top|left"
         android:clickable="true"
         android:tint="#FFFFFF"
@@ -35,5 +28,13 @@
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@color/cardview_light_background"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 </android.support.design.widget.CoordinatorLayout>

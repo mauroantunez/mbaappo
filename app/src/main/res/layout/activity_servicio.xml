@@ -220,5 +220,6 @@
         app:fabSize="normal"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/sj" />
+        app:srcCompat="@drawable/mensaje_logo"
+        android:enabled="false"/>
 </android.support.design.widget.CoordinatorLayout>
