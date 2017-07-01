@@ -23,7 +23,7 @@
         android:layout_marginEnd="16dp">
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/precio_serv_reali"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -39,9 +39,9 @@
             android:id="@+id/nombre_serv_reali"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignLeft="@+id/precio_serv_reali"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/textView14"
+            android:layout_alignStart="@+id/precio_serv_reali"
             android:layout_marginTop="11dp"
             android:text="Nombre del servicio"
             android:textColor="@color/colorPrimaryText"
@@ -52,9 +52,9 @@
             style="@android:style/Widget.DeviceDefault.Button"
             android:layout_width="120dp"
             android:layout_height="30dp"
-            android:layout_alignLeft="@+id/textView14"
-            android:layout_alignStart="@+id/textView14"
-            android:layout_below="@+id/textView14"
+            android:layout_alignLeft="@+id/precio_serv_reali"
+            android:layout_alignStart="@+id/precio_serv_reali"
+            android:layout_below="@+id/precio_serv_reali"
             android:layout_marginTop="19dp"
             android:background="@color/colorAccent"
             android:text="Editar"

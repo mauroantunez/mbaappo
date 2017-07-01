@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class CrearEditarServicio extends Activity implements  AdapterView.OnItemSelectedListener{
     /** Spinner*/
@@ -36,7 +35,7 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
 
     /** Variables para Referencia*/
     Button publicar;
-    EditText edittitulo,edidescripcion,editprecio;
+    TextInputLayout edittitulo,edidescripcion,editprecio;
     String categoriasp;
     String tarifasp;
     /**-------------------------------------------*/
@@ -61,9 +60,9 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
         setContentView(R.layout.activity_crear_editar_servicio);
         /** Referencias*/
         publicar = (Button) findViewById(R.id.btn_publicar);
-        edittitulo = (EditText) findViewById(R.id.edittitulo_);
-        edidescripcion = (EditText) findViewById(R.id.editdescripcion_);
-        editprecio = (EditText) findViewById(R.id.editprecio_);
+        edittitulo = (TextInputLayout) findViewById(R.id.edittitulo_);
+        edidescripcion = (TextInputLayout) findViewById(R.id.editdescripcion_);
+        editprecio = (TextInputLayout) findViewById(R.id.editprecio_);
         /**---------------------------------------------------------------*/
 
         inicializar();
@@ -128,9 +127,9 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
     }
 
     private void guardardatos(){
-        final String nombre = edittitulo.getText().toString().trim();
-        final String descripcion = edidescripcion.getText().toString().trim();
-        final String precio = editprecio.getText().toString().trim();
+        final String nombre = edittitulo.getEditText().getText().toString().trim();
+        final String descripcion = edidescripcion.getEditText().getText().toString().trim();
+        final String precio = editprecio.getEditText().getText().toString().trim();
         agregar_servicio(nombre,descripcion,precio);
 
 
