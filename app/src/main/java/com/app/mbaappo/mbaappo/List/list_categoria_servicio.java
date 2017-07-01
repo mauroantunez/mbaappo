@@ -19,6 +19,7 @@ import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
+import com.app.mbaappo.mbaappo.UI.MainActivity;
 import com.app.mbaappo.mbaappo.UI.Servicio;
 
 import com.app.mbaappo.mbaappo.adapter.adapter_servicios;
@@ -94,9 +95,10 @@ public class list_categoria_servicio extends AppCompatActivity {
 
 
     }
-    @Override
+   @Override
     public void onBackPressed() {
-        finish();
+       Intent intent = new Intent(list_categoria_servicio.this, MainActivity.class);
+       startActivity(intent);
     }
     private void agregarlist(){
         final DatabaseReference mCurrentUserDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
@@ -191,4 +193,5 @@ public class list_categoria_servicio extends AppCompatActivity {
         }
         return cate;
     }
+
 }

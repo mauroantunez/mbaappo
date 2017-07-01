@@ -323,15 +323,17 @@ public class editar_datos extends AppCompatActivity {
                         }
                         catch (Exception e){
                             Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
-                            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                           // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(loginIntent);
                             finish();
+
                         }
 
                         Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
-                        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                      //  loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(loginIntent);
                         finish();
+
                     }
                 });
             }

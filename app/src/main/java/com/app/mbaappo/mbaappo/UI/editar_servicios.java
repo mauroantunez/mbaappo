@@ -230,7 +230,7 @@ public class editar_servicios extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 Intent loginIntent = new Intent(editar_servicios.this, MainActivity.class);
-                                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                               // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(loginIntent);
                                 finish();
                             }

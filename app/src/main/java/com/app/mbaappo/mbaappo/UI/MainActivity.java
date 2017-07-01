@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent crearpublicacion = new Intent(MainActivity.this, CrearEditarServicio.class);
-                crearpublicacion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               // crearpublicacion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(crearpublicacion);
             }
 
@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity
                         Intent intent = new Intent(view.getContext(), list_categoria_servicio.class);
                         intent.putExtra("id", posi);
                         startActivity(intent);
+
 
                         /**if (codigo == 5){
                          String cate;
@@ -246,22 +247,22 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.mnu_perfil) {
             Intent mnu_perf = new Intent(MainActivity.this, Perfil.class);
-            mnu_perf.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           /// mnu_perf.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_perf);
 
         } else if (id == R.id.mnu_historial) {
             Intent mnu_per = new Intent(MainActivity.this, list_historial.class);
-            mnu_per.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           // mnu_per.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_per);
 
         } else if (id == R.id.mnu_servicios) {
             Intent mnu_serv = new Intent(MainActivity.this, servicios_realizados.class);
-            mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           // mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
 
         } else if (id == R.id.mnu_solicitudes) {
             Intent mnu_serv = new Intent(MainActivity.this, servicio_solicitado.class);
-            mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+          //  mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mnu_serv);
 
         }
@@ -298,7 +299,7 @@ public class MainActivity extends AppCompatActivity
                 try{
                 Usuario user = dataSnapshot.getValue(Usuario.class);
                         final TextView usuarioTxt = (TextView) findViewById(R.id.id_editar_nombre );
-                        usuarioTxt.setText(user.getNombre());
+                        usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
                         final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
                         mailTxt.setText(auuth.getCurrentUser().getEmail());
                         Log.e("Err", user.getNombre()+user.getApellido());

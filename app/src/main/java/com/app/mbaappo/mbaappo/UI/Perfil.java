@@ -45,7 +45,7 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 Intent e_dato = new Intent(Perfil.this, olvidar_contrasenha.class);
-                e_dato.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               // e_dato.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(e_dato);
             }
         });
