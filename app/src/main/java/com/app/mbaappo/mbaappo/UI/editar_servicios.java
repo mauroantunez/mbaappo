@@ -72,16 +72,8 @@ public class editar_servicios extends AppCompatActivity {
                 final String[] opTarifa = new String[]{"","Por hora", "Precio Fijo", "A convenir"};
                 final String[] opCateg = new String[]{"","Deporte", "Reparaciones","Transporte","Entretenimiento","Hogar","Otros"};
                 spTarifa = (Spinner) findViewById(R.id.spTarifa_editar);
-
                 aaTarifa = new ArrayAdapter<String>(editar_servicios.this, android.R.layout.simple_spinner_item, opTarifa);
                 spTarifa.setAdapter(aaTarifa);
-                for ( int i=0; i< opTarifa[i].length(); i++ ){
-                    if ( opTarifa[i] == servicio.getTarifa() ){
-                        spTarifa.setScrollBarDefaultDelayBeforeFade(i);
-
-            }
-            }
-
 
                 spTarifa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -110,11 +102,6 @@ public class editar_servicios extends AppCompatActivity {
                     }
 
                 });
-                /**DatabaseReference sp = FirebaseDatabase.getInstance().getReference().child("Servicios").child(servid);
-                sp.child("categoria").setValue(categoriasp);
-                sp.child("tarifa").setValue(tarifasp);*/
-                final AlertDialog dialog,dialogap,dialogdi;
-                final  EditText editet,editTextap,editextdi;
 
                 final EditText edittitulo,edidescripcion,editprecio;
 
@@ -122,74 +109,18 @@ public class editar_servicios extends AppCompatActivity {
                 edittitulo = (EditText) findViewById(R.id.edittitulo_editar);
                 edidescripcion = (EditText) findViewById(R.id.editdescripcion_editar);
                 editprecio = (EditText) findViewById(R.id.editprecio_editar);
-
+                try{
                 edittitulo.setText(servicio.getTitulo());
                 edidescripcion.setText(servicio.getDescripcion());
                 editprecio.setText(servicio.getPrecio());
+                }catch (Exception e){
 
-                dialog = new AlertDialog.Builder(editar_servicios.this).create();
-                editet = new EditText(editar_servicios.this);
-                dialogap = new AlertDialog.Builder(editar_servicios.this).create();
-                editTextap = new EditText(editar_servicios.this);
-                dialogdi = new AlertDialog.Builder(editar_servicios.this).create();
-                editextdi = new EditText(editar_servicios.this);
+                }
 
-               /** edittitulo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.setTitle("Editar Titulo:");
-                        dialog.setView(editet);
-                        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                edittitulo.setText(editet.getText());
-
-
-                            }
-
-
-                        });
-                        dialog.show();
-                    }
-                });
-                edidescripcion.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        dialogap.setTitle("Editar Descripcion:");
-                        dialogap.setView(editTextap);
-                        dialogap.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                edidescripcion.setText(editTextap.getText());
-
-                            }
-
-
-                        });
-                        dialogap.show();
-                    }
-                });
-                editprecio.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogdi.setTitle("Editar Dirección");
-                        dialogdi.setView(editextdi);
-                        dialogdi.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                editprecio.setText(editextdi.getText());
-
-                            }
-
-
-                        });
-                        dialogdi.show();
-                    }
-                });*/
-
+                final FirebaseAuth auth = FirebaseAuth.getInstance();
                 final Button publicar = (Button) findViewById(R.id.btn_guardar_modificacion);
                 final FirebaseDatabase aiuda = FirebaseDatabase.getInstance();
+                final DatabaseReference editlis = FirebaseDatabase.getInstance().getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail())).child(servicio.getKey());
                 final DatabaseReference muserguardar = aiuda.getReference().child("Servicios").child(keys);
                 publicar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -203,6 +134,7 @@ public class editar_servicios extends AppCompatActivity {
 
                         }else{
                             muserguardar.child("titulo").setValue(tituloguardar);
+                            editlis.child("titulo").setValue(tituloguardar);
                         }
                         if (descripcionguardar.equals(null)||descripcionguardar.length() == 0 || descripcionguardar.equals("")){
 
@@ -213,6 +145,7 @@ public class editar_servicios extends AppCompatActivity {
 
                         }else {
                             muserguardar.child("precio").setValue(precioguardar);
+                            editlis.child("precio").setValue(precioguardar);
                         }
                         if (categoriasp.equals(null)||categoriasp.length() == 0 || categoriasp.equals("")){
 
@@ -225,16 +158,12 @@ public class editar_servicios extends AppCompatActivity {
                             muserguardar.child("tarifa").setValue(tarifasp);
                         }
 
-                        Button btn = (Button) findViewById(R.id.btn_guardar_modificacion);
-                        btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+
                                 Intent loginIntent = new Intent(editar_servicios.this, MainActivity.class);
-                               // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                              // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(loginIntent);
 
-                            }
-                        });
+
 
 
 
@@ -255,7 +184,12 @@ public class editar_servicios extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Intent loginIntent = new Intent(editar_servicios.this, servicios_realizados.class);
+      //  loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
+    public String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
     }
 }
 

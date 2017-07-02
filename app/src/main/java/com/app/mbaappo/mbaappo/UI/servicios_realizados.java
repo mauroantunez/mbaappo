@@ -40,26 +40,6 @@ public class servicios_realizados extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servicios_realizados);
-
-       /** final ListView lista = (ListView) findViewById(R.id.list_serv_realizados);
-        ArrayList<datos_serv_realizados> arraydatos = new ArrayList<datos_serv_realizados>();
-        datos_serv_realizados datos;
-
-        datos = new datos_serv_realizados("Electricista","80.000Gs/hora");
-        arraydatos.add(datos);
-        datos = new datos_serv_realizados("Profesora de Matematica","20.000Gs/Hora");
-        arraydatos.add(datos);
-        datos = new datos_serv_realizados("Mecanico","A convenir");
-        arraydatos.add(datos);
-        datos = new datos_serv_realizados("Pintor","50.000Gs/hora");
-        arraydatos.add(datos);
-        datos = new datos_serv_realizados("Profesor de Ingles","30.000Gs/hora");
-        arraydatos.add(datos);
-        datos = new datos_serv_realizados("Dj de eventos","40.000Gs/hora");
-        arraydatos.add(datos);
-
-        adapter_serv_realizados adapter = new adapter_serv_realizados(this, arraydatos);
-        lista.setAdapter(adapter);*/
         inicializar();
         agregarlis();
     }
@@ -91,22 +71,7 @@ public class servicios_realizados extends AppCompatActivity {
                                 catch (Exception e){
 
                                 }
-                                //databasee.addValueEventListener(new ValueEventListener() {
-                                  //  @Override
-                                    //public void onDataChange(DataSnapshot dataSnapshot) {
-                                      //  estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
-                                        //if (servicio != null){
-                                          //  if (servicio.getKey() == model.getKey()){
-                                            //    databasee.removeValue();
-                                            //}
-                                        //}
-                                    //}
-//
-  //                                  @Override
-    //                                public void onCancelled(DatabaseError databaseError) {
-//
-  //                                  }
-    //                            });
+
                             }
 
 
@@ -119,7 +84,8 @@ public class servicios_realizados extends AppCompatActivity {
                         String serviciokey = model.getKey();
                         intent.putExtra("id", serviciokey);
                         startActivity(intent);
-                       finish();
+                        finish();
+
                     }
                 });
             }
@@ -136,5 +102,12 @@ public class servicios_realizados extends AppCompatActivity {
     }
     public String encodeEmaill(String userEmail) {
         return userEmail.replace(".", "_");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(servicios_realizados.this, MainActivity.class);
+
+        startActivity(intent);
     }
 }

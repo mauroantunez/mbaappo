@@ -7,10 +7,10 @@
     tools:context="com.app.mbaappo.mbaappo.List.Lista_servicios">
 
     <ListView
-        android:layout_marginTop="6dp"
         android:id="@+id/list_serv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
         android:divider="@android:color/white"
         android:dividerHeight="4dp"
         tools:layout_editor_absoluteX="8dp"

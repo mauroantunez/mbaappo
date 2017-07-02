@@ -41,6 +41,7 @@
             android:label="@string/e_dato" />
         <activity
             android:name=".List.Lista_servicios"
+            android:launchMode="singleTop"
             android:label="Servicios" />
         <activity
             android:name=".List.list_historial"

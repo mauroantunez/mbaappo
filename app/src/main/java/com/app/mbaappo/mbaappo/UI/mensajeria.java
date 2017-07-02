@@ -662,6 +662,15 @@ public class mensajeria extends AppCompatActivity {
         //});
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent loginIntent = new Intent(mensajeria.this, servicio_solicitado.class);
+       // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+
+      //  super.onBackPressed();
+    }
+
     //TODO: Used in multiple places, should probably move to its own class
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");

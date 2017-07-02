@@ -206,10 +206,10 @@ public class MainActivity extends AppCompatActivity
             //super.onBackPressed();
         }
         if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
-            startActivity(new Intent(getBaseContext(), MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
-            super.onBackPressed();
-            return;
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }else {
             Toast.makeText(this, "Vuelve a presionar para salir", Toast.LENGTH_SHORT).show();
         }
@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity
 
     public void asignardatos(){
          FirebaseAuth auuth = FirebaseAuth.getInstance();
+
         DatabaseReference sto = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(auuth.getCurrentUser().getEmail()));
 
 

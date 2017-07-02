@@ -309,4 +309,12 @@ public class servicio_solicitado extends AppCompatActivity {
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
+
+    @Override
+    public void onBackPressed() {
+        final Intent intent = new Intent(servicio_solicitado.this, MainActivity.class);
+
+        startActivity(intent);
+
+    }
 }

@@ -137,32 +137,7 @@ public class buscador extends AppCompatActivity {
             }
         });
     }
-   /** public void buscador(){
 
-        mFirebaseDatabasee = FirebaseDatabase.getInstance();
-        final DatabaseReference database_buscador = mFirebaseDatabasee.getReference().child("buscador").child(encodeEmail(auth.getCurrentUser().getEmail()));
-        data_servicio.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
-                if (servicio != null){
-                    String cadenaDondeBuscar = servicio.getTitulo();
-                    String loQueQuieroBuscar = palabrass;
-                    //String[] palabras = loQueQuieroBuscar.split("\\s+");
-                    // for (String palabra : palabras) {
-                    if (cadenaDondeBuscar.contains(loQueQuieroBuscar)) {
-                        estructura_buscador buscador = new estructura_buscador(servicio.getKey());
-                        database_buscador.push();
-                        database_buscador.setValue(buscador);
-                }
-                            }}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }

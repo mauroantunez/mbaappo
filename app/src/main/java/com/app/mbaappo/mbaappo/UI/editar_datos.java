@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
+import com.app.mbaappo.mbaappo.Modelo.FirebaseRef;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.R;
 import com.bumptech.glide.Glide;
@@ -92,72 +93,7 @@ public class editar_datos extends AppCompatActivity {
         });
 
 
-
     }
-    /**
-    private void initializeScreen(){
-        FirebaseAuth mauth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mCurrentUserDatabaseReference = mFirebaseDatabase
-                .getReference().child("Usuarios" + "/" +encodeEmail(mauth.getCurrentUser().getEmail()));
-
-        mCurrentUserDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try{
-                Usuario user = dataSnapshot.getValue(Usuario.class);
-                final ImageButton imageView = (ImageButton) findViewById(R.id.image_btn_editar);
-                StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
-                Glide.with(mView)
-                        .using(new FirebaseImageLoader())
-                        .load(url)
-                        //.bitmapTransform(new CropCircleTransformation(mView))
-                        .into(imageView);
-                }catch (Exception e){
-                    //Intent loginIntent = new Intent(editar_datos.this, Perfil.class);
-                    //loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //startActivity(loginIntent);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
-    /**private void initializeUserInfo(){
-       FirebaseAuth ai = FirebaseAuth.getInstance();
-       DatabaseReference fire = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(ai.getCurrentUser().getEmail()));
-        fire
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Usuario user = dataSnapshot.getValue(Usuario.class);
-                        final ImageButton imageVieww = (ImageButton) findViewById(R.id.image_btn_editar);
-                        try{
-                            if(user.getProfilePicLocation() != null){
-                                StorageReference storageRef = FirebaseStorage.getInstance()
-                                        .getReference().child(user.getProfilePicLocation());
-
-                                Glide.with(mView)
-                                        .using(new FirebaseImageLoader())
-                                        .load(storageRef)
-                                        .bitmapTransform(new CropCircleTransformation(mView))
-                                        .into(imageVieww);
-                            }
-                        }catch (Exception e){
-                            Log.e("Err", "glide");
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-    }*/
 
 
     private void inicializacion(){
@@ -186,109 +122,20 @@ public class editar_datos extends AppCompatActivity {
                     apellido.setText(user.getApellido());
                     direccion.setText(user.getDireccion());
                     telefono.setText(user.getTelefono());
-                dialog = new AlertDialog.Builder(editar_datos.this).create();
-                   /**
-                    editet = new EditText(editar_datos.this);
-                    dialogap = new AlertDialog.Builder(editar_datos.this).create();
-                    editTextap = new EditText(editar_datos.this);
-                    dialogdi = new AlertDialog.Builder(editar_datos.this).create();
-                    editextdi = new EditText(editar_datos.this);
-                    dialogtel = new AlertDialog.Builder(editar_datos.this).create();
-                    editTexttel = new EditText(editar_datos.this);
-                    /**final ImageButton image =(ImageButton) findViewById(R.id.image_btn_editar);
-                    int al = image.getMeasuredHeight();
-                    int an = image.getMeasuredWidth();
-                    StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
-                    Glide.with(editar_datos.this)
-                            .using(new FirebaseImageLoader())
-                            .load(url)
-                            //.bitmapTransform(new CropCircleTransformation(v.getContext()))
-                            .into(image);
-                    nombre.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.setTitle("Editar Nombre:");
-                        dialog.setView(editet);
-                        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                nombre.setText(editet.getText());
-                            }
 
-
-                        });
-                        dialog.show();
-                    }
-                });
-
-                apellido.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        dialogap.setTitle("Editar Apellido:");
-                        dialogap.setView(editTextap);
-                        dialogap.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                apellido.setText(editTextap.getText());
-
-                            }
-
-
-                        });
-                        dialogap.show();
-                    }
-                });
-                direccion.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogdi.setTitle("Editar Dirección");
-                        dialogdi.setView(editextdi);
-                        dialogdi.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                direccion.setText(editextdi.getText());
-
-                            }
-
-
-                        });
-                        dialogdi.show();
-                    }
-                });
-                telefono.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogtel.setTitle("Editar Teléfono");
-                        dialogtel.setView(editTexttel);
-                        dialogtel.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                telefono.setText(editTexttel.getText());
-
-                            }
-
-
-                        });
-                        dialogtel.show();
-                    }
-                });*/
-
-
-
-
-                final Button guardar = (Button) findViewById(R.id.guardardatos);
                 final FirebaseDatabase aiuda = FirebaseDatabase.getInstance();
+                final Button guardar = (Button) findViewById(R.id.guardardatos);
                 final DatabaseReference muserguardar = aiuda.getReference().child("Usuarios").child(encodeEmail(uth.getCurrentUser().getEmail()));
                 guardar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try{
-                        final  String nombreguardar =  nombre.getText().toString().trim();
-                        final String apellidoguardar = apellido.getText().toString().trim();
-                        final String direccionguardar = direccion.getText().toString().trim();
-                        final String telefonoguardar = telefono.getText().toString().trim();
-                        if (nombreguardar.equals(null)||nombreguardar.length() == 0 || nombreguardar.equals("")){
+                            final  String nombreguardar =  nombre.getText().toString().trim();
+                            final String apellidoguardar = apellido.getText().toString().trim();
+                            final String direccionguardar = direccion.getText().toString().trim();
+                            final String telefonoguardar = telefono.getText().toString().trim();
+
+                            if (nombreguardar.equals(null)||nombreguardar.length() == 0 || nombreguardar.equals("")){
                            // nombreguardar.equals(user.getNombre());
                            // muserguardar.child("nombre").setValue(nombre);
                         }
@@ -323,14 +170,14 @@ public class editar_datos extends AppCompatActivity {
                         }
                         catch (Exception e){
                             Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
-                           // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                          // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(loginIntent);
                             finish();
 
                         }
 
                         Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
-                      //  loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(loginIntent);
                         finish();
 
@@ -343,114 +190,11 @@ public class editar_datos extends AppCompatActivity {
 
             }
         });
+
     }
-   /** public void openImageSelector(){
-        edit_photo = (ImageButton) findViewById(R.id.id_btn_photo_edit);
-        mProgress = new ProgressDialog(this);
-        edit_photo.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent loginIntent = new Intent(editar_datos.this, Seleccionar_foto.class);
-                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(loginIntent);
-            }
-        });
-    }*/
+
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
-    /**
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, final Intent data){
 
-        mStorage = FirebaseStorage.getInstance().getReference(); //make global
-        super.onActivityResult(requestCode, requestCode, data);
-
-        if(requestCode ==GALLERY_INTENT && resultCode == RESULT_OK){
-
-            mProgress.setMessage("Cargando...");
-            mProgress.show();
-
-            Uri uri = data.getData();
-            //Keep all images for a specific chat grouped together
-            final String imageLocation = "Photos/profile_picture/" + currentUserEmail;
-            final String imageLocationId = imageLocation + "/" + uri.getLastPathSegment();
-            final String uniqueId = UUID.randomUUID().toString();
-            final StorageReference filepath = mStorage.child(imageLocation).child(uniqueId + "/profile_pic");
-            final String downloadURl = filepath.getPath();
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //create a new message containing this image
-                    addImageToProfile(downloadURl);
-                    mProgress.dismiss();
-                }
-            });
-        }
-
-    }
-    public void addImageToProfile(final String imageLocation){
-        final ImageView imageView = (ImageView) findViewById(R.id.image_btn_editar);
-        mCurrentUserDatabaseReference
-                .child("profilePicLocation").setValue(imageLocation).addOnCompleteListener(
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        StorageReference storageRef = FirebaseStorage.getInstance()
-                                .getReference().child(imageLocation);
-                        Glide.with(mView)
-                                .using(new FirebaseImageLoader())
-                                .load(storageRef)
-                               // .bitmapTransform(new CropCircleTransformation(mView))
-                                .into(imageView);
-                    }
-                }
-        );
-
-    }*/
-   /** private void editardatos(){
-       muser.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-             final Usuario user = dataSnapshot.getValue(Usuario.class);
-                if (user!=null){
-                   /final EditText nombre = (EditText) findViewById(R.id.editTextnombre);
-                    final EditText apellido = (EditText) findViewById(R.id.editTextapellidos);
-                    final EditText telefono = (EditText) findViewById(R.id.editTexttelefono);
-                    final EditText direccion = (EditText) findViewById(R.id.editTextdireccion);
-                    final String nombretxt = nombre.getText().toString().trim();
-                    final String apellidotxt = apellido.getText().toString().trim();
-                    final String telefonotxt = telefono.getText().toString().trim();
-                    final String direcciontxt = direccion.getText().toString().trim();
-                    final Button aceptar = (Button) findViewById(R.id.guardardatos);
-
-                    aceptar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (nombretxt!=null){
-                            muser.child("nombre").setValue(nombretxt);}
-                            if (apellidotxt!=null){
-                            muser.child("apellido").setValue(apellidotxt);}
-                            if (direccion!=null){
-                            muser.child("direccion").setValue(direcciontxt);}
-                            if (telefonotxt!=null){
-                            muser.child("telefono").setValue(telefonotxt);}
-                    }});
-
-                    final Button cancelar = (Button) findViewById(R.id.cancelar_datos);
-                    cancelar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent mnu_serv = new Intent(editar_datos.this, Perfil.class);
-                            mnu_serv.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(mnu_serv);
-                    }});
-            }}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-   }*/
     }

@@ -54,7 +54,7 @@ public class adapter_serv_realizados extends BaseAdapter {
         TextView nombre_serv = (TextView) v.findViewById(R.id.nombre_serv_reali);
         nombre_serv.setText(datos_r.getNombre_serv_reali());
         TextView precio_serv = (TextView) v.findViewById(R.id.precio_serv_reali);
-        precio_serv.setText(datos_r.getPrecio_serv_reali());
+       precio_serv.setText(datos_r.getPrecio_serv_reali());
         return v;
     }
 }

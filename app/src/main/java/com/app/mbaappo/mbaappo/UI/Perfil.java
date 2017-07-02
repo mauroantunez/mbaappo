@@ -65,8 +65,9 @@ public class Perfil extends AppCompatActivity implements View.OnClickListener {
 
             case (R.id.btn_editar_info):
                 Intent e_dato = new Intent(Perfil.this, editar_datos.class);
-                e_dato.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               // e_dato.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(e_dato);
+
 
 
         }

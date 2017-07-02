@@ -95,11 +95,7 @@ public class list_categoria_servicio extends AppCompatActivity {
 
 
     }
-   @Override
-    public void onBackPressed() {
-       Intent intent = new Intent(list_categoria_servicio.this, MainActivity.class);
-       startActivity(intent);
-    }
+
     private void agregarlist(){
         final DatabaseReference mCurrentUserDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
         Log.d(TAG, "Email sent."+catego);
