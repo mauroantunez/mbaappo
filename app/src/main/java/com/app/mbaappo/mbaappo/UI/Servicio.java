@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
-import com.app.mbaappo.mbaappo.List.list_historial;
 import com.app.mbaappo.mbaappo.Modelo.Chat;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
@@ -81,11 +80,7 @@ public class Servicio extends AppCompatActivity {
 
 
     }
-   @Override
-    public void onBackPressed() {
 
-
-    }
     private void agregardatosserv(){
 
         database.addValueEventListener(new ValueEventListener() {
@@ -152,7 +147,7 @@ public class Servicio extends AppCompatActivity {
                                 }
                                     catch (Exception e){
                                         Intent loginIntent = new Intent(Servicio.this, inicio.class);
-                                       // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(loginIntent);
 
                                     }

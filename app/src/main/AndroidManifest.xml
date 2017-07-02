@@ -17,7 +17,9 @@
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/pagina_principa"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity android:name=".UI.inicio" />
         <activity
             android:name=".UI.activity_registro_usuarios"

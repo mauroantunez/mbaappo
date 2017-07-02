@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         };
-        String mail = encodeEmail(auth.getCurrentUser().getEmail());
+//        String mail = encodeEmail(auth.getCurrentUser().getEmail());
         //inicializar(mail);
 
 
@@ -206,12 +206,9 @@ public class MainActivity extends AppCompatActivity
             //super.onBackPressed();
         }
         if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
-            System.exit(1);
-            startActivity(new Intent(getBaseContext(), inicio_principal.class)
+            startActivity(new Intent(getBaseContext(), MainActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
-
             super.onBackPressed();
-            super.finish();
             return;
         }else {
             Toast.makeText(this, "Vuelve a presionar para salir", Toast.LENGTH_SHORT).show();
@@ -289,7 +286,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void asignardatos(){
-        final FirebaseAuth auuth = FirebaseAuth.getInstance();
+         FirebaseAuth auuth = FirebaseAuth.getInstance();
         DatabaseReference sto = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(auuth.getCurrentUser().getEmail()));
 
 
@@ -298,10 +295,11 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try{
                 Usuario user = dataSnapshot.getValue(Usuario.class);
+                        FirebaseAuth auth = FirebaseAuth.getInstance();
                         final TextView usuarioTxt = (TextView) findViewById(R.id.id_editar_nombre );
                         usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
                         final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
-                        mailTxt.setText(auuth.getCurrentUser().getEmail());
+                        mailTxt.setText(auth.getCurrentUser().getEmail());
                         Log.e("Err", user.getNombre()+user.getApellido());
                         final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
                         StorageReference storageRef = FirebaseStorage.getInstance()

@@ -232,7 +232,7 @@ public class editar_servicios extends AppCompatActivity {
                                 Intent loginIntent = new Intent(editar_servicios.this, MainActivity.class);
                                // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(loginIntent);
-                                finish();
+
                             }
                         });
 
@@ -253,5 +253,9 @@ public class editar_servicios extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }
 
