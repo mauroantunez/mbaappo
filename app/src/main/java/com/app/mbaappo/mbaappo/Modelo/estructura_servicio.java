@@ -18,13 +18,14 @@ public class estructura_servicio {
     private String email;
     private String key;
     private String tarifa;
-    private Integer count;
+    private int count;
+
     public estructura_servicio(){
 
     }
 
 
-    public estructura_servicio(String nombre_servicio, String uid_persona_ofrece, String precio, String nombre_persona_ofrece, String descripcion, float rating, String categoria,String urlfoto,String email, String key,String tarifa) {
+    public estructura_servicio(String nombre_servicio, String uid_persona_ofrece, String precio, String nombre_persona_ofrece, String descripcion, float rating, String categoria,String urlfoto,String email, String key,String tarifa,int count) {
 
         this.titulo = nombre_servicio;
         this.uid = uid_persona_ofrece;
@@ -37,6 +38,7 @@ public class estructura_servicio {
         this.email = email;
         this.key = key;
         this.tarifa = tarifa;
+        this.count = count;
 
     }
 
@@ -44,7 +46,7 @@ public class estructura_servicio {
         return tarifa;
     }
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 

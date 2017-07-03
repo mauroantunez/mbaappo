@@ -29,7 +29,12 @@ public class Usuario {
         this.profilePicLocation = ubicacionfoto;
 
     }
-
+    public Usuario(String nombre, String apellido, String email, String ubicacionfoto) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.profilePicLocation = ubicacionfoto;
+    }
 
     public String getNombre() {
         return nombre;

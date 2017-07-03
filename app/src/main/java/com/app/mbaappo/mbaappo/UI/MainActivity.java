@@ -44,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,16 +65,20 @@ public class MainActivity extends AppCompatActivity
     private Context mView;
     private String posi;
     private Toolbar toolbar;
+    private DatabaseReference sto;
+    private FirebaseDatabase mFirebasedatabase;
     private static final int INTERVALO = 2000; //2 segundos para salir
     private long tiempoPrimerClick;
+
+    ValueEventListener probar ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mView = MainActivity.this;
-
-        auth = FirebaseAuth.getInstance();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        inicializacion();
+        asignardatos();
 
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -90,13 +95,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         };
-//        String mail = encodeEmail(auth.getCurrentUser().getEmail());
-        //inicializar(mail);
 
-
-
-
-        asignardatos();
 
         FloatingActionButton publicar = (FloatingActionButton) findViewById(R.id.btn_agregar);
         publicar.setOnClickListener(new View.OnClickListener()
@@ -159,24 +158,6 @@ public class MainActivity extends AppCompatActivity
                         Intent intent = new Intent(view.getContext(), list_categoria_servicio.class);
                         intent.putExtra("id", posi);
                         startActivity(intent);
-
-
-                        /**if (codigo == 5){
-                         String cate;
-                         = "Deporte";
-                         }
-                         if (codigo == 4){
-                         cate = "Reparaciones";
-                         } if (codigo == 3){
-                         cate = "Transporte";
-                         } if (codigo == 1){
-                         cate = "Entretenimiento";
-                         } if (codigo == 2){
-                         cate = "Hogar";
-                         } if (codigo == 6){
-                         cate = "Otros";
-                         }*/
-
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -195,6 +176,12 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         auth.addAuthStateListener(authListener);
     }
+    public void inicializacion(){
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        sto = mFirebaseDatabase.getReference().child("Usuarios").child(encodeEmail(auth.getCurrentUser().getEmail()));
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -267,42 +254,34 @@ public class MainActivity extends AppCompatActivity
             cerrar_sesion();
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+
     private void cerrar_sesion() {
         auth.signOut();
     }
-    //private void inicializar(String mail){
 
-      //  mFirebaseDatabase = FirebaseDatabase.getInstance();
-       // mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios" + "/" +mail);
-    //}
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
 
     public void asignardatos(){
-         FirebaseAuth auuth = FirebaseAuth.getInstance();
-
-        DatabaseReference sto = FirebaseDatabase.getInstance().getReference().child("Usuarios").child(encodeEmail(auuth.getCurrentUser().getEmail()));
-
-
-        sto.addValueEventListener(new ValueEventListener() {
+        sto.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                try{
-                Usuario user = dataSnapshot.getValue(Usuario.class);
-                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                if(dataSnapshot.exists()){
+                    try{
+                        Usuario user = dataSnapshot.getValue(Usuario.class);
+                        Log.e("Err", user.getNombre()+user.getApellido());
                         final TextView usuarioTxt = (TextView) findViewById(R.id.id_editar_nombre );
                         usuarioTxt.setText(user.getNombre()+" "+user.getApellido());
-                        final TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
+                         TextView mailTxt = (TextView) findViewById(R.id.mailUsuarioNavHeader);
                         mailTxt.setText(auth.getCurrentUser().getEmail());
                         Log.e("Err", user.getNombre()+user.getApellido());
-                        final ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
+                        ImageView imageperfil = (ImageView) findViewById(R.id.imageperfil);
                         StorageReference storageRef = FirebaseStorage.getInstance()
                                 .getReference().child(user.getProfilePicLocation());
                         Glide.with(MainActivity.this)
@@ -310,9 +289,10 @@ public class MainActivity extends AppCompatActivity
                                 .load(storageRef)
                                 //.bitmapTransform(new CropCircleTransformation(mView))
                                 .into(imageperfil); }
-             catch (Exception e){
-            }
-            }
+                catch(Exception e){
+
+                }}
+                }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

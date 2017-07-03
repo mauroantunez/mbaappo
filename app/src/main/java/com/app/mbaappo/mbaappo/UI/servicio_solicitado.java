@@ -143,20 +143,6 @@ public class servicio_solicitado extends AppCompatActivity {
                         if (user.getDireccion() != null){
                             ((TextView) v.findViewById(R.id.text_nombre_usuario)).setText(user.getDireccion());
                         }
-                       /** database.child(model.getKey_servicio()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
-                                if (servicio != null){
-                                    ((TextView) v.findViewById(R.id.text_titulo_servicio)).setText("Contrato: "+servicio.getTitulo());
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });*/
                     }
 
                     @Override
@@ -310,11 +296,5 @@ public class servicio_solicitado extends AppCompatActivity {
         return userEmail.replace(".", ",");
     }
 
-    @Override
-    public void onBackPressed() {
-        final Intent intent = new Intent(servicio_solicitado.this, MainActivity.class);
 
-        startActivity(intent);
-
-    }
 }

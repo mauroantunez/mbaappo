@@ -32,6 +32,9 @@ public class inicio_principal extends AppCompatActivity implements SearchViewCom
     int codigo;
     String posi;
     private final String TAG ="1";
+    private static final int INTERVALO = 2000; //2 segundos para salir
+    private long tiempoPrimerClick;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseAuth mFirebaseAuthh = FirebaseAuth.getInstance();
@@ -116,6 +119,19 @@ public class inicio_principal extends AppCompatActivity implements SearchViewCom
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, "Vuelve a presionar para salir", Toast.LENGTH_SHORT).show();
+        }
+        tiempoPrimerClick = System.currentTimeMillis();
+        }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

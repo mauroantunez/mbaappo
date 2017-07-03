@@ -33,6 +33,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class list_categoria_servicio extends AppCompatActivity {
     private adapter_servicios mMessageAdapter;
     private FirebaseListAdapter mChatAdapter;
     private ListView mChatListView;
+    private DatabaseReference mCurrentUserDatabaseReference;
     String cate;
     String servid;
     String servicio_ID =  "id" ;
@@ -56,11 +58,6 @@ public class list_categoria_servicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_servicios);
-        // mView = Lista_servicios.this;
-        //final ListView lista = (ListView) findViewById(R.id.list_serv);
-        // ArrayList <estructura_servicio> arraydatos = new ArrayList<estructura_servicio>();
-        //adapter_servicios adapter = new adapter_servicios(arraydatos);
-        //lista.setAdapter(adapter);
         Intent intent = this.getIntent();
         //MessageID is the location of the messages for this specific chat
         servid = intent.getStringExtra(servicio_ID);
@@ -70,20 +67,6 @@ public class list_categoria_servicio extends AppCompatActivity {
         agregarlist();
 
 
-        /**lista.setOnItemClickListener(new AdapterView.OnItemClickListener()
-         {
-         @Override
-         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         Intent servicio = new Intent(Lista_servicios.this, Servicio.class);
-         servicio.putExtra("Servicio", lista.getItemAtPosition(position).toString());
-         startActivity(servicio);
-         }
-         });*/
-
-
-
-
-
 
     }
 
@@ -91,13 +74,13 @@ public class list_categoria_servicio extends AppCompatActivity {
 
     private void inicializar(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-
+        mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios");
 
 
     }
 
     private void agregarlist(){
-        final DatabaseReference mCurrentUserDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Usuarios");
+
         Log.d(TAG, "Email sent."+catego);
         Query database = mFirebaseDatabase.getReference().child("Servicios").orderByChild("categoria").equalTo(catego).limitToFirst(100);
         mChatListView = (ListView) findViewById(R.id.list_serv);
@@ -109,8 +92,6 @@ public class list_categoria_servicio extends AppCompatActivity {
 
                 //final TextView nombreusuario =(TextView) v.findViewById(R.id.servicio_descripcion);
                 ((RatingBar) v.findViewById(R.id.rating_servicio)).setRating(model.getRating());
-
-
                 mCurrentUserDatabaseReference.child(model.getEmail()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,12 +101,16 @@ public class list_categoria_servicio extends AppCompatActivity {
                         }
                         if (user.getProfilePicLocation()!=null){
                             final ImageView image = (ImageView) v.findViewById(R.id.foto_serv);
+                            try {
                             StorageReference url = FirebaseStorage.getInstance().getReference().child(user.getProfilePicLocation());
                             Glide.with(v.getContext())
                                     .using(new FirebaseImageLoader())
                                     .load(url)
                                     //.bitmapTransform(new CropCircleTransformation(v.getContext()))
                                     .into(image);
+                        }
+                        catch (Exception e){
+                        }
                         }
                     }
 

@@ -70,7 +70,7 @@ public class buscador extends AppCompatActivity {
     private void inicializar(){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("Servicios");
-        mFirebaseDatabasee = FirebaseDatabase.getInstance();
+
     }
     @Override
     public void onBackPressed() {
@@ -78,8 +78,8 @@ public class buscador extends AppCompatActivity {
     }
     private void agregarlist(){
         final String palabra = servid;
-        Query aiuda = FirebaseDatabase.getInstance().getReference().child("Servicios").orderByChild("titulo").startAt(palabra).endAt(palabra);
-        mCurrentUserDatabaseReference = mFirebaseDatabasee.getReference().child("Usuarios");
+        Query aiuda = mFirebaseDatabase.getReference().child("Servicios").orderByChild("titulo").startAt(palabra).endAt(palabra);
+        mCurrentUserDatabaseReference = mFirebaseDatabase.getReference().child("Usuarios");
         mChatListView = (ListView) findViewById(R.id.id_list_buscador);
         mChatAdapter = new FirebaseListAdapter<estructura_servicio>(this, estructura_servicio.class, R.layout.item_servicio, aiuda) {
             @Override

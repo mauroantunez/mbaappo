@@ -44,7 +44,6 @@ public class Servicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servicio);
-
         Intent intent = this.getIntent();
         //MessageID is the location of the messages for this specific chat
         servid = intent.getStringExtra(servicio_ID);
@@ -102,8 +101,19 @@ public class Servicio extends AppCompatActivity {
                 tarifa.setText(servicio.getTarifa());
                 final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
                 c_rating.setRating(servicio.getRating());
+                    try{
+                    final DatabaseReference datarating = mFirebaseDatabase.getReference().child("Servicios").child(servicio.getKey());
+                if(!auth.getCurrentUser().equals(null)){
+                    c_rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                        @Override
+                        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                            datarating.child("rating").setValue(rating);
+                        }
+                    });
+                } }
+                    catch (Exception e){
 
-
+                    }
 
                 musuario = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
                 musu = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
@@ -196,6 +206,7 @@ public class Servicio extends AppCompatActivity {
             }
     });
     }
+
 
 
 

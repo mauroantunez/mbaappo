@@ -157,11 +157,11 @@ public class CrearEditarServicio extends Activity implements  AdapterView.OnItem
            public void onDataChange(DataSnapshot dataSnapshot) {
                Usuario user = dataSnapshot.getValue(Usuario.class);
                 if(user != null){
-                       nombre_usuario = user.getNombre()+user.getApellido();
+                       nombre_usuario = user.getNombre()+" "+user.getApellido();
                         //usuario_actual_db.child("NombreUsuario").setValue(nombre_usuario);
                         urlfoto = user.getProfilePicLocation();
                     //usuario_actual_db.child("urlfoto").setValue(urlfoto);
-                        estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email,key,tarifaso);
+                        estructura_servicio servicio = new estructura_servicio(titulo,uid,precio,nombre_usuario,descripcion,rating,categoria,urlfoto,email,key,tarifaso,0);
                         usuario_actual_db.setValue(servicio);
                         agregarCategoria(key,categoria);
                         finish();

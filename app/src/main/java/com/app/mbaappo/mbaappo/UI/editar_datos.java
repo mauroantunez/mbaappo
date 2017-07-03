@@ -123,9 +123,10 @@ public class editar_datos extends AppCompatActivity {
                     direccion.setText(user.getDireccion());
                     telefono.setText(user.getTelefono());
 
-                final FirebaseDatabase aiuda = FirebaseDatabase.getInstance();
+               // final FirebaseDatabase aiuda = FirebaseDatabase.getInstance();
                 final Button guardar = (Button) findViewById(R.id.guardardatos);
-                final DatabaseReference muserguardar = aiuda.getReference().child("Usuarios").child(encodeEmail(uth.getCurrentUser().getEmail()));
+
+                //final DatabaseReference muserguardar = aiuda.getReference().child("Usuarios").child(encodeEmail(uth.getCurrentUser().getEmail()));
                 guardar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -136,48 +137,41 @@ public class editar_datos extends AppCompatActivity {
                             final String telefonoguardar = telefono.getText().toString().trim();
 
                             if (nombreguardar.equals(null)||nombreguardar.length() == 0 || nombreguardar.equals("")){
-                           // nombreguardar.equals(user.getNombre());
-                           // muserguardar.child("nombre").setValue(nombre);
+
                         }
                         else {
-                            muserguardar.child("nombre").setValue(nombreguardar);
+                            muser.child("nombre").setValue(nombreguardar);
                         }
                         if (apellidoguardar.equals(null)||apellidoguardar.length() == 0 || apellidoguardar.equals("") ){
-                            //apellidoguardar.equals(user.getApellido());
 
                         }
                         else{
-                            muserguardar.child("apellido").setValue(apellidoguardar);
+                            muser.child("apellido").setValue(apellidoguardar);
                         }
                         if (direccionguardar.equals(null)||direccionguardar.length() == 0 || direccionguardar.equals("")){
-                            //direccionguardar.equals(user.getDireccion());
-                          //  muserguardar.child("direccion").setValue(direccion);
+
                         }
                         else{
-                            muserguardar.child("direccion").setValue(direccionguardar);
+                            muser.child("direccion").setValue(direccionguardar);
                         }
                         if (telefonoguardar.equals(null)||telefonoguardar.length() == 0 || telefonoguardar.equals("")){
-                            //telefonoguardar.equals(user.getTelefono());
-                           // muserguardar.child("telefono").setValue(telefono);
+
                         }
                         else {
-                            muserguardar.child("telefono").setValue(telefonoguardar);
+                            muser.child("telefono").setValue(telefonoguardar);
                         }
                         Log.d(TAG, "Email sent."+nombreguardar);
 
-                            //Usuario usu = new Usuario(nombreguardar,apellidoguardar,encodeEmail(uth.getCurrentUser().getEmail()),telefonoguardar,direccionguardar,user.getProfilePicLocation());
-                            //muserguardar.setValue(usu);
+
                         }
                         catch (Exception e){
                             Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
-                          // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(loginIntent);
                             finish();
 
                         }
 
                         Intent loginIntent = new Intent(editar_datos.this, MainActivity.class);
-                       // loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(loginIntent);
                         finish();
 

@@ -47,8 +47,7 @@ public class servicios_realizados extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail()));
-        mFirebaseDatabasee = FirebaseDatabase.getInstance();
-        databasee = mFirebaseDatabasee.getReference().child("Servicios");
+        databasee = mFirebaseDatabase.getReference().child("Servicios");
 
     }
     private void agregarlis(){
@@ -84,7 +83,7 @@ public class servicios_realizados extends AppCompatActivity {
                         String serviciokey = model.getKey();
                         intent.putExtra("id", serviciokey);
                         startActivity(intent);
-                        finish();
+
 
                     }
                 });
@@ -104,10 +103,4 @@ public class servicios_realizados extends AppCompatActivity {
         return userEmail.replace(".", "_");
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(servicios_realizados.this, MainActivity.class);
-
-        startActivity(intent);
-    }
 }

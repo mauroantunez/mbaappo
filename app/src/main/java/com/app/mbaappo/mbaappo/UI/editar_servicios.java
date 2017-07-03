@@ -40,6 +40,7 @@ public class editar_servicios extends AppCompatActivity {
     String servid;
     DatabaseReference serv;
     String categoriasp, tarifasp;
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +54,14 @@ public class editar_servicios extends AppCompatActivity {
 
     }
     private void inicializar(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+       auth = FirebaseAuth.getInstance();
         database_serv = FirebaseDatabase.getInstance();
         serv = database_serv.getReference().child("Servicios").child(servid);
-    }
-    private void asignarspinner(){
 
     }
+
     private void editarservicio(){
-        final String keys = servid;
+        final DatabaseReference editlis = database_serv.getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail())).child(servid);
         serv.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,19 +74,15 @@ public class editar_servicios extends AppCompatActivity {
                 spTarifa = (Spinner) findViewById(R.id.spTarifa_editar);
                 aaTarifa = new ArrayAdapter<String>(editar_servicios.this, android.R.layout.simple_spinner_item, opTarifa);
                 spTarifa.setAdapter(aaTarifa);
-
                 spTarifa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         tarifasp = opTarifa[position];
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-
                     }
                 });
-
                 spCateg = (Spinner) findViewById(R.id.spCategoria_editar);
                 aaCateg = new ArrayAdapter<String>(editar_servicios.this, android.R.layout.simple_spinner_item, opCateg);
                 spCateg.setAdapter(aaCateg);
@@ -95,17 +91,11 @@ public class editar_servicios extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         categoriasp = opCateg[position];
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-
                     }
-
                 });
-
                 final EditText edittitulo,edidescripcion,editprecio;
-
-
                 edittitulo = (EditText) findViewById(R.id.edittitulo_editar);
                 edidescripcion = (EditText) findViewById(R.id.editdescripcion_editar);
                 editprecio = (EditText) findViewById(R.id.editprecio_editar);
@@ -119,9 +109,7 @@ public class editar_servicios extends AppCompatActivity {
 
                 final FirebaseAuth auth = FirebaseAuth.getInstance();
                 final Button publicar = (Button) findViewById(R.id.btn_guardar_modificacion);
-                final FirebaseDatabase aiuda = FirebaseDatabase.getInstance();
-                final DatabaseReference editlis = FirebaseDatabase.getInstance().getReference().child("ListaServiciosUsuario").child(encodeEmail(auth.getCurrentUser().getEmail())).child(servicio.getKey());
-                final DatabaseReference muserguardar = aiuda.getReference().child("Servicios").child(keys);
+
                 publicar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -133,29 +121,29 @@ public class editar_servicios extends AppCompatActivity {
                         if (tituloguardar.equals(null)||tituloguardar.length() == 0 || tituloguardar.equals("")){
 
                         }else{
-                            muserguardar.child("titulo").setValue(tituloguardar);
+                            serv.child("titulo").setValue(tituloguardar);
                             editlis.child("titulo").setValue(tituloguardar);
                         }
                         if (descripcionguardar.equals(null)||descripcionguardar.length() == 0 || descripcionguardar.equals("")){
 
                         }else{
-                            muserguardar.child("descripcion").setValue(descripcionguardar);
+                            serv.child("descripcion").setValue(descripcionguardar);
                         }
                         if (precioguardar.equals(null)||precioguardar.length() == 0 || precioguardar.equals("")){
 
                         }else {
-                            muserguardar.child("precio").setValue(precioguardar);
+                            serv.child("precio").setValue(precioguardar);
                             editlis.child("precio").setValue(precioguardar);
                         }
                         if (categoriasp.equals(null)||categoriasp.length() == 0 || categoriasp.equals("")){
 
                         }else{
-                            muserguardar.child("categoria").setValue(categoriasp);
+                            serv.child("categoria").setValue(categoriasp);
                         }
                         if (tarifasp.equals(null)||tarifasp.length() == 0 || tarifasp.equals("")){
 
                         }else {
-                            muserguardar.child("tarifa").setValue(tarifasp);
+                            serv.child("tarifa").setValue(tarifasp);
                         }
 
 
