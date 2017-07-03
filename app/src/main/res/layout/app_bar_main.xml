@@ -18,13 +18,16 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_agregar"
-        android:layout_width="55dp"
-        android:layout_height="57dp"
+        android:layout_width="56dp"
+        android:layout_height="54dp"
         android:layout_gravity="top|left"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
         android:clickable="true"
         android:tint="#FFFFFF"
         app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini"
+        app:elevation="2dp"
+        app:fabSize="normal"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right"
         app:srcCompat="@android:drawable/ic_input_add" />
