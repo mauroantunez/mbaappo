@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.R;
@@ -78,23 +80,32 @@ public class activity_registro_usuarios extends AppCompatActivity {
 
         progreso_registro.setMessage("Registrando");
         progreso_registro.show();
+        if (password.length()<6){
+            progreso_registro.dismiss();
+            Toast toast1 = Toast.makeText(getApplicationContext(),
+                    "La contraseña debe tener 6 o mas carácteres", Toast.LENGTH_SHORT);
+            toast1.setGravity(Gravity.CENTER, 0, 0);
+            toast1.show();
 
-        auth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+        }else{
+            auth.createUserWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful()){
-                            guardardatos();
-                            progreso_registro.dismiss();
-                            Intent mainIntent = new Intent(activity_registro_usuarios.this, Seleccionar_foto.class);
-                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(mainIntent);
+                            if(task.isSuccessful()){
+                                guardardatos();
+                                progreso_registro.dismiss();
+                                Intent mainIntent = new Intent(activity_registro_usuarios.this, Seleccionar_foto.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(mainIntent);
+
+                            }
 
                         }
+                    });
+        }
 
-                    }
-                });
 
     }
 

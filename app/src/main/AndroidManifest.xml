@@ -51,22 +51,24 @@
             android:label="Servicios Ofrecidos" />
         <activity
             android:name=".UI.inicio_principal"
-            android:label="Bienvenido">
+            android:label="Mba´APPo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.mensajeria" />
+        <activity android:name=".UI.mensajeria"
+            android:label="Mensaje"/>
         <activity android:name=".UI.Seleccionar_foto" />
         <activity
             android:name=".UI.servicio_solicitado"
-            android:label="Mensajes" />
+            android:label="Buzon de Mensajes" />
         <activity
             android:name=".UI.lista_mensaje_historial"
             android:label="Mensajes" />
-        <activity android:name=".List.buscador" />
+        <activity android:name=".List.buscador"
+            android:label="Buscador"/>
         <activity
             android:name=".UI.olvidar_contrasenha"
             android:label="Restablecer Contraseña" />

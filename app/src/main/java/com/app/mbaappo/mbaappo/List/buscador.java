@@ -50,6 +50,7 @@ public class buscador extends AppCompatActivity {
     private DatabaseReference data_servicio;
     private DatabaseReference database;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class buscador extends AppCompatActivity {
                 mCurrentUserDatabaseReference.child(model.getEmail()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        try{
                         Usuario user = dataSnapshot.getValue(Usuario.class);
                         if (user != null){
                             ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(user.getNombre()+user.getApellido());
@@ -106,6 +108,8 @@ public class buscador extends AppCompatActivity {
                                     .load(url)
                                     //.bitmapTransform(new CropCircleTransformation(v.getContext()))
                                     .into(image);
+                        }  }catch (Exception e){
+
                         }
                     }
 
@@ -131,6 +135,8 @@ public class buscador extends AppCompatActivity {
                     String serviciokey = mChatAdapter.getRef(position).getKey();
                     intent.putExtra("id", serviciokey);
                     startActivity(intent);
+                    estructura_servicio chatItem = (estructura_servicio) mChatAdapter.getItem(position);
+                    intent.putExtra("id2", chatItem.getTitulo());
                 }
 
                 //Log.e("TAG", mChatAdapter.getRef(position).toString());

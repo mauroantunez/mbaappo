@@ -234,6 +234,7 @@ public class servicio_solicitado extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                       buzon Buzon = dataSnapshot.getValue(buzon.class);
                                         if (Buzon != null){
+                                            try{
                                             String key_servicio = Buzon.getKey_servicio();
                                             String key_usuario_contratado = Buzon.getKey_usuario_contratado();
                                             String key_padre = Buzon.getKey_padre();
@@ -242,7 +243,10 @@ public class servicio_solicitado extends AppCompatActivity {
                                             Date date = new Date();
                                             String timestamp = dateFormat.format(date);
                                             Historial historial = new Historial(key_servicio,key_usuario_contratado,key_padre,key_usuario_contrato,timestamp);
-                                            mhistorial.setValue(historial);
+                                            mhistorial.setValue(historial);}
+                                            catch (Exception e){
+
+                                            }
                                         }
                                     }
 

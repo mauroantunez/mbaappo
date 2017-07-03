@@ -39,6 +39,8 @@ public class list_historial extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseListAdapter mChatAdapter;
     private ListView mChatListView;
+    String cate;
+    String servid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class list_historial extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
+                        try{
                         if (user != null){
                             ((TextView) v.findViewById(R.id.usuario_servicio)).setText(user.getNombre()+" "+user.getApellido());
                         }
@@ -96,6 +99,8 @@ public class list_historial extends AppCompatActivity {
                                     .load(url)
                                     //.bitmapTransform(new CropCircleTransformation(v.getContext()))
                                     .into(image);
+                        }}catch (Exception e){
+
                         }
                     }
 
@@ -129,5 +134,32 @@ public class list_historial extends AppCompatActivity {
     }
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
+    }
+    private String comprobar(String aiuda){
+        String codigo = aiuda;
+
+        if (codigo.equals("4"))
+        {
+            cate = "Deporte";
+        }
+        if (codigo.equals("3")){
+            cate = "Reparaciones";
+        }
+        if (codigo.equals("2")) {
+            cate = "Transporte";
+        }
+        if (codigo.equals("0"))
+        {
+            cate = "Entretenimiento";
+        }
+        if (codigo.equals("1"))
+        {
+            cate = "Hogar";
+        }
+        if (codigo.equals( "5"))
+        {
+            cate = "Otros";
+        }
+        return cate;
     }
 }
