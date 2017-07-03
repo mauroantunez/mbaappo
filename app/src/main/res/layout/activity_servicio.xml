@@ -214,12 +214,12 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
+        android:enabled="false"
+        android:src="@android:drawable/ic_dialog_email"
         android:tint="@color/cardview_light_background"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/mensaje_logo"
-        android:enabled="false"/>
+        app:srcCompat="@drawable/mensaje_logo" />
 </android.support.design.widget.CoordinatorLayout>

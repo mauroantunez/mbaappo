@@ -97,7 +97,7 @@ public class list_categoria_servicio extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
                         if (user != null){
-                            ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(user.getNombre()+user.getApellido());
+                            ((TextView) v.findViewById(R.id.servicio_descripcion)).setText(user.getNombre()+" "+user.getApellido());
                         }
                         if (user.getProfilePicLocation()!=null){
                             final ImageView image = (ImageView) v.findViewById(R.id.foto_serv);

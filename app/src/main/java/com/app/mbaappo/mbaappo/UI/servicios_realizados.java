@@ -58,7 +58,7 @@ public class servicios_realizados extends AppCompatActivity {
 
 
                         ((TextView) v.findViewById(R.id.nombre_serv_reali)).setText(model.getTitulo());
-                        ((TextView) v.findViewById(R.id.precio_serv_reali)).setText(model.getPrecio());
+                        ((TextView) v.findViewById(R.id.precio_serv_reali)).setText(model.getPrecio()+" Gs.");
                         Button btn_eliminar = (Button) v.findViewById(R.id.btn_eliminar_serv);
                         btn_eliminar.setOnClickListener(new View.OnClickListener() {
                             @Override

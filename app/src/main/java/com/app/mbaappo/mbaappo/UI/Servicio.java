@@ -96,7 +96,7 @@ public class Servicio extends AppCompatActivity {
                 final TextView c_descripcion = (TextView) findViewById(R.id.contenido_descripcion_servicio);
                 c_descripcion.setText(servicio.getDescripcion());
                 final TextView c_precio = (TextView) findViewById(R.id.contenido_precio);
-                c_precio.setText(servicio.getPrecio());
+                c_precio.setText(servicio.getPrecio()+" Gs.");
                 final TextView tarifa = (TextView) findViewById(R.id.contenido_tarifa);
                 tarifa.setText(servicio.getTarifa());
                 final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
