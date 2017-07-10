@@ -10,9 +10,12 @@
         android:id="@+id/list_serv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="6dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:divider="@android:color/white"
-        android:dividerHeight="4dp"
+        android:dividerHeight="1dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
 

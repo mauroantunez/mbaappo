@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -29,12 +30,12 @@ import java.util.UUID;
 
 public class activity_registro_usuarios extends AppCompatActivity {
 
-    private EditText campo_nombre;
-    private EditText campo_apellido;
-    private EditText campo_mail;
-    private EditText campo_password;
-    private EditText campo_telefono;
-    private EditText campo_direccion;
+    private TextInputLayout campo_nombre;
+    private TextInputLayout campo_apellido;
+    private TextInputLayout campo_mail;
+    private TextInputLayout campo_password;
+    private TextInputLayout campo_telefono;
+    private TextInputLayout campo_direccion;
 
     private Button boton_registrar;
 
@@ -55,12 +56,12 @@ public class activity_registro_usuarios extends AppCompatActivity {
 
         progreso_registro = new ProgressDialog(this);
 
-        campo_nombre = (EditText) findViewById(R.id.nombreUsuarioReg);
-        campo_apellido = (EditText) findViewById(R.id.apellidosUsuarioReg);
-        campo_mail = (EditText) findViewById(R.id.maiUsuarioReg);
-        campo_password = (EditText) findViewById(R.id.passUsuarioReg);
-        campo_telefono =(EditText) findViewById(R.id.teleUsuarioReg);
-        campo_direccion = (EditText) findViewById(R.id.direccionUsuarioReg);
+        campo_nombre = (TextInputLayout) findViewById(R.id.nombreUsuarioReg);
+        campo_apellido = (TextInputLayout) findViewById(R.id.apellidosUsuarioReg);
+        campo_mail = (TextInputLayout) findViewById(R.id.maiUsuarioReg);
+        campo_password = (TextInputLayout) findViewById(R.id.passUsuarioReg);
+        campo_telefono = (TextInputLayout) findViewById(R.id.teleUsuarioReg);
+        campo_direccion = (TextInputLayout) findViewById(R.id.direccionUsuarioReg);
 
         boton_registrar = (Button) findViewById(R.id.registrarUsuarioBtn);
 
@@ -74,8 +75,8 @@ public class activity_registro_usuarios extends AppCompatActivity {
 
     private void registrar() {
 
-        final String email = campo_mail.getText().toString().trim();
-        final String password = campo_password.getText().toString().trim();
+        final String email = campo_mail.getEditText().getText().toString().trim();
+        final String password = campo_password.getEditText().getText().toString().trim();
 
 
         progreso_registro.setMessage("Registrando");
@@ -110,11 +111,11 @@ public class activity_registro_usuarios extends AppCompatActivity {
     }
 
     private void guardardatos(){
-        final String nombre = campo_nombre.getText().toString().trim();
-        final String apellidos = campo_apellido.getText().toString().trim();
-        final String correo = encodeEmail(campo_mail.getText().toString().trim());
-        final String telefono = campo_telefono.getText().toString().trim();
-        final String direccion = campo_direccion.getText().toString().trim();
+        final String nombre = campo_nombre.getEditText().getText().toString().trim();
+        final String apellidos = campo_apellido.getEditText().getText().toString().trim();
+        final String correo = encodeEmail(campo_mail.getEditText().getText().toString().trim());
+        final String telefono = campo_telefono.getEditText().getText().toString().trim();
+        final String direccion = campo_direccion.getEditText().getText().toString().trim();
         agregar_usuario(correo,nombre,apellidos,telefono,direccion);
 
 

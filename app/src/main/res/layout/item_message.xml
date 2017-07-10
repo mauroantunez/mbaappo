@@ -7,7 +7,7 @@
     android:id="@+id/messageLine"
     android:orientation="horizontal">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/leftMessagePic"
         android:layout_width="50dp"
         android:layout_height="50dp"

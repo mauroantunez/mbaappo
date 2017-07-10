@@ -99,8 +99,8 @@
 
         <EditText
             android:id="@+id/textusuario"
-            android:layout_width="305dp"
-            android:layout_height="31dp"
+            android:layout_width="308dp"
+            android:layout_height="26dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="12dp"
             android:layout_marginLeft="12dp"
@@ -109,7 +109,7 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/white"
             android:ems="10"
-            android:hint="email"
+            android:hint="Correo electronico"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.285"
@@ -130,7 +130,7 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/white"
             android:ems="10"
-            android:hint="contraseña"
+            android:hint="Contraseña"
             android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.527"
