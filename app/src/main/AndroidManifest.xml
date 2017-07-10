@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.mbaappo.mbaappo">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,9 +19,7 @@
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/pagina_principa"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".UI.inicio" />
         <activity
             android:name=".UI.activity_registro_usuarios"
@@ -41,8 +41,8 @@
             android:label="@string/e_dato" />
         <activity
             android:name=".List.Lista_servicios"
-            android:launchMode="singleTop"
-            android:label="Servicios" />
+            android:label="Servicios"
+            android:launchMode="singleTop" />
         <activity
             android:name=".List.list_historial"
             android:label="Historial" />
@@ -58,8 +58,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.mensajeria"
-            android:label="Mensaje"/>
+        <activity
+            android:name=".UI.mensajeria"
+            android:label="Mensaje" />
         <activity android:name=".UI.Seleccionar_foto" />
         <activity
             android:name=".UI.servicio_solicitado"
@@ -67,8 +68,9 @@
         <activity
             android:name=".UI.lista_mensaje_historial"
             android:label="Mensajes" />
-        <activity android:name=".List.buscador"
-            android:label="Buscador"/>
+        <activity
+            android:name=".List.buscador"
+            android:label="Buscador" />
         <activity
             android:name=".UI.olvidar_contrasenha"
             android:label="Restablecer Contraseña" />
@@ -76,18 +78,7 @@
             android:name=".UI.editar_servicios"
             android:label="Editar Servicio" />
         <activity android:name=".List.list_categoria_servicio" />
-
-        <service android:name=".UI.NotificationService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".UI.NotificacionIDTokenService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
+        <activity android:name=".calificacion"></activity>
     </application>
 
 </manifest>

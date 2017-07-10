@@ -82,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:text="nombres" />
+                        android:text="Nombre y Apellido" />
 
                     <TextView
                         android:id="@+id/id_correo_perfil"
@@ -97,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:text="e-mail" />
+                        android:text="E-mail" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -129,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:text="telefono" />
+                        android:text="Teléfono" />
 
                     <TextView
                         android:id="@+id/id_direccion_perfil"
@@ -144,7 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:text="direccion" />
+                        android:text="Dirección" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>

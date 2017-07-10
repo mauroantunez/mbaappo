@@ -1,8 +1,12 @@
 package com.app.mbaappo.mbaappo.UI;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,12 +38,13 @@ public class Servicio extends AppCompatActivity {
     private DatabaseReference database;
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseDatabase mUserDatabase;
-    private DatabaseReference musuario,musu;
-   // private DatabaseReference database_chat, database_chat_reference;
+    private DatabaseReference musuario, musu;
+    // private DatabaseReference database_chat, database_chat_reference;
     private String servid, title;
     private String servicio_ID = "id";
     private FirebaseAuth auth;
     public FirebaseAuth.AuthStateListener authListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +57,14 @@ public class Servicio extends AppCompatActivity {
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() != null){
+                if (firebaseAuth.getCurrentUser() != null) {
                     FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
                     contratar.setEnabled(true);
                 }
-                if(firebaseAuth.getCurrentUser() == null){
+                if (firebaseAuth.getCurrentUser() == null) {
                     FloatingActionButton contratar = (FloatingActionButton) findViewById(R.id.contratar_message);
                     contratar.setEnabled(false);
-            }
+                }
 
             }
         };
@@ -68,22 +73,19 @@ public class Servicio extends AppCompatActivity {
 
 
     }
-    private void inicializacion(){
+
+    private void inicializacion() {
         auth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("Servicios").child(servid);
         mUserDatabase = FirebaseDatabase.getInstance();
 
 
-
-
-
     }
 
-    private void agregardatosserv(){
+    private void agregardatosserv() {
 
         database.addValueEventListener(new ValueEventListener() {
-
 
 
             private static final String TAG = "2";
@@ -93,31 +95,47 @@ public class Servicio extends AppCompatActivity {
 
                 final estructura_servicio servicio = dataSnapshot.getValue(estructura_servicio.class);
                 try {
-                final TextView c_descripcion = (TextView) findViewById(R.id.contenido_descripcion_servicio);
-                c_descripcion.setText(servicio.getDescripcion());
-                final TextView c_precio = (TextView) findViewById(R.id.contenido_precio);
-                c_precio.setText(servicio.getPrecio()+" Gs.");
-                final TextView tarifa = (TextView) findViewById(R.id.contenido_tarifa);
-                tarifa.setText(servicio.getTarifa());
-                final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
-                c_rating.setRating(servicio.getRating());
-                    try{
-                    final DatabaseReference datarating = mFirebaseDatabase.getReference().child("Servicios").child(servicio.getKey());
-                if(!auth.getCurrentUser().equals(null)){
-                    c_rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    final TextView c_descripcion = (TextView) findViewById(R.id.contenido_descripcion_servicio);
+                    c_descripcion.setText(servicio.getDescripcion());
+                    final TextView c_precio = (TextView) findViewById(R.id.contenido_precio);
+                    c_precio.setText(servicio.getPrecio() + " Gs.");
+                    final TextView tarifa = (TextView) findViewById(R.id.contenido_tarifa);
+                    tarifa.setText(servicio.getTarifa());
+                    final RatingBar c_rating = (RatingBar) findViewById(R.id.calificacion);
+                    c_rating.setRating(servicio.getRating());
+
+                    musuario = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
+                    musu = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
+                    final FloatingActionButton llamar = (FloatingActionButton) findViewById(R.id.id_phone_call);
+                    llamar.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                            datarating.child("rating").setValue(rating);
+                        public void onClick(View v) {
+                            musuario.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Usuario user = dataSnapshot.getValue(Usuario.class);
+                                    Intent intent = new Intent(Intent.ACTION_CALL);
+                                    intent.setData(Uri.parse("tel:" + user.getTelefono()));
+                                    if (ActivityCompat.checkSelfPermission(Servicio.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                        // TODO: Consider calling
+                                        //    ActivityCompat#requestPermissions
+                                        // here to request the missing permissions, and then overriding
+                                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                        //                                          int[] grantResults)
+                                        // to handle the case where the user grants the permission. See the documentation
+                                        // for ActivityCompat#requestPermissions for more details.
+                                        return;
+                                    }
+                                    startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         }
                     });
-                } }
-                    catch (Exception e){
-
-                    }
-
-                musuario = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
-                musu = mUserDatabase.getReference().child("Usuarios").child(servicio.getEmail());
-
                         final FirebaseAuth usu = FirebaseAuth.getInstance();
 
 
@@ -161,6 +179,7 @@ public class Servicio extends AppCompatActivity {
                                         startActivity(loginIntent);
 
                                     }
+
 
                                 }
 
