@@ -77,7 +77,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="10dp"
-                        android:text="Descripcion"
+                        android:text="Descripción"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
 
@@ -191,7 +191,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="10dp"
-                        android:text="Calificacion"
+                        android:text="Calificación"
                         android:textColor="@color/backgroundColor"
                         android:textSize="20sp" />
 
