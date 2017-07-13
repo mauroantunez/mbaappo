@@ -204,16 +204,21 @@ public class lista_mensaje_historial extends AppCompatActivity {
                     mUsersDatabaseReference.child(mSender).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Usuario userInfo = dataSnapshot.getValue(Usuario.class);
-                            if(userInfo != null && userInfo.getProfilePicLocation() != null){
-                                StorageReference storageRef = FirebaseStorage.getInstance()
-                                        .getReference().child(userInfo.getProfilePicLocation());
-                                Glide.with(view.getContext())
-                                        .using(new FirebaseImageLoader())
-                                        .load(storageRef)
-                                        .bitmapTransform(new CropCircleTransformation(view.getContext()))
-                                        .into(rightImage);
+                            try{
+                                Usuario userInfo = dataSnapshot.getValue(Usuario.class);
+                                if(userInfo != null && userInfo.getProfilePicLocation() != null){
+                                    StorageReference storageRef = FirebaseStorage.getInstance()
+                                            .getReference().child(userInfo.getProfilePicLocation());
+                                    Glide.with(view.getContext())
+                                            .using(new FirebaseImageLoader())
+                                            .load(storageRef)
+                                            .bitmapTransform(new CropCircleTransformation(view.getContext()))
+                                            .into(rightImage);
+                                }
+                            }catch (Exception e){
+
                             }
+
                         }
 
 

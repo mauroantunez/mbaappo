@@ -245,9 +245,10 @@ public class servicio_solicitado extends AppCompatActivity {
                                                 String timestamp = dateFormat.format(date);
                                                 Historial historial = new Historial(key_servicio,key_usuario_contratado,key_padre,key_usuario_contrato,timestamp);
                                                 mhistorial.setValue(historial);
-                                                Intent intent = new Intent(servicio_solicitado.this, calificacion.class);
+                                               Intent intent = new Intent(servicio_solicitado.this, calificacion.class);
                                                 intent.putExtra("id", key_servicio);
-                                                startActivity(intent);}
+                                                 startActivity(intent);
+                                                }
                                             catch (Exception e){
 
                                             }

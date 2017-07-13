@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Comentario;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
+import com.app.mbaappo.mbaappo.UI.MainActivity;
+import com.app.mbaappo.mbaappo.UI.editar_datos;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +39,9 @@ public class calificacion extends AppCompatActivity {
 
     private DatabaseReference mUsuarioref;
     private FirebaseAuth auth;
+    private String uid;
+    private float rati;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +58,20 @@ public class calificacion extends AppCompatActivity {
         comentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 comentar();
             }
         });
-
+        Button c_finalizar = (Button) findViewById(R.id.id_finalizar_come);
+        c_finalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(calificacion.this, MainActivity.class);
+                startActivity(loginIntent);
+                finish();
+            }
+        });
     }
 
     private void inicializar(){
@@ -69,9 +84,8 @@ public class calificacion extends AppCompatActivity {
     }
 
     private void agregar_lista(){
-        Query probar = mComentarioref.orderByPriority();
         mComentarioListView = (ListView) findViewById(R.id.id_list_comentario);
-        mComentarioAdapter = new FirebaseListAdapter<Comentario>(this, Comentario.class, R.layout.item_comentario, probar) {
+        mComentarioAdapter = new FirebaseListAdapter<Comentario>(this, Comentario.class, R.layout.item_comentario, mComentarioref) {
             @Override
             protected void populateView(View v, Comentario model, int position) {
                 Log.e("Err", String.valueOf(position));
@@ -88,6 +102,7 @@ public class calificacion extends AppCompatActivity {
     private void comentar(){
                 final String elcomentarioText = elcomentario.getText().toString().trim();
                 final DatabaseReference mcomen = mComentarioref.push();
+                uid = mcomen.getKey();
         mUsuarioref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,9 +113,17 @@ public class calificacion extends AppCompatActivity {
                        // SimpleDateFormat dateFormathora = new SimpleDateFormat("HH:mm");
                         //Date datehora = new Date();
                       //  String timestamphora = dateFormathora.format(datehora);
+
+
+                        RatingBar rat = (RatingBar) findViewById(R.id.ratingBar_cali_come);
+                        rat.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                            @Override
+                            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                                mcomen.child("rating").setValue(rating);
+                            }
+                        });
                         Comentario coment = new Comentario(mcomen.getKey(),elcomentarioText,user.getNombre()+" "+user.getApellido(),timestamp);
                         mcomen.setValue(coment);
-
 
                     }
 
@@ -111,17 +134,16 @@ public class calificacion extends AppCompatActivity {
                 });
 
 
-        final RatingBar c_rating = (RatingBar) findViewById(R.id.ratingBar_cali_come);
-        c_rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                mcomen.setValue(rating);
-            }
-        });
+            //calificarrating(uid);
+            elcomentario.setText("");
 
             }
 
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
-}
+
+
+    }
+
+

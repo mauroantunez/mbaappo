@@ -10,69 +10,98 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="335dp"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            app:layout_constraintHorizontal_bias="0.36"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/id_list_comentario"
-            android:layout_marginTop="13dp"
-            android:layout_below="@+id/id_list_comentario"
-            android:layout_centerHorizontal="true">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/messageEditText"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1" />
+                android:orientation="vertical"
+                android:weightSum="1">
+                <RatingBar
+                    android:id="@+id/ratingBar_cali_come"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="28dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.041"
+                    android:layout_marginLeft="50dp"/>
+                <ListView
+                    android:id="@+id/id_list_comentario"
+                    android:layout_width="346dp"
+                    android:layout_height="315dp"
+                    android:layout_below="@+id/ratingBar_cali_come"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar_cali_come"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:listitem="@layout/item_comentario"
+                    android:layout_marginLeft="10dp"/>
 
-            <Button
-                android:id="@+id/sendcomentar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                android:text="Comentar"
-                android:textColor="@color/cardview_light_background" />
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="335dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/id_list_comentario"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintHorizontal_bias="0.36"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/id_list_comentario">
 
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/messageEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1" />
 
-        <ListView
-            android:id="@+id/id_list_comentario"
-            android:layout_width="346dp"
-            android:layout_height="315dp"
-            android:layout_below="@+id/ratingBar_cali_come"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar_cali_come"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/item_comentario" />
+                    <Button
+                        android:id="@+id/sendcomentar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@color/colorPrimary"
+                        android:text="Comentar"
+                        android:textColor="@color/cardview_light_background" />
 
-        <RatingBar
-            android:id="@+id/ratingBar_cali_come"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.041" />
-    </RelativeLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/id_finalizar_come"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Finalizar"
+                    android:textColor="@color/cardview_light_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="10dp"/>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>

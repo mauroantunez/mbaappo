@@ -32,7 +32,7 @@ public class olvidar_contrasenha extends AppCompatActivity {
         setContentView(R.layout.activity_olvidar_contrasenha);
         correo = (EditText) findViewById(R.id.edit_correo);
         boton = (Button) findViewById(R.id.id_correo_btn_email);
-        correo.addTextChangedListener(new TextWatcher() {
+       /** correo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -47,7 +47,7 @@ public class olvidar_contrasenha extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 boton.setEnabled(true);
             }
-        });
+        });*/
 
         inicializacion();
 

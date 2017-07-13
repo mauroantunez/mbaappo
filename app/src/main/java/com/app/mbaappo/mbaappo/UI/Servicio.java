@@ -14,12 +14,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseImageLoader;
+import com.app.mbaappo.mbaappo.FirebaseUI.FirebaseListAdapter;
 import com.app.mbaappo.mbaappo.Modelo.Chat;
+import com.app.mbaappo.mbaappo.Modelo.Comentario;
 import com.app.mbaappo.mbaappo.Modelo.Usuario;
 import com.app.mbaappo.mbaappo.Modelo.estructura_servicio;
 import com.app.mbaappo.mbaappo.R;
@@ -44,6 +47,10 @@ public class Servicio extends AppCompatActivity {
     private String servicio_ID = "id";
     private FirebaseAuth auth;
     public FirebaseAuth.AuthStateListener authListener;
+    private ListView mComentarioListView;
+    private FirebaseListAdapter mComentarioAdapter;
+    private DatabaseReference mComentarioref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +77,7 @@ public class Servicio extends AppCompatActivity {
         };
         inicializacion();
         agregardatosserv();
-
+        agregar_lista();
 
     }
 
@@ -79,7 +86,7 @@ public class Servicio extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         database = mFirebaseDatabase.getReference().child("Servicios").child(servid);
         mUserDatabase = FirebaseDatabase.getInstance();
-
+        mComentarioref = mFirebaseDatabase.getReference().child("Comentarios").child(servid);
 
     }
 
@@ -231,5 +238,21 @@ public class Servicio extends AppCompatActivity {
 
     public String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
+    }
+    private void agregar_lista(){
+        mComentarioListView = (ListView) findViewById(R.id.id_list_comentario_servicio);
+        mComentarioAdapter = new FirebaseListAdapter<Comentario>(this, Comentario.class, R.layout.item_comentario, mComentarioref) {
+            @Override
+            protected void populateView(View v, Comentario model, int position) {
+                Log.e("Err", String.valueOf(position));
+                Log.e("Err", model.getElcomentario());
+                ((TextView) v.findViewById(R.id.messageTextView)).setText(model.getElcomentario());
+                ((TextView) v.findViewById(R.id.nameTextView)).setText(model.getNombre());
+                ((TextView) v.findViewById(R.id.namefecha)).setText(model.getFecha());
+                ((RatingBar) v.findViewById(R.id.ratingBar_come)).setRating(model.getRating());
+            }
+        };
+
+        mComentarioListView.setAdapter(mComentarioAdapter);
     }
 }
