@@ -102,6 +102,7 @@ public class calificacion extends AppCompatActivity {
     private void comentar(){
                 final String elcomentarioText = elcomentario.getText().toString().trim();
                 final DatabaseReference mcomen = mComentarioref.push();
+                final DatabaseReference mservicio = FirebaseDatabase.getInstance().getReference().child("Servicios").child(serviceid);
                 uid = mcomen.getKey();
         mUsuarioref.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -120,6 +121,7 @@ public class calificacion extends AppCompatActivity {
                             @Override
                             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                                 mcomen.child("rating").setValue(rating);
+                                mservicio.child("rating").setValue(rating);
                             }
                         });
                         Comentario coment = new Comentario(mcomen.getKey(),elcomentarioText,user.getNombre()+" "+user.getApellido(),timestamp);

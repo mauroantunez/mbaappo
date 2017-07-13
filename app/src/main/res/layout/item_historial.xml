@@ -14,7 +14,7 @@
         android:layout_height="90dp"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:src="@drawable/com_facebook_profile_picture_blank_square" />
 
     <TextView

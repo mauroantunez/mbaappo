@@ -78,7 +78,8 @@
             android:name=".UI.editar_servicios"
             android:label="Editar Servicio" />
         <activity android:name=".List.list_categoria_servicio" />
-        <activity android:name=".calificacion"></activity>
+        <activity android:name=".calificacion"
+            android:label="Calificar Servicio"></activity>
     </application>
 
 </manifest>
