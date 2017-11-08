@@ -104,7 +104,7 @@ public class lista_mensaje_historial extends AppCompatActivity {
     private String [] permissions = {"android.permission.RECORD_AUDIO", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
 
-    @Override
+   /** @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
@@ -116,7 +116,7 @@ public class lista_mensaje_historial extends AppCompatActivity {
         if (!permissionToRecordAccepted ) lista_mensaje_historial.super.finish();
         if (!permissionToWriteAccepted ) lista_mensaje_historial.super.finish();
 
-    }
+    }*/
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

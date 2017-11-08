@@ -105,7 +105,7 @@ public class mensajeria extends AppCompatActivity {
     private boolean permissionToWriteAccepted = false;
     private String [] permissions = {"android.permission.RECORD_AUDIO", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
-
+/**
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -118,7 +118,7 @@ public class mensajeria extends AppCompatActivity {
         if (!permissionToRecordAccepted ) mensajeria.super.finish();
         if (!permissionToWriteAccepted ) mensajeria.super.finish();
 
-    }
+    }*/
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
